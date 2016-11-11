@@ -20,7 +20,7 @@ public class Game extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("gandhi.png");
+		img = new Texture("gandhi.PNG");
 		
 		width = Gdx.graphics.getWidth();
 		height = Gdx.graphics.getHeight();
