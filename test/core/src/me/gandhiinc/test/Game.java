@@ -15,7 +15,7 @@ public class Game extends ApplicationAdapter implements InputProcessor{
 	int width, height;
 	float red, green, blue;
 	boolean up;
-	float speed = 0.3f;
+	float speed = 0.01f;
 	
 	@Override
 	public void create () {
