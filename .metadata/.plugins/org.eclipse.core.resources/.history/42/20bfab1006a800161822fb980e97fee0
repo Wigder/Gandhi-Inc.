@@ -9,8 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Game extends ApplicationAdapter implements InputProcessor
-{
+public class Game extends ApplicationAdapter implements InputProcessor{
 	SpriteBatch batch;
 	Texture img;
 	int width, height;
@@ -19,8 +18,7 @@ public class Game extends ApplicationAdapter implements InputProcessor
 	float speed = 0.01f;
 	
 	@Override
-	public void create () 
-	{
+	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("gandhi.PNG");
 		
@@ -32,12 +30,11 @@ public class Game extends ApplicationAdapter implements InputProcessor
 		blue = 0;
 		up = true;
 		
-		Gdx.input.setInputProcessor(this); //This handles all the processing input (The processor of the input is "this")
+		Gdx.input.setInputProcessor(this);
 	}
 
 	@Override
-	public void render () 
-	{
+	public void render () {
 		if (up == true)
 		{
 			if (red >= 1.0f)
@@ -99,60 +96,51 @@ public class Game extends ApplicationAdapter implements InputProcessor
 	}
 	
 	@Override
-	public void dispose () 
-	{
+	public void dispose () {
 		batch.dispose();
 		img.dispose();
 	}
 
 	@Override
-	public boolean keyUp(int keycode) 
-	{
+	public boolean keyUp(int keycode) {
 		return false;
 	}
 
 	@Override
-	public boolean keyTyped(char character) 
-	{
+	public boolean keyTyped(char character) {
 		return false;
 	}
 
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) //any mouse click
-	{ 
-		if (button == Input.Buttons.LEFT) //if left mouse click
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		if (button == Input.Buttons.LEFT)
 			System.out.println("Mouse Click\tX: " + screenX + "\tY: " + screenY);
 		return false;
 	}
 
 	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) 
-	{
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) 
-	{
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		return false;
 	}
 
 	@Override
-	public boolean mouseMoved(int screenX, int screenY) 
-	{
+	public boolean mouseMoved(int screenX, int screenY) {
 		return false;
 	}
 
 	@Override
-	public boolean scrolled(int amount)
-	{
+	public boolean scrolled(int amount) {
 		return false;
 	}
 
 	@Override
-	public boolean keyDown(int keycode) 
-	{
+	public boolean keyDown(int keycode) {
 		if (keycode == Input.Keys.ESCAPE)
 			Gdx.app.exit();
 				
