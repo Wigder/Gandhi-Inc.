@@ -15,7 +15,7 @@ public class Game extends ApplicationAdapter implements InputProcessor{
 	int width, height;
 	float red, green, blue;
 	boolean up;
-	float speed = 0.005f;
+	float speed = 0.3f;
 	
 	@Override
 	public void create () {
@@ -88,8 +88,10 @@ public class Game extends ApplicationAdapter implements InputProcessor{
 		Gdx.gl.glClearColor(red, green, blue, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, (width - img.getWidth()) / 2, (height - img.getHeight()) / 2);
-		batch.draw(img, 0, 0);
+		for (int i = 0; i < (red + blue + green) * 100; i++)
+		{
+			batch.draw(img, red *10 * i, green * 10 * i);	
+		}
 		batch.end();
 	}
 	
