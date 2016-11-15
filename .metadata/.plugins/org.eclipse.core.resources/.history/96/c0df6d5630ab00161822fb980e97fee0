@@ -1,0 +1,63 @@
+package me.gandhiinc.test;
+
+/* ---------------------------------------------------------
+ * -------------------	MARKET PLACE	--------------------
+ * ---------------------------------------------------------
+ * 
+ * This is the Market Place class.
+ * 
+ * Author: 	Will Wood	
+ * Date:	15/11/16
+ */
+
+public class MarketPlace extends Game 
+{
+	private int MarketOreStock;
+	private int MarketFoodStock;
+	private int MarketEnergyStock;
+	private int MarketRoboticonsStock;
+	
+/* ---------------------------------------------------------
+ * -------	Getters & Setters for the Market Place	--------
+ * ---------------------------------------------------------
+ */
+	
+	public int getMarketOre()  
+	{
+		return MarketOreStock;
+	}
+	public void setMarketOre(int marketOre) 
+	{
+		MarketOreStock = marketOre;
+	}
+	
+	public int getMarketFood() 
+	{
+		return MarketFoodStock;
+	}
+	public void setMarketFood(int marketFood) 
+	{
+		MarketFoodStock = marketFood;
+	}
+	
+	public int getMarketEnergy() 
+	{
+		return MarketEnergyStock;
+	}
+	public void setMarketEnergy(int marketEnergy) 
+	{
+		MarketEnergyStock = marketEnergy;
+	}
+	
+	public int getMarketRoboticons() 
+	{
+		return MarketRoboticonsStock;
+	}
+	public void setMarketRoboticons(int marketRoboticons) 
+	{
+		MarketRoboticonsStock = marketRoboticons;
+	}
+	
+	
+	
+}
