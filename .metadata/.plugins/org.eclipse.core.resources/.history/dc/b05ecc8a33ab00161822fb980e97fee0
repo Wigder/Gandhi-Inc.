@@ -1,7 +1,4 @@
-package me.gandhiinc.test;
-
-public class Pub
-{
+public class Pub{
     int priceOfPlayingLottery;
     int priceOfPlayingScratchCard;
     int priceOfPlayingOneArmBandit;
@@ -12,20 +9,19 @@ public class Pub
 
     public int getPriceOfPlayingLottery()
     {
-    	System.out.println(priceOfPlayingLottery);
         return priceOfPlayingLottery;
-        
+        System.out.println(priceOfPlayingLottery);
     }
 
     public int getPriceOfPlayingScratchCard()
     {
-    	System.out.println(priceOfPlayingScratchCard);
         return priceOfPlayingScratchCard;
+        System.out.println(priceOfPlayingScratchCard);
     }
 
     public int getPriceOfPlayingOneArmBandit()
     {
-        System.out.println(priceOfPlayingOneArmBandit);
         return priceOfPlayingOneArmBandit;
+        System.out.println(priceOfPlayingOneArmBandit);
     }
 }
