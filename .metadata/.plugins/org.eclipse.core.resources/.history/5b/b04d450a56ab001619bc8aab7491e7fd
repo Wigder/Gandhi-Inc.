@@ -20,16 +20,7 @@ public class MarketPlace extends Game
 	private int marketOreStock;
 	private int marketFoodStock;
 	private int marketEnergyStock;
-	private int marketRoboticonStock;
-	
-	private int maxOrePrice;
-	private int minOrePrice;
-	
-	private int maxFoodPrice;
-	private int minFoodPrice;
-	
-	private int maxEnergyPrice;
-	private int minEnergyPrice;
+	private int marketRoboticonsStock;
 	
 	private int marketOreBuyPrice;
 	private int marketFoodBuyPrice;
@@ -49,24 +40,26 @@ public class MarketPlace extends Game
  * --------------	 The buying functions	----------------
  * ---------------------------------------------------------
  */		
-	public void buyOre(int quantity)																	//Function to buy Ore from the market
+	public void buyOre(int quantity)								//Function to buy Ore from the market
 	{
-		if(quantity > getMarketOreStock()) 																//Check the Market has enough stock
+		if(quantity > getMarketOreStock()) 							//Check the Market has enough stock
 		{
 			//Return error to say the market doesn't have enough
 		}
-		int totalAmount = quantity * getMarketOreSellPrice(); 											//Calculate the total price
-		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
+		int totalAmount = quantity * getMarketOreSellPrice(); 		//Calculate the total price
+		if(playersMoney > totalAmount)								//Check if the player has enough money to pay
 		{
 			//Add the ore to the players ore
 			//Remove the money from his account
 			
-			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
-			setMarketOreStock(newStock);																//Sets the new stock value
+			int newStock = getMarketOreStock() + quantity;			//Calculates what the new stock is
+			setMarketOreStock(newStock);							//Sets the new stock value
 			
-			int newPrice = (int)(maxOrePrice * Math.pow(0.7, getMarketOreSellPrice()) + minOrePrice);	//Calculates the new sell price
-			setMarketOreSellPrice(newPrice + 1);														//Sets the new sell price
-			setMarketOreBuyPrice(newPrice - 1);															//Sets the new buy price
+			int newSellPrice = getMarketOreSellPrice();				//Calculates the new sell price
+			setMarketOreSellPrice(newSellPrice);					//Sets the new sell price
+		
+			int newBuyPrice = getMarketOreBuyPrice();				//Calculates the new buy price
+			setMarketOreBuyPrice(newBuyPrice);						//Sets the new buy price
 		}
 		else
 		{
@@ -74,24 +67,17 @@ public class MarketPlace extends Game
 		}
 	}
 	
-	public void buyFood(int quantity)																	//Function to buy Food from the market
+	public void buyFood(int quantity)								//Function to buy Food from the market
 	{
-		if(quantity > getMarketFoodStock()) 															//Check the Market has enough stock
+		if(quantity > getMarketFoodStock()) 						//Check the Market has enough stock
 		{
 			//Return error to say the market doesn't have enough
 		}
-		int totalAmount = quantity * getMarketFoodSellPrice(); 											//Calculate the total price
-		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
+		int totalAmount = quantity * getMarketFoodSellPrice(); 		//Calculate the total price
+		if(playersMoney > totalAmount)								//Check if the player has enough money to pay
 		{
 			//Add the ore to the players ore
 			//Remove the money from his account
-			
-			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
-			setMarketOreStock(newStock);																//Sets the new stock value
-			
-			int newPrice = (int)(maxFoodPrice * Math.pow(0.7, getMarketFoodSellPrice()) + minFoodPrice);	//Calculates the new sell price
-			setMarketFoodSellPrice(newPrice + 1);														//Sets the new sell price
-			setMarketFoodBuyPrice(newPrice - 1);															//Sets the new buy price
 		}
 		else
 		{
@@ -99,25 +85,17 @@ public class MarketPlace extends Game
 		}
 	}
 	
-	public void buyEnergy(int quantity)																	//Function to buy Energy from the market
+	public void buyEnergy(int quantity)								//Function to buy Energy from the market
 	{
-		if(quantity > getMarketEnergyStock()) 															//Check the Market has enough stock
+		if(quantity > getMarketEnergyStock()) 						//Check the Market has enough stock
 		{
 			//Return error to say the market doesn't have enough
 		}
-		int totalAmount = quantity * getMarketEnergySellPrice();										//Calculate the total price
-		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
+		int totalAmount = quantity * getMarketEnergySellPrice();	//Calculate the total price
+		if(playersMoney > totalAmount)								//Check if the player has enough money to pay
 		{
 			//Add the ore to the players ore
 			//Remove the money from his account
-			
-			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
-			setMarketOreStock(newStock);																//Sets the new stock value
-			
-			int newPrice = (int)(maxEnergyPrice * Math.pow(0.7, getMarketEnergySellPrice()) + minEnergyPrice);	//Calculates the new sell price
-			setMarketEnergySellPrice(newPrice + 1);														//Sets the new sell price
-			setMarketEnergyBuyPrice(newPrice - 1);														//Sets the new buy price
-			
 		}
 		else
 		{
@@ -125,13 +103,6 @@ public class MarketPlace extends Game
 		}
 	}
 
-	public void buyRoboticon(int quantity)
-	{
-		
-	}
-	
-	
-	
 /* ---------------------------------------------------------
  * --------------	 The selling functions	----------------
  * ---------------------------------------------------------
@@ -165,38 +136,9 @@ public class MarketPlace extends Game
 		{
 			//Display error that the player doesn't have enough Ore
 		}
-		int totalAmount = getMarketEnergyBuyPrice();				//Calculate total amount player will receive
+		int totalAmount = getMarketEnergyBuyPrice();					//Calculate total amount player will receive
 		playersMoney += totalAmount;								//Need to use a setter for players money
 		
-	}
-	
-	
-/* ---------------------------------------------------------
- * ---------------	Generating Roboticons	----------------
- * ---------------------------------------------------------
- */
-	
-	public void produceRoboticon()
-	{
-		if(getMarketOreStock() < 7)
-		{
-			return;
-		}
-		else if(getMarketOreStock() > 7 && getMarketOreStock() <= 16)
-		{
-			setMarketRoboticonStock(getMarketRoboticonStock() + 2);
-			return;
-		}
-		else if(getMarketOreStock() > 16 && getMarketOreStock() <=24)
-		{
-			setMarketRoboticonStock(getMarketRoboticonStock() + 4);
-			return;
-		}
-		else if(getMarketOreStock() > 24)
-		{
-			setMarketRoboticonStock(getMarketRoboticonStock() + 6);
-			return;
-		}
 	}
 	
 /* ---------------------------------------------------------
@@ -228,13 +170,13 @@ public class MarketPlace extends Game
 	{
 		this.marketEnergyStock = marketEnergyStock;
 	}
-	public int getMarketRoboticonStock() 
+	public int getMarketRoboticonsStock() 
 	{
-		return marketRoboticonStock;
+		return marketRoboticonsStock;
 	}
-	public void setMarketRoboticonStock(int marketRoboticonsStock) 
+	public void setMarketRoboticonsStock(int marketRoboticonsStock) 
 	{
-		this.marketRoboticonStock = marketRoboticonsStock;
+		this.marketRoboticonsStock = marketRoboticonsStock;
 	}
 	public int getMarketOreBuyPrice() 
 	{
