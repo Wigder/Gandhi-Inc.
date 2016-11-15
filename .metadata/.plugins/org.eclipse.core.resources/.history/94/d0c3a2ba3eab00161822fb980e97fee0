@@ -30,14 +30,11 @@ public class MarketPlace extends Game
 	private int marketFoodSellPrice;
 	private int marketEnergySellPrice;
 
-	//////// TEMP PLAYER VALUE TO BE REPLACED AND IMPORTED FROM PLAYER !!!!
+	//////// TEMP PLAYER VALUE TO BE REPLACED!!!!
 	private int playersMoney;
-	private int playersOre;
-	private int playersFood;
-	private int playersEnergy;
 
 /* ---------------------------------------------------------
- * --------------	 The buying functions	----------------
+ * -----------	Initiating the internal values	------------
  * ---------------------------------------------------------
  */		
 	public void buyOre(int quantity)							//Function to buy Ore from the market
@@ -46,20 +43,11 @@ public class MarketPlace extends Game
 		{
 			//Return error to say the market doesn't have enough
 		}
-		int totalAmount = quantity * getMarketOreSellPrice(); 	//Calculate the total price
+		int totalAmount = quantity * getMarketOreBuyPrice(); 	//Calculate the total price
 		if(playersMoney > totalAmount)							//Check if the player has enough money to pay
 		{
 			//Add the ore to the players ore
 			//Remove the money from his account
-			
-			int newStock = getMarketOreStock() + quantity;		//Calculates what the new stock is
-			setMarketOreStock(newStock);						//Sets the new stock value
-			
-			int newSellPrice = getMarketOreSellPrice();			//Calculates the new sell price
-			setMarketOreSellPrice(newSellPrice);				//Sets the new sell price
-		
-			int newBuyPrice = getMarketOreBuyPrice();			//Calculates the new buy price
-			setMarketOreBuyPrice(newBuyPrice);					//Sets the new buy price
 		}
 		else
 		{
@@ -73,7 +61,7 @@ public class MarketPlace extends Game
 		{
 			//Return error to say the market doesn't have enough
 		}
-		int totalAmount = quantity * getMarketFoodSellPrice(); 	//Calculate the total price
+		int totalAmount = quantity * getMarketFoodBuyPrice(); 	//Calculate the total price
 		if(playersMoney > totalAmount)							//Check if the player has enough money to pay
 		{
 			//Add the ore to the players ore
@@ -91,7 +79,7 @@ public class MarketPlace extends Game
 		{
 			//Return error to say the market doesn't have enough
 		}
-		int totalAmount = quantity * getMarketEnergySellPrice(); //Calculate the total price
+		int totalAmount = quantity * getMarketEnergyBuyPrice(); 	//Calculate the total price
 		if(playersMoney > totalAmount)							//Check if the player has enough money to pay
 		{
 			//Add the ore to the players ore
@@ -101,31 +89,6 @@ public class MarketPlace extends Game
 		{
 			//Return error that player does not have enough
 		}
-	}
-
-/* ---------------------------------------------------------
- * --------------	 The selling functions	----------------
- * ---------------------------------------------------------
- */
-	
-	public void sellOre(int quantity)
-	{
-		if(playersOre < quantity)
-		{
-			//Display error that the player doesn't have enough Ore
-		}
-		int totalAmount = getMarketOreBuyPrice();
-		
-	}
-	
-	public void sellFood(int quantity)
-	{
-		
-	}
-	
-	public void sellEnergy(int quantity)
-	{
-		
 	}
 	
 /* ---------------------------------------------------------
@@ -213,4 +176,8 @@ public class MarketPlace extends Game
 	{
 		this.marketEnergySellPrice = marketEnergySellPrice;
 	}
+	
+	
+	
+	
 }
