@@ -1,5 +1,3 @@
-package me.gandhiinc.test;
-
 /**
  *@author Luke Jenkinson
  *@version 1.0
@@ -7,13 +5,13 @@ package me.gandhiinc.test;
 
 
 public class Pub{
-    private int priceOfPlayingLottery;
-    private int priceOfPlayingScratchCard;
-    private int priceOfPlayingOneArmBandit;
+    private int priceOfPlayingLottery = 10;
+    private int priceOfPlayingScratchCard = 20;
+    private int priceOfPlayingOneArmBandit = 30;
 
     public static void main(String args[]){
         Pub instance = new Pub();
-        instance.getPriceOfPlayingLottery;
+        instance.getPriceOfPlayingLottery();
     }
 
     public int getPriceOfPlayingLottery(){
@@ -30,5 +28,26 @@ public class Pub{
     public int getPriceOfPlayingOneArmBandit(){
         System.out.println(priceOfPlayingOneArmBandit);
         return priceOfPlayingOneArmBandit;
+    }
+
+    public playLottery(number1, number2, number3){
+        if(number1 == number2)throw new IlligalArgumentException();
+        else if(number1 == number3)throw new IlligalArgumentException;
+        else if(number2 == number3)throw new IlligalArgumentException;
+        else{
+//          add this code in!!!!!
+//          need to know will's way of collecting moneys
+            System.out.println("hello");
+        }
+    }
+
+    public playScratchcard(){
+//      add code here
+        return;
+    }
+
+    public playOneArmBandit(){
+//      add code here
+        return;
     }
 }
