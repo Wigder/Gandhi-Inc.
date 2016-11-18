@@ -24,9 +24,8 @@ package me.gandhiinc.test;
   *  keep all the variables in integers as this is how they will be displayed. When calculating
   *  we will convert the doubles back into integers to avoid problems.
   * 
-  * @author 		Will Wood
-  * @version		1.0	
-  * @date			15/11/16	
+  * Author: 		Will Wood	
+  * Date created:	15/11/16
   */
 
 public class MarketPlace extends Game 
@@ -147,23 +146,17 @@ public class MarketPlace extends Game
 		}
 	}
 
-	public void buyRoboticon(int quantity) throws Exception
+	public void buyRoboticon(int quantity)
 	{
-		Exception eMoney = new Exception("You don't have enough money!");
-		Exception eStock = new Exception("The market doesn't have enough stock");
-		if(getMarketRoboticonSellPrice() > playersMoney)
+		if(getMarketRoboticonSellPrice() > playersMoney && getMarketRoboticonStock()-quantity >= 0)
 		{
-			throw eMoney;																		//Error the player doesn't have enough money
-		}
-		if(getMarketRoboticonStock()-quantity >= 0)
-		{
-			throw eStock;																		//Error the market doesn't have enough stock
+			//Error the player doesn't have enough money or not enough stock
 		}
 		else
 		{
-			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); 						//Reduce the stock by the quantity purchased
+			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); //Reduce the stock by the quantity purchased
 			
-			//Player.setRoboticonStock(Player.getRoboticonStock() + quantity)					// Add the roboticon to the player
+			// Add the roboticon to the player
 		}
 	}
 	
@@ -174,37 +167,33 @@ public class MarketPlace extends Game
  * ---------------------------------------------------------
  */
 	
-	public void sellOre(int quantity) throws Exception
+	public void sellOre(int quantity)
 	{
-		Exception e = new Exception("You don't have enough ore to sell!");
 		if(playersOre < quantity)
 		{
-			throw e;												//Display error that the player doesn't have enough Ore
+			//Display error that the player doesn't have enough Ore
 		}
-		
 		int totalAmount = getMarketOreBuyPrice();					//Calculate total amount player will receive
 		playersMoney += totalAmount;								//Need to use a setter for players money
 		
 	}
 	
-	public void sellFood(int quantity) throws Exception
+	public void sellFood(int quantity)
 	{
-		Exception e = new Exception("You don't have enough food to sell!");
 		if(playersFood < quantity)
 		{
-			throw e;												//Display error that the player doesn't have enough Ore
+			//Display error that the player doesn't have enough Ore
 		}
 		int totalAmount = getMarketFoodBuyPrice();					//Calculate total amount player will receive
 		playersMoney += totalAmount;								//Need to use a setter for players money
 		
 	}
 	
-	public void sellEnergy(int quantity) throws Exception
+	public void sellEnergy(int quantity)
 	{
-		Exception e = new Exception("You don't have enough energy to sell!");
 		if(playersEnergy < quantity)
 		{
-			throw e;												//Display error that the player doesn't have enough Ore
+			//Display error that the player doesn't have enough Ore
 		}
 		int totalAmount = getMarketEnergyBuyPrice();				//Calculate total amount player will receive
 		playersMoney += totalAmount;								//Need to use a setter for players money
@@ -219,26 +208,23 @@ public class MarketPlace extends Game
 	
 	public void produceRoboticon()
 	{
-		if(getMarketOreStock() < 16)
+		if(getMarketOreStock() < 7)
 		{
 			return;
 		}
-		else if(getMarketOreStock() >= 16 && getMarketOreStock() < 24)
+		else if(getMarketOreStock() > 7 && getMarketOreStock() <= 16)
 		{
 			setMarketRoboticonStock(getMarketRoboticonStock() + 2);
-			setMarketOreStock(getMarketOreStock()-16);
 			return;
 		}
-		else if(getMarketOreStock() >= 24 && getMarketOreStock() < 32)
+		else if(getMarketOreStock() > 16 && getMarketOreStock() <=24)
 		{
 			setMarketRoboticonStock(getMarketRoboticonStock() + 4);
-			setMarketOreStock(getMarketOreStock()-24);
 			return;
 		}
-		else if(getMarketOreStock() >= 32)
+		else if(getMarketOreStock() > 24)
 		{
 			setMarketRoboticonStock(getMarketRoboticonStock() + 6);
-			setMarketOreStock(getMarketOreStock()-32);
 			return;
 		}
 	}

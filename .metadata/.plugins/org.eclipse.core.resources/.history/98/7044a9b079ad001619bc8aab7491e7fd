@@ -153,17 +153,17 @@ public class MarketPlace extends Game
 		Exception eStock = new Exception("The market doesn't have enough stock");
 		if(getMarketRoboticonSellPrice() > playersMoney)
 		{
-			throw eMoney;																		//Error the player doesn't have enough money
+			throw eMoney;//Error the player doesn't have enough money or not enough stock
 		}
 		if(getMarketRoboticonStock()-quantity >= 0)
 		{
-			throw eStock;																		//Error the market doesn't have enough stock
+			throw eStock;
 		}
 		else
 		{
-			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); 						//Reduce the stock by the quantity purchased
+			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); //Reduce the stock by the quantity purchased
 			
-			//Player.setRoboticonStock(Player.getRoboticonStock() + quantity)					// Add the roboticon to the player
+			//Player.setRoboticonStock(Player.getRoboticonStock() + quantity)// Add the roboticon to the player
 		}
 	}
 	
