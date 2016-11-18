@@ -4,6 +4,7 @@
  *@version 1.0
  */
 
+import java.util.Random;
 
 public class Pub{
     private int priceOfPlayingLottery = 10;
@@ -59,18 +60,19 @@ public class Pub{
     *
     **/
 
-    public playLottery(number1, number2, number3){
-        if(number1 == number2)throw new IlligalArgumentException();
-        else if(number1 == number3)throw new IlligalArgumentException;
-        else if(number2 == number3)throw new IlligalArgumentException;
-        else if(number1<1 || number1>20)throw new IlligalArgumentException;
-        else if(number2<1 || number2>20)throw new IlligalArgumentException;
-        else if(number3<1 || number3>20)throw new IlligalArgumentException;
+    public int playLottery(int number1,int number2,int number3){
+        if(number1 == number2)throw new IllegalArgumentException();
+        else if(number1 == number3)throw new IllegalArgumentException();
+        else if(number2 == number3)throw new IllegalArgumentException();
+        else if(number1<1 || number1>20)throw new IllegalArgumentException();
+        else if(number2<1 || number2>20)throw new IllegalArgumentException();
+        else if(number3<1 || number3>20)throw new IllegalArgumentException();
         else{
 //          add this code in!!!!!
 //          need to know will's way of collecting moneys
             System.out.println("hello");
-        }
+            return 0;    
+         }
     }
 
     /**
@@ -79,20 +81,21 @@ public class Pub{
     *
     **/
 
-    public playScratchcard(){
-        int random = (int)(Math.random()*10 + 1);
+    public int playScratchcard(){
+        Random rand = new Random();
+        int random = rand.nextInt(10) + 1;
         if(random == 1)return 10;
         else return 0;
     }
 
     /**
     *
-    *@return returns a tuple consisting of a string of the output, and an int of the amout of money won, 0 of a loss
+    *@return returns a class consisting of a string of the output, and an int of the amout of money won, 0 of a loss
     *
     **/
 
-    public playOneArmBandit(){
+    public int playOneArmBandit(){
 //      add code here
-        return;
+        return 1;
     }
 }
