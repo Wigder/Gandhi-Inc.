@@ -65,12 +65,13 @@ public class MarketPlace
  * ---------------------------------------------------------
  */
 	
-	/**
-	 * 
-	 * @param player
-	 * @param quantity
-	 * @throws Exception
-	 */
+/**
+ * 	
+ * @param player
+ * @param quantity
+ * @throws Exception
+ */
+	
 	public void buyOre(Player player, int quantity)	throws Exception									//Function to buy Ore from the market
 	{
 		Exception eStock = new Exception("The market doesn't have enough stock");
@@ -99,16 +100,9 @@ public class MarketPlace
 		}
 	}
 	
-	/**
-	 * 
-	 * @param player
-	 * @param quantity
-	 * @throws Exception
-	 */
 	public void buyEnergy(Player player, int quantity) throws Exception											//Function to buy Energy from the market
 	{
 		Exception eStock = new Exception("The market doesn't have enough stock");
-		Exception eMoney = new Exception("You do not have enough Money!");
 
 		if(quantity > getMarketEnergyStock()) 																	//Check the Market has enough stock
 		{
@@ -130,14 +124,12 @@ public class MarketPlace
 		}
 		else
 		{
-			throw eMoney;																						//Return error that player does not have enough
+			//Return error that player does not have enough
 		}
 	}
 
 //	public void buyFood(Player player, int quantity)													//Function to buy Food from the market
 //	{
-//		Exception eStock = new Exception("The market doesn't have enough stock");
-//		Exception eMoney = new Exception("You do not have enough Money!");
 //		if(quantity > getMarketFoodStock()) 															//Check the Market has enough stock
 //		{
 //			//Return error to say the market doesn't have enough

@@ -63,18 +63,10 @@ public class MarketPlace
 /* ---------------------------------------------------------
  * --------------	 The buying functions	----------------
  * ---------------------------------------------------------
- */
-	
-	/**
-	 * 
-	 * @param player
-	 * @param quantity
-	 * @throws Exception
-	 */
+ */		
 	public void buyOre(Player player, int quantity)	throws Exception									//Function to buy Ore from the market
 	{
 		Exception eStock = new Exception("The market doesn't have enough stock");
-		Exception eMoney = new Exception("You do not have enough Money!");
 		
 		if(quantity > getMarketOreStock()) 																//Check the Market has enough stock
 		{
@@ -83,8 +75,8 @@ public class MarketPlace
 		int totalAmount = quantity * getMarketOreSellPrice(); 											//Calculate the total price
 		if(player.getMoney() > totalAmount)																//Check if the player has enough money to pay
 		{
-			player.setOre(player.getOre() + quantity);													//Add the ore to the players ore
-			player.setMoney(player.getMoney() - totalAmount);											//Remove the money from his account
+			//Add the ore to the players ore
+			//Remove the money from his account
 			
 			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
 			setMarketOreStock(newStock);																//Sets the new stock value
@@ -95,49 +87,12 @@ public class MarketPlace
 		}
 		else
 		{
-			throw eMoney;																				//Return error that player does not have enough
+			//Return error that player does not have enough
 		}
 	}
 	
-	/**
-	 * 
-	 * @param player
-	 * @param quantity
-	 * @throws Exception
-	 */
-	public void buyEnergy(Player player, int quantity) throws Exception											//Function to buy Energy from the market
-	{
-		Exception eStock = new Exception("The market doesn't have enough stock");
-		Exception eMoney = new Exception("You do not have enough Money!");
-
-		if(quantity > getMarketEnergyStock()) 																	//Check the Market has enough stock
-		{
-			throw eStock;																						//Return error to say the market doesn't have enough
-		}
-		int totalAmount = quantity * getMarketEnergySellPrice();												//Calculate the total price
-		if(player.getMoney() > totalAmount)																		//Check if the player has enough money to pay
-		{
-			player.setOre(quantity);																			//Add the ore to the players ore
-			player.setMoney(player.getMoney() -  totalAmount);													//Remove the money from his account
-			
-			int newStock = getMarketOreStock() + quantity;														//Calculates what the new stock is
-			setMarketOreStock(newStock);																		//Sets the new stock value
-			
-			int newPrice = (int)(maxEnergyPrice * Math.pow(0.7, getMarketEnergySellPrice()) + minEnergyPrice);	//Calculates the new sell price
-			setMarketEnergySellPrice(newPrice + 1);																//Sets the new sell price
-			setMarketEnergyBuyPrice(newPrice - 1);																//Sets the new buy price
-			
-		}
-		else
-		{
-			throw eMoney;																						//Return error that player does not have enough
-		}
-	}
-
 //	public void buyFood(Player player, int quantity)													//Function to buy Food from the market
 //	{
-//		Exception eStock = new Exception("The market doesn't have enough stock");
-//		Exception eMoney = new Exception("You do not have enough Money!");
 //		if(quantity > getMarketFoodStock()) 															//Check the Market has enough stock
 //		{
 //			//Return error to say the market doesn't have enough
@@ -161,7 +116,34 @@ public class MarketPlace
 //		}
 //	}
 	
-	
+	public void buyEnergy(Player player, int quantity) throws Exception											//Function to buy Energy from the market
+	{
+		Exception eStock = new Exception("The market doesn't have enough stock");
+
+		if(quantity > getMarketEnergyStock()) 																	//Check the Market has enough stock
+		{
+			throw eStock;																						//Return error to say the market doesn't have enough
+		}
+		int totalAmount = quantity * getMarketEnergySellPrice();												//Calculate the total price
+		if(player.getMoney() > totalAmount)																		//Check if the player has enough money to pay
+		{
+			player.setOre(quantity);																			//Add the ore to the players ore
+			player.setMoney(player.getMoney() -  totalAmount);													//Remove the money from his account
+			
+			int newStock = getMarketOreStock() + quantity;														//Calculates what the new stock is
+			setMarketOreStock(newStock);																		//Sets the new stock value
+			
+			int newPrice = (int)(maxEnergyPrice * Math.pow(0.7, getMarketEnergySellPrice()) + minEnergyPrice);	//Calculates the new sell price
+			setMarketEnergySellPrice(newPrice + 1);																//Sets the new sell price
+			setMarketEnergyBuyPrice(newPrice - 1);																//Sets the new buy price
+			
+		}
+		else
+		{
+			//Return error that player does not have enough
+		}
+	}
+
 	public void buyRoboticon(Player player, int quantity) throws Exception
 	{
 		Exception eMoney = new Exception("You don't have enough money!");
@@ -189,12 +171,6 @@ public class MarketPlace
  * ---------------------------------------------------------
  */
 	
-	/**
-	 * 
-	 * @param player
-	 * @param quantity
-	 * @throws Exception
-	 */
 	public void sellOre(Player player, int quantity) throws Exception
 	{
 		Exception e = new Exception("You don't have enough ore to sell!");
@@ -204,24 +180,6 @@ public class MarketPlace
 		}
 		
 		int totalAmount = getMarketOreBuyPrice();					//Calculate total amount player will receive
-		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
-		
-	}
-	
-	/**
-	 * 
-	 * @param player
-	 * @param quantity
-	 * @throws Exception
-	 */
-	public void sellEnergy(Player player, int quantity) throws Exception
-	{
-		Exception e = new Exception("You don't have enough energy to sell!");
-		if(player.getEnergy() < quantity)
-		{
-			throw e;												//Display error that the player doesn't have enough Ore
-		}
-		int totalAmount = getMarketEnergyBuyPrice();				//Calculate total amount player will receive
 		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
 		
 	}
@@ -236,15 +194,26 @@ public class MarketPlace
 //		int totalAmount = getMarketFoodBuyPrice();					//Calculate total amount player will receive
 //		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
 //		
-//	}	
+//	}
+	
+	public void sellEnergy(Player player, int quantity) throws Exception
+	{
+		Exception e = new Exception("You don't have enough energy to sell!");
+		if(player.getEnergy() < quantity)
+		{
+			throw e;												//Display error that the player doesn't have enough Ore
+		}
+		int totalAmount = getMarketEnergyBuyPrice();				//Calculate total amount player will receive
+		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
+		
+	}
+	
 	
 /* ---------------------------------------------------------
  * ---------------	Generating Roboticons	----------------
  * ---------------------------------------------------------
  */
-	/**
-	 * 
-	 */
+	
 	public void produceRoboticon()
 	{
 		if(getMarketOreStock() < 16)
@@ -276,200 +245,91 @@ public class MarketPlace
  * ---------------------------------------------------------
  */
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketOreStock() 
 	{
 		return marketOreStock;
 	}
-
-	/**
-	 * 
-	 * @param marketOreStock
-	 */
 	public void setMarketOreStock(int marketOreStock) 
 	{
 		this.marketOreStock = marketOreStock;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketFoodStock() 
 	{
 		return marketFoodStock;
 	}
-
-	/**
-	 * 
-	 * @param marketFoodStock
-	 */
 	public void setMarketFoodStock(int marketFoodStock) 
 	{
 		this.marketFoodStock = marketFoodStock;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketEnergyStock() 
 	{
 		return marketEnergyStock;
 	}
-
-	/**
-	 * 
-	 * @param marketEnergyStock
-	 */
 	public void setMarketEnergyStock(int marketEnergyStock) 
 	{
 		this.marketEnergyStock = marketEnergyStock;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketRoboticonStock() 
 	{
 		return marketRoboticonStock;
 	}
-
-	/**
-	 * 
-	 * @param marketRoboticonsStock
-	 */
 	public void setMarketRoboticonStock(int marketRoboticonsStock) 
 	{
 		this.marketRoboticonStock = marketRoboticonsStock;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketOreBuyPrice() 
 	{
 		return marketOreBuyPrice;
 	}
-
-	/**
-	 * 
-	 * @param marketOreBuyPrice
-	 */
 	public void setMarketOreBuyPrice(int marketOreBuyPrice) 
 	{
 		this.marketOreBuyPrice = marketOreBuyPrice;
 	}
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketFoodBuyPrice() 
 	{
 		return marketFoodBuyPrice;
 	}
-	
-	/**
-	 * 
-	 * @param marketFoodBuyPrice
-	 */
 	public void setMarketFoodBuyPrice(int marketFoodBuyPrice) 
 	{
 		this.marketFoodBuyPrice = marketFoodBuyPrice;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketEnergyBuyPrice() 
 	{
 		return marketEnergyBuyPrice;
 	}
-	
-	/**
-	 * 
-	 * @param marketEnergyBuyPrice
-	 */
 	public void setMarketEnergyBuyPrice(int marketEnergyBuyPrice) 
 	{
 		this.marketEnergyBuyPrice = marketEnergyBuyPrice;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketOreSellPrice() 
 	{
 		return marketOreSellPrice;
 	}
-	
-	/**
-	 * 
-	 * @param marketOreSellPrice
-	 */
 	public void setMarketOreSellPrice(int marketOreSellPrice) 
 	{
 		this.marketOreSellPrice = marketOreSellPrice;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketFoodSellPrice() 
 	{
 		return marketFoodSellPrice;
 	}
-	
-	/**
-	 * 
-	 * @param marketFoodSellPrice
-	 */
 	public void setMarketFoodSellPrice(int marketFoodSellPrice) 
 	{
 		this.marketFoodSellPrice = marketFoodSellPrice;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
 	public int getMarketEnergySellPrice() 
 	{
 		return marketEnergySellPrice;
 	}
-	
-	/**
-	 * 
-	 * @param marketEnergySellPrice
-	 */
 	public void setMarketEnergySellPrice(int marketEnergySellPrice) 
 	{
 		this.marketEnergySellPrice = marketEnergySellPrice;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public int getMarketRoboticonSellPrice() 
-	{
+	public int getMarketRoboticonSellPrice() {
 		return marketRoboticonSellPrice;
 	}
 
-	/**
-	 * 
-	 * @param marketRoboticonSellPrice
-	 */
-	public void setMarketRoboticonSellPrice(int marketRoboticonSellPrice) 
-	{
+	public void setMarketRoboticonSellPrice(int marketRoboticonSellPrice) {
 		this.marketRoboticonSellPrice = marketRoboticonSellPrice;
 	}
 }
