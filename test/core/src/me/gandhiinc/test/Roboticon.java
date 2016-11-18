@@ -1,22 +1,31 @@
 package me.gandhiinc.test;
 
+import java.util.Random;
+
 /**
  * Roboticon class
  * Implements the roboticon class for the game
  * 
- * @author Robert
- *
+ * @author Robert Sayles
+ * @version 1.0
  */
 class Roboticon {
-	// Setting the standard production rate as a constant for reference during specialisation
-	private static int BASEPROD = 2;
+	/* Setting the standard production rate as a constant for reference during specialisation
+	 * Handling production as integers internally (to avoid potential decimal inaccuracies, etc)
+	 */
+	private static int BASEPROD = 20;
 	/* Store the roboticon's base production for each resource
-	 * Handling production as integers internally to avoid potential decimal inaccuracies
 	 * Note that the food resource will not be implemented until Phase Three
 	 */
 	private int OreProd = 0;
 	private int EnergyProd = 0;
+	/* Store the specialisation of the roboticon as the enumerated resource type
+	 * Store the assigned plot object for reference for production modifiers
+	 */
 	private Resource Specialisation = Resource.NONE;
+	private Plot AssignedPlot = null;
+	// Initialise random numbers for production variance
+	Random rnd = new Random();
 	
 	/**
 	 * Constructor for roboticons
@@ -25,6 +34,10 @@ class Roboticon {
 		
 	}
 	
+	/* -----------------------------
+	 * --- Base Production Rates ---
+	 * -----------------------------
+	 */
 	/**
 	 * Returns the base production value for a given resource
 	 * 
@@ -67,6 +80,10 @@ class Roboticon {
 		
 	}
 	
+	/* ----------------------
+	 * --- Specialisation ---
+	 * ----------------------
+	 */
 	/**
 	 * Takes an enumerated resource type and sets the specialisation
 	 * and base production rates accordingly
@@ -74,7 +91,7 @@ class Roboticon {
 	 * @param resource	the resource being set as an enumerated type
 	 * @return			a boolean for success of the operation
 	 */
-	boolean setSpecialisation (Resource resource) {
+	boolean setSpec (Resource resource) {
 		switch (resource) {
 		case NONE:
 			this.Specialisation = Resource.NONE;
@@ -101,7 +118,52 @@ class Roboticon {
 	 * 
 	 * @return 			the current specialisation as an enumerated resource type
 	 */
-	Resource getSpecialisation () {
+	Resource getSpec () {
 		return this.Specialisation;
+	}
+	
+	/* ---------------------
+	 * --- Assigned Plot ---
+	 * ---------------------
+	 */
+	/**
+	 * Set the plot the roboticon is assigned to
+	 * 
+	 * @param plot		the plot object being assigned
+	 * @return			a boolean for success of the operation
+	 */
+	boolean setPlot (Plot plot) {
+		AssignedPlot = plot;
+		return true;
+	}
+	
+	/**
+	 * Get the currently assigned plot object
+	 * 
+	 * @return			returns the currently assigned plot object
+	 */
+	Plot getPlot () {
+		return this.AssignedPlot;
+	}
+	
+	/* --------------------------------------------
+	 * --- Calculating Modified Production Rate ---
+	 * --------------------------------------------
+	 */
+	/**
+	 * Calculate the modified production rate for a given resource
+	 * 
+	 * @param resource	the resource for which production is to be calculated as an enumerated type
+	 * @param playermod	the production modifiers on the player for that resource (eg. from events)
+	 * @return			returns the modified production rate for the given resource
+	 */
+	int calcProd (Resource resource, int playermod) {
+		int plotmod = 0;
+		if (this.AssignedPlot != null) {
+				plotmod = AssignedPlot.getModifiers(resource);
+		}
+		int variance = rnd.nextInt(11)-5;
+		int finalprod = (this.getBaseProd(resource)+variance) * plotmod * playermod;
+		return finalprod;
 	}
 }
