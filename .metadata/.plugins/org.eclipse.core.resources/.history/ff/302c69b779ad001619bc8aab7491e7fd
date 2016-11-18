@@ -161,9 +161,9 @@ public class MarketPlace extends Game
 		}
 		else
 		{
-			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); 						//Reduce the stock by the quantity purchased
+			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); //Reduce the stock by the quantity purchased
 			
-			//Player.setRoboticonStock(Player.getRoboticonStock() + quantity)					// Add the roboticon to the player
+			//Player.setRoboticonStock(Player.getRoboticonStock() + quantity)// Add the roboticon to the player
 		}
 	}
 	
