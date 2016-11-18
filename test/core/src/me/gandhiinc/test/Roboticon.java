@@ -13,19 +13,21 @@ class Roboticon {
 	/* Setting the standard production rate as a constant for reference during specialisation
 	 * Handling production as integers internally (to avoid potential decimal inaccuracies, etc)
 	 */
-	private static int BASEPROD = 20;
+	private static int BASEPROD = 20;							// Set base production rate as 2.0
 	/* Store the roboticon's base production for each resource
 	 * Note that the food resource will not be implemented until Phase Three
+	 * Values are initially zero, as roboticons cannot produce resources without a specialisation
 	 */
 	private int OreProd = 0;
 	private int EnergyProd = 0;
 	/* Store the specialisation of the roboticon as the enumerated resource type
+	 * Roboticons initially have no specialisation
 	 * Store the assigned plot object for reference for production modifiers
+	 * Roboticons initially have no assigned plot
 	 */
 	private Resource Specialisation = Resource.NONE;
 	private Plot AssignedPlot = null;
-	// Initialise random numbers for production variance
-	Random rnd = new Random();
+	Random rnd = new Random();									// Initialise random numbers for production variance
 	
 	/**
 	 * Constructor for roboticons
@@ -45,13 +47,13 @@ class Roboticon {
 	 * @return			the production rate for requested resource as an integer
 	 */
 	int getBaseProd (Resource resource) {
-		switch (resource) {
+		switch (resource) {										// Check which resource is requested
 		case ORE:
-			return OreProd;
+			return OreProd;										// Return ORE
 		case ENERGY:
-			return EnergyProd;
+			return EnergyProd;									// Return ENERGY
 		default:
-			return 0;
+			return 0;											// Not a resource, return zero
 		}
 	}
 	
@@ -63,19 +65,19 @@ class Roboticon {
 	 * @return			a boolean for success of the operation
 	 */
 	boolean setBaseProd (Resource resource, int newprod) {
-		if (newprod >= 0) {
-			switch (resource) {
+		if (newprod >= 0) {										// Check that new value is zero or greater
+			switch (resource) {									// Check which resource is being set
 		case ORE:
-			this.OreProd = newprod;
-			return true;
+			this.OreProd = newprod;								// Set ORE
+			return true;										// Return success
 		case ENERGY:
-			this.EnergyProd = newprod;
-			return true;
+			this.EnergyProd = newprod;							// Set ENERGY
+			return true;										// Return success
 		default:
-			return false;
+			return false;										//Not a resource, return failure
 		} 
 		} else {
-			return false;
+			return false;										// New value is negative, reject and return failure
 		}
 		
 	}
@@ -92,24 +94,24 @@ class Roboticon {
 	 * @return			a boolean for success of the operation
 	 */
 	boolean setSpec (Resource resource) {
-		switch (resource) {
-		case NONE:
+		switch (resource) {										// Check which resource is being specialised for
+		case NONE:												// Reset to blank specialisation
 			this.Specialisation = Resource.NONE;
 			this.OreProd = 0;
 			this.EnergyProd = 0;
-			return true;
-		case ORE:
+			return true;										// Return success
+		case ORE:												// Set for ORE specialisation
 			this.Specialisation = Resource.ORE;
 			this.OreProd = BASEPROD;
 			this.EnergyProd = 0;
-			return true;
-		case ENERGY:
+			return true;										// Return success
+		case ENERGY:											// Set for ENERGY specialisation
 			this.Specialisation = Resource.ENERGY;
 			this.OreProd = 0;
 			this.EnergyProd = BASEPROD;
-			return true;
-		default:
-			return false;
+			return true;										// Return success
+		default:												// Not a resource, don't change
+			return false;										// Return failure
 		}
 	}
 	
@@ -158,12 +160,12 @@ class Roboticon {
 	 * @return			returns the modified production rate for the given resource
 	 */
 	int calcProd (Resource resource, int playermod) {
-		int plotmod = 0;
-		if (this.AssignedPlot != null) {
-				plotmod = AssignedPlot.getModifiers(resource);
+		int plotmod = 0;															// Plot modifier zero initially and if no plot assigned
+		if (this.AssignedPlot != null) {											// Check if a plot has been assigned
+				plotmod = AssignedPlot.getModifiers(resource);						// Retrieve plot modifier if there is one
 		}
-		int variance = rnd.nextInt(11)-5;
-		int finalprod = (this.getBaseProd(resource)+variance) * plotmod * playermod;
-		return finalprod;
+		int variance = rnd.nextInt(11)-5;											// Generate production variance between -0.5 and +0.5
+		int finalprod = (this.getBaseProd(resource)+variance) * plotmod * playermod;// Calculate final modified production rate
+		return finalprod;															// Return result of calculation
 	}
 }
