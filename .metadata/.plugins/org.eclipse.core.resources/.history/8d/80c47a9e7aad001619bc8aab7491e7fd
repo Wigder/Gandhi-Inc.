@@ -1,15 +1,18 @@
 package me.gandhiinc.test;
 
+import me.gandhiinc.test.MarketPlace
+import me.gandhiinc.test.Resource;
+import me.gandhiinc.test.Roboticon;
+
 /**
 *
 *
 **/
-
 public class Player 
 {
 	private int money;
 	private int ore;
-	private int energy;
+	private int energy
 
 	private List<Roboticon> roboticons;
 	private List<Plot> plots;
@@ -58,31 +61,5 @@ public class Player
 	{
 		return energy;
 	}
-
-	public void setMoney(int money) 
-	{
-		this.money = money;
-	}
-
-	public void setOre(int ore) 
-	{
-		this.ore = ore;
-	}
-
-	public void setEnergy(int energy) 
-	{
-		this.energy = energy;
-	}
-
-	public List<Roboticon> getRoboticons() 
-	{
-		return roboticons;
-	}
-
-	public void setRoboticons(List<Roboticon> roboticons) 
-	{
-		this.roboticons = roboticons;
-	}
-	
 
 } 

@@ -73,16 +73,6 @@ public class Player
 	{
 		this.energy = energy;
 	}
-
-	public List<Roboticon> getRoboticons() 
-	{
-		return roboticons;
-	}
-
-	public void setRoboticons(List<Roboticon> roboticons) 
-	{
-		this.roboticons = roboticons;
-	}
 	
 
 } 

@@ -44,8 +44,8 @@ public class MarketPlace extends Game
 	private int maxOrePrice;
 	private int minOrePrice;
 	
-//	private int maxFoodPrice;
-//	private int minFoodPrice;
+	private int maxFoodPrice;
+	private int minFoodPrice;
 	
 	private int maxEnergyPrice;
 	private int minEnergyPrice;
@@ -60,18 +60,25 @@ public class MarketPlace extends Game
 	private int marketRoboticonSellPrice;
 	
 
+
+	//////// TEMP PLAYER VALUE TO BE REPLACED AND IMPORTED FROM PLAYER !!!!
+	private int playersMoney;
+	private int playersOre;
+	private int playersFood;
+	private int playersEnergy;
+
 /* ---------------------------------------------------------
  * --------------	 The buying functions	----------------
  * ---------------------------------------------------------
  */		
-	public void buyOre(Player player, int quantity)																	//Function to buy Ore from the market
+	public void buyOre(int quantity)																	//Function to buy Ore from the market
 	{
 		if(quantity > getMarketOreStock()) 																//Check the Market has enough stock
 		{
 			//Return error to say the market doesn't have enough
 		}
 		int totalAmount = quantity * getMarketOreSellPrice(); 											//Calculate the total price
-		if(player.getMoney() > totalAmount)																	//Check if the player has enough money to pay
+		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
 		{
 			//Add the ore to the players ore
 			//Remove the money from his account
@@ -89,42 +96,42 @@ public class MarketPlace extends Game
 		}
 	}
 	
-//	public void buyFood(Player player, int quantity)																	//Function to buy Food from the market
-//	{
-//		if(quantity > getMarketFoodStock()) 															//Check the Market has enough stock
-//		{
-//			//Return error to say the market doesn't have enough
-//		}
-//		int totalAmount = quantity * getMarketFoodSellPrice(); 											//Calculate the total price
-//		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
-//		{
-//			//player.setFood(player.getFood() + quantity);												//Add the food to the players food
-//			//Remove the money from his account
-//			
-//			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
-//			setMarketOreStock(newStock);																//Sets the new stock value
-//			
-//			int newPrice = (int)(maxFoodPrice * Math.pow(0.7, getMarketFoodSellPrice()) + minFoodPrice);//Calculates the new sell price
-//			setMarketFoodSellPrice(newPrice + 1);														//Sets the new sell price
-//			setMarketFoodBuyPrice(newPrice - 1);														//Sets the new buy price
-//		}
-//		else
-//		{
-//			//Return error that player does not have enough
-//		}
-//	}
+	public void buyFood(int quantity)																	//Function to buy Food from the market
+	{
+		if(quantity > getMarketFoodStock()) 															//Check the Market has enough stock
+		{
+			//Return error to say the market doesn't have enough
+		}
+		int totalAmount = quantity * getMarketFoodSellPrice(); 											//Calculate the total price
+		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
+		{
+			//Add the ore to the players ore
+			//Remove the money from his account
+			
+			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
+			setMarketOreStock(newStock);																//Sets the new stock value
+			
+			int newPrice = (int)(maxFoodPrice * Math.pow(0.7, getMarketFoodSellPrice()) + minFoodPrice);//Calculates the new sell price
+			setMarketFoodSellPrice(newPrice + 1);														//Sets the new sell price
+			setMarketFoodBuyPrice(newPrice - 1);														//Sets the new buy price
+		}
+		else
+		{
+			//Return error that player does not have enough
+		}
+	}
 	
-	public void buyEnergy(Player player, int quantity)																	//Function to buy Energy from the market
+	public void buyEnergy(int quantity)																	//Function to buy Energy from the market
 	{
 		if(quantity > getMarketEnergyStock()) 															//Check the Market has enough stock
 		{
 			//Return error to say the market doesn't have enough
 		}
 		int totalAmount = quantity * getMarketEnergySellPrice();										//Calculate the total price
-		if(player.getMoney() > totalAmount)																	//Check if the player has enough money to pay
+		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
 		{
-			player.setOre(quantity);																	//Add the ore to the players ore
-			player.setMoney(player.getMoney() -  totalAmount);													//Remove the money from his account
+			//Add the ore to the players ore
+			//Remove the money from his account
 			
 			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
 			setMarketOreStock(newStock);																//Sets the new stock value
@@ -140,11 +147,11 @@ public class MarketPlace extends Game
 		}
 	}
 
-	public void buyRoboticon(Player player, int quantity) throws Exception
+	public void buyRoboticon(int quantity) throws Exception
 	{
 		Exception eMoney = new Exception("You don't have enough money!");
 		Exception eStock = new Exception("The market doesn't have enough stock");
-		if(getMarketRoboticonSellPrice() > player.getMoney())
+		if(getMarketRoboticonSellPrice() > playersMoney)
 		{
 			throw eMoney;																		//Error the player doesn't have enough money
 		}
@@ -156,7 +163,7 @@ public class MarketPlace extends Game
 		{
 			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); 						//Reduce the stock by the quantity purchased
 			
-			//player.setRoboticons(len(player.getRoboticons()) + quantity);						// Add the roboticon to the player
+			//Player.setRoboticonStock(Player.getRoboticonStock() + quantity)					// Add the roboticon to the player
 		}
 	}
 	
@@ -167,40 +174,40 @@ public class MarketPlace extends Game
  * ---------------------------------------------------------
  */
 	
-	public void sellOre(Player player, int quantity) throws Exception
+	public void sellOre(int quantity) throws Exception
 	{
 		Exception e = new Exception("You don't have enough ore to sell!");
-		if(player.getOre() < quantity)
+		if(playersOre < quantity)
 		{
 			throw e;												//Display error that the player doesn't have enough Ore
 		}
 		
 		int totalAmount = getMarketOreBuyPrice();					//Calculate total amount player will receive
-		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
+		playersMoney += totalAmount;								//Need to use a setter for players money
 		
 	}
 	
-//	public void sellFood(Player player, int quantity) throws Exception
-//	{
-//		Exception e = new Exception("You don't have enough food to sell!");
-//		if(player.getFood() < quantity)
-//		{
-//			throw e;												//Display error that the player doesn't have enough Ore
-//		}
-//		int totalAmount = getMarketFoodBuyPrice();					//Calculate total amount player will receive
-//		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
-//		
-//	}
+	public void sellFood(int quantity) throws Exception
+	{
+		Exception e = new Exception("You don't have enough food to sell!");
+		if(playersFood < quantity)
+		{
+			throw e;												//Display error that the player doesn't have enough Ore
+		}
+		int totalAmount = getMarketFoodBuyPrice();					//Calculate total amount player will receive
+		playersMoney += totalAmount;								//Need to use a setter for players money
+		
+	}
 	
-	public void sellEnergy(Player player, int quantity) throws Exception
+	public void sellEnergy(int quantity) throws Exception
 	{
 		Exception e = new Exception("You don't have enough energy to sell!");
-		if(player.getEnergy() < quantity)
+		if(playersEnergy < quantity)
 		{
 			throw e;												//Display error that the player doesn't have enough Ore
 		}
 		int totalAmount = getMarketEnergyBuyPrice();				//Calculate total amount player will receive
-		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
+		playersMoney += totalAmount;								//Need to use a setter for players money
 		
 	}
 	

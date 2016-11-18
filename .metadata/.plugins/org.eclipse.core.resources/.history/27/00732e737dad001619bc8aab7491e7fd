@@ -44,8 +44,8 @@ public class MarketPlace extends Game
 	private int maxOrePrice;
 	private int minOrePrice;
 	
-//	private int maxFoodPrice;
-//	private int minFoodPrice;
+	private int maxFoodPrice;
+	private int minFoodPrice;
 	
 	private int maxEnergyPrice;
 	private int minEnergyPrice;
@@ -121,7 +121,7 @@ public class MarketPlace extends Game
 			//Return error to say the market doesn't have enough
 		}
 		int totalAmount = quantity * getMarketEnergySellPrice();										//Calculate the total price
-		if(player.getMoney() > totalAmount)																	//Check if the player has enough money to pay
+		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
 		{
 			player.setOre(quantity);																	//Add the ore to the players ore
 			player.setMoney(player.getMoney() -  totalAmount);													//Remove the money from his account
@@ -144,7 +144,7 @@ public class MarketPlace extends Game
 	{
 		Exception eMoney = new Exception("You don't have enough money!");
 		Exception eStock = new Exception("The market doesn't have enough stock");
-		if(getMarketRoboticonSellPrice() > player.getMoney())
+		if(getMarketRoboticonSellPrice() > playersMoney)
 		{
 			throw eMoney;																		//Error the player doesn't have enough money
 		}

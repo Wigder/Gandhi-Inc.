@@ -4,7 +4,6 @@ package me.gandhiinc.test;
 *
 *
 **/
-
 public class Player 
 {
 	private int money;
@@ -72,16 +71,6 @@ public class Player
 	public void setEnergy(int energy) 
 	{
 		this.energy = energy;
-	}
-
-	public List<Roboticon> getRoboticons() 
-	{
-		return roboticons;
-	}
-
-	public void setRoboticons(List<Roboticon> roboticons) 
-	{
-		this.roboticons = roboticons;
 	}
 	
 
