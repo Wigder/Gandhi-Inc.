@@ -47,4 +47,19 @@ public class Player
 		return;
 	}
 
+	public int getMoney()
+	{
+		return money;
+	}
+
+	public int getOre()
+	{
+		return ore;
+	}
+
+	public int getEnergy()
+	{
+		return energy;
+	}
+
 } 
