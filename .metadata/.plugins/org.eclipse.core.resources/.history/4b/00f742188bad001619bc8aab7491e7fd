@@ -67,7 +67,7 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param player
 	 * @param quantity
 	 * @throws Exception
 	 */
@@ -101,7 +101,7 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param player
 	 * @param quantity
 	 * @throws Exception
 	 */
@@ -161,12 +161,7 @@ public class MarketPlace
 //		}
 //	}
 	
-	/**
-	 * 
-	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
-	 * @param quantity
-	 * @throws Exception
-	 */
+	
 	public void buyRoboticon(Player player, int quantity) throws Exception
 	{
 		Exception eMoney = new Exception("You don't have enough money!");
@@ -196,7 +191,7 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param player
 	 * @param quantity
 	 * @throws Exception
 	 */
@@ -215,7 +210,7 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param player
 	 * @param quantity
 	 * @throws Exception
 	 */
@@ -248,7 +243,7 @@ public class MarketPlace
  * ---------------------------------------------------------
  */
 	/**
-	 * This function should be called at the end of each round to regenerate the Roboticon stock based on the amount of ore the market has
+	 * 
 	 */
 	public void produceRoboticon()
 	{
