@@ -10,6 +10,9 @@ public class Pub{
     private int priceOfPlayingScratchCard = 20;
     private int priceOfPlayingOneArmBandit = 30;
 
+// temperary variable, needs to be replaced with the method to get player money.
+    private int playerMoney = 1000;
+
     public static void main(String args[]){
         Pub instance = new Pub();
         instance.getPriceOfPlayingLottery();
@@ -60,6 +63,9 @@ public class Pub{
         if(number1 == number2)throw new IlligalArgumentException();
         else if(number1 == number3)throw new IlligalArgumentException;
         else if(number2 == number3)throw new IlligalArgumentException;
+        else if(number1<1 || number1>20)throw new IlligalArgumentException;
+        else if(number2<1 || number2>20)throw new IlligalArgumentException;
+        else if(number3<1 || number3>20)throw new IlligalArgumentException;
         else{
 //          add this code in!!!!!
 //          need to know will's way of collecting moneys
@@ -67,10 +73,23 @@ public class Pub{
         }
     }
 
+    /**
+    *
+    *@return returns a value of how much money has been won returns 0 for a loss
+    *
+    **/
+
     public playScratchcard(){
-//      add code here
-        return;
+        int random = (int)(Math.random()*10 + 1);
+        if(random == 1)return 10;
+        else return 0;
     }
+
+    /**
+    *
+    *@return returns a tuple consisting of a string of the output, and an int of the amout of money won, 0 of a loss
+    *
+    **/
 
     public playOneArmBandit(){
 //      add code here
