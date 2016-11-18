@@ -14,9 +14,14 @@ public class Pub{
 // temperary variable, needs to be replaced with the method to get player money.
     private int playerMoney = 1000;
 
+    public int getP(){
+        return playerMoney;
+    }
+
     public static void main(String args[]){
         Pub instance = new Pub();
-        instance.getPriceOfPlayingLottery();
+        instance.playScratchcard();
+        System.out.println(instance.getP());
     }
 
     /**
@@ -82,10 +87,17 @@ public class Pub{
     **/
 
     public int playScratchcard(){
+        playerMoney -= getPriceOfPlayingScratchCard();
         Random rand = new Random();
         int random = rand.nextInt(10) + 1;
-        if(random == 1)return 10;
-        else return 0;
+        if(random == 1){
+            System.out.println("win");
+            return 10;
+        }
+        else{
+            System.out.println("loose");
+            return 0;
+        }
     }
 
     /**
