@@ -20,7 +20,7 @@ public class Pub{
 
     public static void main(String args[]){
         Pub instance = new Pub();
-        instance.playScratchcard();
+        instance.playLottery(int 1, int 2, int 3);
         System.out.println(instance.getP());
     }
 
@@ -61,7 +61,7 @@ public class Pub{
     *@param number1 the first number in the lottery, should be between 1 and 20 incluseive
     *@param number2 the second number in the lottery, should be between 1 and 20 inclusive
     *@param number3 the third number in the lottery, should be between 1 and 20 inclusive
-    *@return money returns the amount of money returned to the playe4r, will be 0 for loss
+    *@return money returns the amount of money returned to the player, will be 0 for loss
     *
     **/
 
@@ -74,8 +74,12 @@ public class Pub{
         else if(number3<1 || number3>20)throw new IllegalArgumentException();
         else{
 //          add this code in!!!!!
-//          need to know will's way of collecting moneys
-            System.out.println("hello");
+//          need to know will's way of collecting money
+            Random rand = new Random();
+            int random1 = rand.nextInt(20) + 1;
+            int random2 = rand.nextInt(20) + 1;
+            int random3 = rand.nextInt(20) + 1;
+            System.out.println(random1 + " " + random2 + " " + random3);
             return 0;    
          }
     }
@@ -86,13 +90,16 @@ public class Pub{
     *
     **/
 
+// need to change the money variable i think 
+
     public int playScratchcard(){
         playerMoney -= getPriceOfPlayingScratchCard();
         Random rand = new Random();
         int random = rand.nextInt(10) + 1;
         if(random == 1){
             System.out.println("win");
-            return 10;
+            playerMoney += 100;
+            return 100;
         }
         else{
             System.out.println("loose");
