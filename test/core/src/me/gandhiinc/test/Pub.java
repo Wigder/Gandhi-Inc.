@@ -5,6 +5,7 @@
  */
 
 import java.util.Random;
+import java.util.Arrays;
 
 public class Pub{
     private int priceOfPlayingLottery = 10;
@@ -20,8 +21,7 @@ public class Pub{
 
     public static void main(String args[]){
         Pub instance = new Pub();
-        instance.playLottery(1, 2, 3);
-        System.out.println(instance.getP());
+        System.out.println(instance.playLottery(1, 2, 3));
     }
 
     /**
@@ -30,7 +30,7 @@ public class Pub{
     *
     **/
     public int getPriceOfPlayingLottery(){
-    	System.out.println(priceOfPlayingLottery);
+//    	System.out.println(priceOfPlayingLottery);
         return priceOfPlayingLottery;
         
     }
@@ -80,8 +80,24 @@ public class Pub{
             int random2 = rand.nextInt(20) + 1;
             int random3 = rand.nextInt(20) + 1;
             System.out.println(random1 + " " + random2 + " " + random3);
-            return 0;    
-         }
+            int[] arrayOfRandomNumbers;
+            arrayOfRandomNumbers = new int[3];
+            arrayOfRandomNumbers[0] = random1;
+            arrayOfRandomNumbers[1] = random2;
+            arrayOfRandomNumbers[2] = random3;
+            Arrays.sort(arrayOfRandomNumbers);
+            int[] arrayOfInputNumbers;
+            arrayOfInputNumbers = new int[3];
+            arrayOfInputNumbers[0] = number1;
+            arrayOfInputNumbers[1] = number2;
+            arrayOfInputNumbers[2] = number3;
+            Arrays.sort(arrayOfInputNumbers);
+//            for (int index = 0; index < arrayOfRandomNumbers.length; index++) System.out.println(arrayOfRandomNumbers[index]);    
+            if(arrayOfRandomNumbers[0]==arrayOfInputNumbers[0] && arrayOfRandomNumbers[1]==arrayOfInputNumbers[1] && arrayOfRandomNumbers[2]==arrayOfInputNumbers[2])return 80000;
+            else{
+                return(-1*getPriceOfPlayingLottery());
+            }
+        }
     }
 
     /**
