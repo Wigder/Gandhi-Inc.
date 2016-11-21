@@ -1,11 +1,8 @@
-package me.gandhiinc.test;
-
 /**
  *Represents the Pub methods, ie the gambling system of the game.
  *@author Luke Jenkinson
  *@version 1.0
 */
-
 import java.util.Random;
 import java.util.Arrays;
 
@@ -14,7 +11,7 @@ public class Pub{
     private int priceOfPlayingScratchCard = 20;
     private int priceOfPlayingOneArmBandit = 30;
 
-// temporary variable, needs to be replaced with the method to get player money.
+// temperary variable, needs to be replaced with the method to get player money.
     private int playerMoney = 1000;
 
     public int getP(){

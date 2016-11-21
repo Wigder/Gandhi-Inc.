@@ -68,7 +68,7 @@ public class MarketPlace
 	/**
 	 * 
 	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
-	 * @param quantity A defined quantity with input from the user
+	 * @param quantity
 	 * @throws Exception
 	 */
 	public void buyOre(Player player, int quantity)	throws Exception									//Function to buy Ore from the market
@@ -183,8 +183,7 @@ public class MarketPlace
 		{
 			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); 						//Reduce the stock by the quantity purchased
 			
-			for (int i = 0; i < quantity; i++)
-				player.addRoboticon(new Roboticon());											// Add the roboticon to the player
+			//player.setRoboticons(len(player.getRoboticons()) + quantity);						// Add the roboticon to the player
 		}
 	}
 	
