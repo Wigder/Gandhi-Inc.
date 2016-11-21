@@ -20,7 +20,7 @@ public class Pub{
 
     public static void main(String args[]){
         Pub instance = new Pub();
-        instance.playLottery(int 1, int 2, int 3);
+        instance.playLottery(1, 2, 3);
         System.out.println(instance.getP());
     }
 
