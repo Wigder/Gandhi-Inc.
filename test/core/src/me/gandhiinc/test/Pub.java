@@ -112,13 +112,12 @@ public class Pub{
         Random rand = new Random();
         int random = rand.nextInt(10) + 1;
         if(random == 1){
-            System.out.println("win");
-            playerMoney += 100;
+//            System.out.println("win")
             return 100;
         }
         else{
-            System.out.println("loose");
-            return 0;
+//            System.out.println("loose");
+            return (-1*getPriceOfPlayingScratchCard());
         }
     }
 
