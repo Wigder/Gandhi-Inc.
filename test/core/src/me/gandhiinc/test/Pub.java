@@ -2,8 +2,7 @@
  *Represents the Pub methods, ie the gambling system of the game.
  *@author Luke Jenkinson
  *@version 1.0
- */
-
+*/
 import java.util.Random;
 
 public class Pub{
