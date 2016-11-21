@@ -3,9 +3,11 @@ package me.gandhiinc.test;
 import java.util.List;
 
 /**
-*
-*
-**/
+ * 
+ * @author Steven Tomlinson
+ * @version 1.0
+ *
+ */
 
 public class Player 
 {
@@ -21,27 +23,12 @@ public class Player
 		return;
 	}
 
-	public void BuyRoboticon(MarketPlace market, Roboticon roboticon)
+	public void SpecialiseRoboticon(Roboticon roboticon, Resource resource)
 	{
-		return;
-	}
-
-	public void SpecialiseRoboticon(Roboticon roboticon)
-	{
-		return;
+		roboticon.setSpec(resource);
 	}
 
 	public void ProduceResources()
-	{
-		return;
-	}
-
-	public void BuyResource(MarketPlace market, Resource resource, int amount)
-	{
-		return;
-	}
-
-	public void SellResource(MarketPlace market, Resource resource, int amount)
 	{
 		return;
 	}
@@ -81,10 +68,9 @@ public class Player
 		return roboticons;
 	}
 
-	public void setRoboticons(List<Roboticon> roboticons) 
+	public void addRoboticon(Roboticon roboticon)
 	{
-		this.roboticons = roboticons;
+		roboticons.add(roboticon);
 	}
 	
-
 } 

@@ -183,7 +183,8 @@ public class MarketPlace
 		{
 			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); 						//Reduce the stock by the quantity purchased
 			
-			//player.setRoboticons(len(player.getRoboticons()) + quantity);						// Add the roboticon to the player
+			for (int i = 0; i < quantity; i++)
+				player.addRoboticon(new Roboticon());											// Add the roboticon to the player
 		}
 	}
 	
