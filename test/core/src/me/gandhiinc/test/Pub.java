@@ -5,22 +5,20 @@
 */
 import java.util.Random;
 import java.util.Arrays;
+import java.lang.Character;
 
 public class Pub{
     private int priceOfPlayingLottery = 10;
     private int priceOfPlayingScratchCard = 20;
     private int priceOfPlayingOneArmBandit = 30;
 
-// temperary variable, needs to be replaced with the method to get player money.
-    private int playerMoney = 1000;
-
-    public int getP(){
-        return playerMoney;
-    }
 
     public static void main(String args[]){
         Pub instance = new Pub();
         System.out.println(instance.playLottery(1, 2, 3));
+//        System.out.println(instance.playOneArmBandit());
+        System.out.println(instance.playScratchcard());
+        System.out.println(Character.toString(Character.toChars(128513)));
     }
 
     /**
@@ -40,7 +38,7 @@ public class Pub{
     *
     **/
     public int getPriceOfPlayingScratchCard(){
-    	System.out.println(priceOfPlayingScratchCard);
+//    	System.out.println(priceOfPlayingScratchCard);
         return priceOfPlayingScratchCard;
     }
 
@@ -51,7 +49,7 @@ public class Pub{
     **/
 
     public int getPriceOfPlayingOneArmBandit(){
-        System.out.println(priceOfPlayingOneArmBandit);
+//        System.out.println(priceOfPlayingOneArmBandit);
         return priceOfPlayingOneArmBandit;
     }
 
@@ -78,7 +76,7 @@ public class Pub{
             int random1 = rand.nextInt(20) + 1;
             int random2 = rand.nextInt(20) + 1;
             int random3 = rand.nextInt(20) + 1;
-            System.out.println(random1 + " " + random2 + " " + random3);
+//            System.out.println(random1 + " " + random2 + " " + random3);
             int[] arrayOfRandomNumbers;
             arrayOfRandomNumbers = new int[3];
             arrayOfRandomNumbers[0] = random1;
@@ -108,16 +106,15 @@ public class Pub{
 // need to change the money variable i think 
 
     public int playScratchcard(){
-        playerMoney -= getPriceOfPlayingScratchCard();
         Random rand = new Random();
         int random = rand.nextInt(10) + 1;
         if(random == 1){
 //            System.out.println("win")
-            return 100;
+            return(10*getPriceOfPlayingScratchCard());
         }
         else{
 //            System.out.println("loose");
-            return (-1*getPriceOfPlayingScratchCard());
+            return(-1*getPriceOfPlayingScratchCard());
         }
     }
 
@@ -126,9 +123,23 @@ public class Pub{
     *@return returns a class consisting of a string of the output, and an int of the amout of money won, 0 of a loss
     *
     **/
-
+/*
     public int playOneArmBandit(){
-//      add code here
-        return 1;
+        Random rand = new Random();
+        int random1 = rand.nextInt(10) + 1;
+        int random2 = rand.nextInt(10) + 1;
+        int random3 = rand.nextInt(10) + 1;
+        String[] outputArray = new String[4];
+        outputArray[0] = Character.toChars(128512 + random1);
+        outputArray[1] = Character.toChars(128512 + random2);
+        outputArray[2] = Character.toChars(128512 + random3);
+        if(random1 == random2 && random1 == random3){
+            outputArray[3] = (30*getPriceOfPlayingOneArmBandit());
+            return outputArray;         
+        }
+        else{
+            return (-1*getPriceOfPlayingOneArmBandit());
+        }
     }
+**/
 }
