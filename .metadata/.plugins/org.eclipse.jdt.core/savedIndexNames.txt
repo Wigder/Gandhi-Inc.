@@ -9,7 +9,6 @@ INDEX VERSION 1.127+/Users/Will/Google Drive York Uni/SEPR/Gandhi-Inc./.metadata
 2499292115.index
 2204350947.index
 2225827089.index
-483564628.index
 3413974751.index
 1280232564.index
 3321539481.index

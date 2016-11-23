@@ -7,8 +7,9 @@ package me.gandhiinc.test;
  *
  */
 
-public class Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
+public class Plot (int foodModifier, int energyModifier, int oreModifier, int terrainType)
 {
+	
 	private int foodMod = foodModifier;
 	private int energyMod = energyModifier;
 	private int oreMod = oreModifier;
@@ -19,7 +20,7 @@ public class Plot(int foodModifier, int energyModifier, int oreModifier, int ter
 	private static final int cost;
 	
 	private Roboticon plotRoboticon;
-	private boolean isAssigned = false;
+	private boolean isAssigned = False;
 	
 	public int getTerrain()
 	{
@@ -38,17 +39,17 @@ public class Plot(int foodModifier, int energyModifier, int oreModifier, int ter
 	
 	public void setAssigned(Player player)
 	{
-		isAssigned = true;
+		isAssigned = True;
 	}
 	
 	public void setUnassigned()
 	{
-		isAssigned = false;
+		isAssigned = False;
 	}
 	
 	public void addRoboticon(Roboticon roboticon)
 	{
-		plotRoboticon = true;
+		plotRoboticon = True;
 	}
 	
 	public void removeRoboticon()
@@ -60,11 +61,11 @@ public class Plot(int foodModifier, int energyModifier, int oreModifier, int ter
 	{
 		if (plotRoboticon != null)
 		{
-			return true;
+			return True;
 		}
 		else
 		{
-			return false;
+			return False;
 		}
 	}
 	
