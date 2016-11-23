@@ -7,20 +7,28 @@ package me.gandhiinc.test;
  *
  */
 
-public class Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
+public class Plot
 {
-	private int foodMod = foodModifier;
-	private int energyMod = energyModifier;
-	private int oreMod = oreModifier;
+	private int foodMod;
+	private int energyMod;
+	private int oreMod;
 	//define types of terrain and their codes (0 for type 1, 1 for type 2, etc...)
-	private int terrain = terrainType;
+	private int terrain;
 	
 	//cost to purchase a plot; should be fixed; define this later on
-	private static final int cost;
+	private static final int cost = 50;
 	
 	private Roboticon plotRoboticon;
 	private boolean isAssigned = false;
 	
+	public Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
+	{
+		this.foodMod = foodModifier;
+		this.energyMod = energyModifier;
+		this.oreMod = oreModifier;
+		this.terrain = terrainType; 
+	}
+
 	public int getTerrain()
 	{
 		return terrain;
@@ -31,7 +39,7 @@ public class Plot(int foodModifier, int energyModifier, int oreModifier, int ter
 		terrain = newTerrainType;
 	}
 	
-	public boolean retAssignment()
+	public boolean getAssignment()
 	{
 		return isAssigned;
 	}
@@ -48,7 +56,7 @@ public class Plot(int foodModifier, int energyModifier, int oreModifier, int ter
 	
 	public void addRoboticon(Roboticon roboticon)
 	{
-		plotRoboticon = true;
+		plotRoboticon = roboticon;
 	}
 	
 	public void removeRoboticon()
@@ -68,7 +76,7 @@ public class Plot(int foodModifier, int energyModifier, int oreModifier, int ter
 		}
 	}
 	
-	public Roboticon retRoboticon()
+	public Roboticon getRoboticon()
 	{
 		return plotRoboticon;
 	}
