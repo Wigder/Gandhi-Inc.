@@ -63,7 +63,6 @@ public class MarketPlace
  */
 	
 	/**
-	 * This method is used for a player to buy ore. It needs to have a player and a quantity to purchase for the parameters. 
 	 * 
 	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
 	 * @param quantity - A defined quantity with input from the user
@@ -243,7 +242,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the stock of the market's ore
-	 * @return - returns the stock value of the market's ore 
+	 * @return
 	 */
 	public int getMarketOreStock() 
 	{
@@ -261,7 +260,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the stock of the market's food
-	 * @return - returns the stock value of the market's food 
+	 * @return
 	 */
 	public int getMarketFoodStock() 
 	{
@@ -279,7 +278,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the stock of the market's energy
-	 * @return - returns the stock value of the market's energy
+	 * @return
 	 */
 	public int getMarketEnergyStock() 
 	{
@@ -297,7 +296,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the stock of the market's Roboticons
-	 * @return - returns the stock value of the market's roboticons 
+	 * @return
 	 */
 	public int getMarketRoboticonStock() 
 	{

@@ -44,6 +44,9 @@ public class MarketPlace
 	private int maxOrePrice;
 	private int minOrePrice;
 	
+//	private int maxFoodPrice;
+//	private int minFoodPrice;
+	
 	private int maxEnergyPrice;
 	private int minEnergyPrice;
 	
@@ -63,11 +66,10 @@ public class MarketPlace
  */
 	
 	/**
-	 * This method is used for a player to buy ore. It needs to have a player and a quantity to purchase for the parameters. 
 	 * 
-	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
-	 * @param quantity - A defined quantity with input from the user
-	 * @throws Exception - Exception thrown if the Market is out of stock or if the player doesn't have sufficient funds
+	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param quantity A defined quantity with input from the user
+	 * @throws Exception
 	 */
 	public void buyOre(Player player, int quantity)	throws Exception									//Function to buy Ore from the market
 	{
@@ -99,9 +101,9 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
-	 * @param quantity - A defined quantity with input from the user
-	 * @throws Exception - Exception thrown if the Market is out of stock or if the player doesn't have sufficient funds
+	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param quantity
+	 * @throws Exception
 	 */
 	public void buyEnergy(Player player, int quantity) throws Exception											//Function to buy Energy from the market
 	{
@@ -131,12 +133,39 @@ public class MarketPlace
 			throw eMoney;																						//Return error that player does not have enough
 		}
 	}
+
+//	public void buyFood(Player player, int quantity)													//Function to buy Food from the market
+//	{
+//		Exception eStock = new Exception("The market doesn't have enough stock");
+//		Exception eMoney = new Exception("You do not have enough Money!");
+//		if(quantity > getMarketFoodStock()) 															//Check the Market has enough stock
+//		{
+//			//Return error to say the market doesn't have enough
+//		}
+//		int totalAmount = quantity * getMarketFoodSellPrice(); 											//Calculate the total price
+//		if(playersMoney > totalAmount)																	//Check if the player has enough money to pay
+//		{
+//			//player.setFood(player.getFood() + quantity);												//Add the food to the players food
+//			//Remove the money from his account
+//			
+//			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
+//			setMarketOreStock(newStock);																//Sets the new stock value
+//			
+//			int newPrice = (int)(maxFoodPrice * Math.pow(0.7, getMarketFoodSellPrice()) + minFoodPrice);//Calculates the new sell price
+//			setMarketFoodSellPrice(newPrice + 1);														//Sets the new sell price
+//			setMarketFoodBuyPrice(newPrice - 1);														//Sets the new buy price
+//		}
+//		else
+//		{
+//			//Return error that player does not have enough
+//		}
+//	}
 	
 	/**
 	 * 
-	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
-	 * @param quantity - A defined quantity with input from the user
-	 * @throws Exception - Exception thrown if the Market is out of stock or if the player doesn't have sufficient funds
+	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param quantity
+	 * @throws Exception
 	 */
 	public void buyRoboticon(Player player, int quantity) throws Exception
 	{
@@ -168,8 +197,8 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
-	 * @param quantity - A defined quantity with input from the user
+	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param quantity
 	 * @throws Exception
 	 */
 	public void sellOre(Player player, int quantity) throws Exception
@@ -187,8 +216,8 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
-	 * @param quantity - A defined quantity with input from the user
+	 * @param player Imports the player from the Player class. This allows resources to interact with the player's assets.
+	 * @param quantity
 	 * @throws Exception
 	 */
 	public void sellEnergy(Player player, int quantity) throws Exception
@@ -201,7 +230,19 @@ public class MarketPlace
 		int totalAmount = getMarketEnergyBuyPrice();				//Calculate total amount player will receive
 		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
 		
-	}	
+	}
+	
+//	public void sellFood(Player player, int quantity) throws Exception
+//	{
+//		Exception e = new Exception("You don't have enough food to sell!");
+//		if(player.getFood() < quantity)
+//		{
+//			throw e;												//Display error that the player doesn't have enough Ore
+//		}
+//		int totalAmount = getMarketFoodBuyPrice();					//Calculate total amount player will receive
+//		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
+//		
+//	}	
 	
 /* ---------------------------------------------------------
  * ---------------	Generating Roboticons	----------------
@@ -242,8 +283,8 @@ public class MarketPlace
  */
 	
 	/**
-	 * Getter for the stock of the market's ore
-	 * @return - returns the stock value of the market's ore 
+	 * 
+	 * @return
 	 */
 	public int getMarketOreStock() 
 	{
@@ -260,8 +301,8 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the stock of the market's food
-	 * @return - returns the stock value of the market's food 
+	 * 
+	 * @return
 	 */
 	public int getMarketFoodStock() 
 	{
@@ -278,8 +319,8 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the stock of the market's energy
-	 * @return - returns the stock value of the market's energy
+	 * 
+	 * @return
 	 */
 	public int getMarketEnergyStock() 
 	{
@@ -296,8 +337,8 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the stock of the market's Roboticons
-	 * @return - returns the stock value of the market's roboticons 
+	 * 
+	 * @return
 	 */
 	public int getMarketRoboticonStock() 
 	{
@@ -314,7 +355,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the purchase price of the market's ore
+	 * 
 	 * @return
 	 */
 	public int getMarketOreBuyPrice() 
@@ -331,7 +372,7 @@ public class MarketPlace
 		this.marketOreBuyPrice = marketOreBuyPrice;
 	}
 	/**
-	 * Getter for the purchase price of the market's food
+	 * 
 	 * @return
 	 */
 	public int getMarketFoodBuyPrice() 
@@ -349,7 +390,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the purchase price of the market's energy
+	 * 
 	 * @return
 	 */
 	public int getMarketEnergyBuyPrice() 
@@ -367,7 +408,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the selling price of the market's ore
+	 * 
 	 * @return
 	 */
 	public int getMarketOreSellPrice() 
@@ -385,7 +426,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the selling price of the market's food
+	 * 
 	 * @return
 	 */
 	public int getMarketFoodSellPrice() 
@@ -403,7 +444,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the selling price of the market's energy
+	 * 
 	 * @return
 	 */
 	public int getMarketEnergySellPrice() 
@@ -421,7 +462,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * Getter for the selling price of the market's Roboticons
+	 * 
 	 * @return
 	 */
 	public int getMarketRoboticonSellPrice() 
