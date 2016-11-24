@@ -20,15 +20,13 @@ public class Pub{
     private int priceOfPlayingScratchCard = 20;
     private int priceOfPlayingOneArmBandit = 30;
 
-<<<<<<< HEAD
-=======
 // temporary variable, needs to be replaced with the method to get player money.
     private int playerMoney = 1000;
 
     public int getP(){
         return playerMoney;
     }
->>>>>>> c1fce550c26dfb2ce8e05155618bd985f695703d
+
 
     public static void main(String args[]){
         Pub instance = new Pub();
