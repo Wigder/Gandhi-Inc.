@@ -24,11 +24,8 @@ public class Pub{
     public static void main(String args[]){
         Pub instance = new Pub();
         System.out.println(instance.playLottery(1, 2, 3));
-//        System.out.println(instance.playOneArmBandit());
+        System.out.println(instance.playOneArmBandit()[0]);
         System.out.println(instance.playScratchcard());
-        String[] lst = new String[1];
-        lst[0] = "\u1F601";
-        System.out.println(lst);
     }
 
     /**
@@ -130,26 +127,26 @@ public class Pub{
 
     /**
     *
-    *@return returns a class consisting of a string of the output, and an int of the amout of money won, 0 of a loss
+    *@return returns a array of 4 ints the first 3 of which are ints relating to emoji, the final int is the amount of money won, -price for a loss.
     *
     **/
-/*
-    public int playOneArmBandit(){
+
+    public int[] playOneArmBandit(){
         Random rand = new Random();
         int random1 = rand.nextInt(10) + 1;
         int random2 = rand.nextInt(10) + 1;
         int random3 = rand.nextInt(10) + 1;
-        String[] outputArray = new String[4];
-        outputArray[0] = Character.toChars(128512 + random1);
-        outputArray[1] = Character.toChars(128512 + random2);
-        outputArray[2] = Character.toChars(128512 + random3);
+        int[] outputArray = new int[4];
+        outputArray[0] = (128512 + random1);
+        outputArray[1] = (128512 + random2);
+        outputArray[2] = (128512 + random3);
         if(random1 == random2 && random1 == random3){
             outputArray[3] = (30*getPriceOfPlayingOneArmBandit());
             return outputArray;         
         }
         else{
-            return (-1*getPriceOfPlayingOneArmBandit());
+            outputArray[3] = (-1*getPriceOfPlayingOneArmBandit());
+            return outputArray;
         }
     }
-**/
 }
