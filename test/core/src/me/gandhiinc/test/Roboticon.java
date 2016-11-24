@@ -162,7 +162,8 @@ class Roboticon {
 	int calcProd (Resource resource, int playermod) {
 		int plotmod = 0;															// Plot modifier zero initially and if no plot assigned
 		if (this.AssignedPlot != null) {											// Check if a plot has been assigned
-				plotmod = AssignedPlot.getModifiers(resource);						// Retrieve plot modifier if there is one
+				plotmod = 1;
+				//plotmod = AssignedPlot.getModifiers(resource);						// Retrieve plot modifier if there is one
 		}
 		int variance = rnd.nextInt(11)-5;											// Generate production variance between -0.5 and +0.5
 		int finalprod = (this.getBaseProd(resource)+variance) * plotmod * playermod;// Calculate final modified production rate

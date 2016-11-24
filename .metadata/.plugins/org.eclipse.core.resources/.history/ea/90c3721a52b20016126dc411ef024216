@@ -63,7 +63,6 @@ public class MarketPlace
  */
 	
 	/**
-	 * This method is used for a player to buy ore. It needs to have a player and a quantity to purchase for the parameters. 
 	 * 
 	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
 	 * @param quantity - A defined quantity with input from the user

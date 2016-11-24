@@ -7,28 +7,21 @@ package me.gandhiinc.test;
  *
  */
 
-public class Plot
+public class Plot (int foodModifier, int energyModifier, int oreModifier, int terrainType)
 {
-	private int foodMod;
-	private int energyMod;
-	private int oreMod;
+	
+	private int foodMod = foodModifier;
+	private int energyMod = energyModifier;
+	private int oreMod = oreModifier;
 	//define types of terrain and their codes (0 for type 1, 1 for type 2, etc...)
-	private int terrain;
+	private int terrain = terrainType;
 	
 	//cost to purchase a plot; should be fixed; define this later on
-	private static final int cost = 50;
+	private static final int cost;
 	
 	private Roboticon plotRoboticon;
-	private boolean isAssigned = false;
+	private boolean isAssigned = False;
 	
-	public Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
-	{
-		this.foodMod = foodModifier;
-		this.energyMod = energyModifier;
-		this.oreMod = oreModifier;
-		this.terrain = terrainType; 
-	}
-
 	public int getTerrain()
 	{
 		return terrain;
@@ -39,24 +32,24 @@ public class Plot
 		terrain = newTerrainType;
 	}
 	
-	public boolean getAssignment()
+	public boolean retAssignment()
 	{
 		return isAssigned;
 	}
 	
 	public void setAssigned(Player player)
 	{
-		isAssigned = true;
+		isAssigned = True;
 	}
 	
 	public void setUnassigned()
 	{
-		isAssigned = false;
+		isAssigned = False;
 	}
 	
 	public void addRoboticon(Roboticon roboticon)
 	{
-		plotRoboticon = roboticon;
+		plotRoboticon = True;
 	}
 	
 	public void removeRoboticon()
@@ -68,15 +61,15 @@ public class Plot
 	{
 		if (plotRoboticon != null)
 		{
-			return true;
+			return True;
 		}
 		else
 		{
-			return false;
+			return False;
 		}
 	}
 	
-	public Roboticon getRoboticon()
+	public Roboticon retRoboticon()
 	{
 		return plotRoboticon;
 	}
