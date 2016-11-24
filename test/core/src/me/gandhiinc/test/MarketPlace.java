@@ -98,6 +98,7 @@ public class MarketPlace
 	}
 	
 	/**
+	 * This method is used for a player to buy energy. It needs to have a player and a quantity to purchase for the parameters. 
 	 * 
 	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
 	 * @param quantity - A defined quantity with input from the user
@@ -133,6 +134,7 @@ public class MarketPlace
 	}
 	
 	/**
+	 * This method is used for a player to buy roboticons. It needs to have a player and a quantity to purchase for the parameters.
 	 * 
 	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
 	 * @param quantity - A defined quantity with input from the user
@@ -167,6 +169,7 @@ public class MarketPlace
  */
 	
 	/**
+	 * This method is used for a player to sell ore. It needs to have a player and a quantity to purchase for the parameters.
 	 * 
 	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
 	 * @param quantity - A defined quantity with input from the user
@@ -186,6 +189,7 @@ public class MarketPlace
 	}
 	
 	/**
+	 * This method is used for a player to sell energy. It needs to have a player and a quantity to purchase for the parameters.
 	 * 
 	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
 	 * @param quantity - A defined quantity with input from the user
@@ -251,7 +255,7 @@ public class MarketPlace
 	}
 
 	/**
-	 * 
+	 * Setter for the stock of the market's ore
 	 * @param marketOreStock
 	 */
 	public void setMarketOreStock(int marketOreStock) 
@@ -269,7 +273,7 @@ public class MarketPlace
 	}
 
 	/**
-	 * 
+	 * Setter for the stock of the market's food
 	 * @param marketFoodStock
 	 */
 	public void setMarketFoodStock(int marketFoodStock) 
@@ -287,7 +291,7 @@ public class MarketPlace
 	}
 
 	/**
-	 * 
+	 * Setter for the stock of the market's energy
 	 * @param marketEnergyStock
 	 */
 	public void setMarketEnergyStock(int marketEnergyStock) 
@@ -305,7 +309,7 @@ public class MarketPlace
 	}
 
 	/**
-	 * 
+	 * Setter for the stock of the market's roboticons
 	 * @param marketRoboticonsStock
 	 */
 	public void setMarketRoboticonStock(int marketRoboticonsStock) 
@@ -323,7 +327,7 @@ public class MarketPlace
 	}
 
 	/**
-	 * 
+	 * Setter for the purchase price of the market's ore
 	 * @param marketOreBuyPrice
 	 */
 	public void setMarketOreBuyPrice(int marketOreBuyPrice) 
@@ -340,7 +344,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * 
+	 * Setter for the purchase price of the market's food
 	 * @param marketFoodBuyPrice
 	 */
 	public void setMarketFoodBuyPrice(int marketFoodBuyPrice) 
@@ -358,7 +362,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * 
+	 * Setter for the purchase price of the market's energy
 	 * @param marketEnergyBuyPrice
 	 */
 	public void setMarketEnergyBuyPrice(int marketEnergyBuyPrice) 
@@ -376,7 +380,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * 
+	 * Setter for the selling price of the market's ore
 	 * @param marketOreSellPrice
 	 */
 	public void setMarketOreSellPrice(int marketOreSellPrice) 
@@ -394,7 +398,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * 
+	 * Setter for the selling price of the market's food
 	 * @param marketFoodSellPrice
 	 */
 	public void setMarketFoodSellPrice(int marketFoodSellPrice) 
@@ -412,7 +416,7 @@ public class MarketPlace
 	}
 	
 	/**
-	 * 
+	 * Setter for the selling price of the market's energy
 	 * @param marketEnergySellPrice
 	 */
 	public void setMarketEnergySellPrice(int marketEnergySellPrice) 
@@ -430,7 +434,7 @@ public class MarketPlace
 	}
 
 	/**
-	 * 
+	 * Setter for the selling price of the market's roboticons
 	 * @param marketRoboticonSellPrice
 	 */
 	public void setMarketRoboticonSellPrice(int marketRoboticonSellPrice) 
