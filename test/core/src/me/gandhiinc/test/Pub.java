@@ -1,5 +1,6 @@
-/**
+/** 
  *Represents the Pub methods, ie the gambling system of the game.
+ *
  *@author Luke Jenkinson
  *@version 1.0
 */

@@ -3,6 +3,10 @@ package me.gandhiinc.test;
 import java.util.Random;
 
 /**
+ * ---------------------------------------------------------
+ * ------------------  	ROBOTICON	  ----------------------
+ * ---------------------------------------------------------
+ * 
  * Roboticon class
  * Implements the roboticon class for the game
  * 
