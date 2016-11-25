@@ -36,6 +36,17 @@ public class AIPlayer extends Player {
 			{
 				try {
 					market.buyRoboticon(this, 1);
+					if (random.nextBoolean())
+						roboticons.get(roboticons.size() - 1).setSpec(Resource.ENERGY);
+					else
+						roboticons.get(roboticons.size() - 1).setSpec(Resource.ORE);
+					
+					Plot lastPlot = plots.get(plots.size() - 1);
+					if (lastPlot.hasRoboticon() == false)
+					{
+						roboticons.get(roboticons.size() - 1).setPlot(lastPlot);
+						lastPlot.addRoboticon(roboticons.get(roboticons.size() - 1));
+					}
 				} catch (Exception e) {
 					return;
 				}
