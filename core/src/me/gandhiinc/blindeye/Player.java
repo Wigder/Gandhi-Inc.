@@ -26,7 +26,7 @@ public class Player
 		if (plot.getAssignment() == false)
 		{
 			plots.add(plot);
-			plot.setAssigned(this);
+			plot.setAssigned();
 		}
 		else
 			throw new Exception("The plot has already been assigned to a player");
