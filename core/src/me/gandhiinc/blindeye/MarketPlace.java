@@ -1,4 +1,4 @@
-package me.gandhiinc.blindeye;
+package me.gandhiinc.test;
 
 /** ---------------------------------------------------------
   * -------------------	MARKET PLACE	--------------------
@@ -56,6 +56,10 @@ public class MarketPlace
 	private int marketEnergySellPrice;
 	private int marketRoboticonSellPrice;
 	
+	private Pub pub = new Pub();
+	Exception eMoney = new Exception("You do not have enough Money!");
+	Exception eStockBuy = new Exception("The market doesn't have enough stock");
+	
 
 /* ---------------------------------------------------------
  * --------------	 The buying functions	----------------
@@ -70,16 +74,13 @@ public class MarketPlace
 	 * @throws Exception - Exception thrown if the Market is out of stock or if the player doesn't have sufficient funds
 	 */
 	public void buyOre(Player player, int quantity)	throws Exception									//Function to buy Ore from the market
-	{
-		Exception eStock = new Exception("The market doesn't have enough stock");
-		Exception eMoney = new Exception("You do not have enough Money!");
-		
+	{	
 		if(quantity > getMarketOreStock()) 																//Check the Market has enough stock
 		{
-			throw eStock;																				//Return error to say the market doesn't have enough
+			throw eStockBuy;																				//Return error to say the market doesn't have enough
 		}
 		int totalAmount = quantity * getMarketOreSellPrice(); 											//Calculate the total price
-		if(player.getMoney() > totalAmount)																//Check if the player has enough money to pay
+		if(player.getMoney() >= totalAmount)															//Check if the player has enough money to pay
 		{
 			player.setOre(player.getOre() + quantity);													//Add the ore to the players ore
 			player.setMoney(player.getMoney() - totalAmount);											//Remove the money from his account
@@ -106,12 +107,9 @@ public class MarketPlace
 	 */
 	public void buyEnergy(Player player, int quantity) throws Exception											//Function to buy Energy from the market
 	{
-		Exception eStock = new Exception("The market doesn't have enough stock");
-		Exception eMoney = new Exception("You do not have enough Money!");
-
 		if(quantity > getMarketEnergyStock()) 																	//Check the Market has enough stock
 		{
-			throw eStock;																						//Return error to say the market doesn't have enough
+			throw eStockBuy;																						//Return error to say the market doesn't have enough
 		}
 		int totalAmount = quantity * getMarketEnergySellPrice();												//Calculate the total price
 		if(player.getMoney() > totalAmount)																		//Check if the player has enough money to pay
@@ -133,6 +131,44 @@ public class MarketPlace
 		}
 	}
 	
+	
+	public void scratchCard(Player player) throws Exception
+	{
+		if(player.getMoney() < pub.getPriceOfPlayingScratchCard())
+		{
+			throw eMoney;
+		}
+		else
+		{
+			player.setMoney(player.getMoney() + pub.playScratchcard());
+		}
+	}
+	
+	public void Lottery(Player player, int num1, int num2, int num3) throws Exception
+	{
+		if(player.getMoney() < pub.getPriceOfPlayingLottery())
+		{
+			throw eMoney;
+		}
+		else
+		{
+			player.setMoney(player.getMoney() + pub.playLottery(num1, num2, num3));
+		}
+	}
+	
+	public int[] OneArmBandit(Player player)
+	{
+		if(player.getMoney() < pub.getPriceOfPlayingLottery())
+		{
+			throw eMoney;
+		}
+		else
+		{
+			int[] array = pub.pla
+			player.setMoney(player.getMoney() + pub.);
+		}
+	}
+	
 	/**
 	 * This method is used for a player to buy roboticons. It needs to have a player and a quantity to purchase for the parameters.
 	 * 
@@ -142,15 +178,13 @@ public class MarketPlace
 	 */
 	public void buyRoboticon(Player player, int quantity) throws Exception
 	{
-		Exception eMoney = new Exception("You don't have enough money!");
-		Exception eStock = new Exception("The market doesn't have enough stock");
 		if(getMarketRoboticonSellPrice() > player.getMoney())
 		{
 			throw eMoney;																		//Error the player doesn't have enough money
 		}
 		if(getMarketRoboticonStock()-quantity >= 0)
 		{
-			throw eStock;																		//Error the market doesn't have enough stock
+			throw eStockBuy;																		//Error the market doesn't have enough stock
 		}
 		else
 		{
