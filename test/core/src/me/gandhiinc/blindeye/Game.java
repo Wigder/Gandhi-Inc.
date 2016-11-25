@@ -1,4 +1,4 @@
-package me.gandhiinc.test;
+package me.gandhiinc.blindeye;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;

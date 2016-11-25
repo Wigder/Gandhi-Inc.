@@ -1,4 +1,4 @@
-package me.gandhiinc.test;
+package me.gandhiinc.blindeye;
 
 /**
  * Enumeration of resource types

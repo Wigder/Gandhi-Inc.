@@ -1,8 +1,9 @@
-package me.gandhiinc.test.desktop;
+package me.gandhiinc.blindeye.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import me.gandhiinc.test.Game;
+
+import me.gandhiinc.blindeye.Game;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

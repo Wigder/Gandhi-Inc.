@@ -1,4 +1,4 @@
-package me.gandhiinc.test;
+package me.gandhiinc.blindeye;
 
 import java.util.List;
 
@@ -21,9 +21,15 @@ public class Player
 	private List<Roboticon> roboticons;
 	private List<Plot> plots;
 
-	public void AquirePlot(Plot plot)
+	public void AquirePlot(Plot plot) throws Exception
 	{
-		return;
+		if (plot.getAssignment() == false)
+		{
+			plots.add(plot);
+			plot.setAssigned(this);
+		}
+		else
+			throw new Exception("The plot has already been assigned to a player");
 	}
 
 	public void SpecialiseRoboticon(Roboticon roboticon, Resource resource)
