@@ -1,5 +1,6 @@
 package me.gandhiinc.blindeye;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,12 +15,12 @@ import java.util.List;
 
 public class Player 
 {
-	private int money;
-	private int ore;
-	private int energy;
+	protected int money;
+	protected int ore;
+	protected int energy;
 
-	private List<Roboticon> roboticons;
-	private List<Plot> plots;
+	protected List<Roboticon> roboticons;
+	protected List<Plot> plots;
 
 	public void AquirePlot(Plot plot) throws Exception
 	{
@@ -39,7 +40,22 @@ public class Player
 
 	public void ProduceResources()
 	{
-		return;
+		int oreProduction = 0;
+		int energyProduction = 0;
+		for (Iterator<Roboticon> IterativeRoboticons = roboticons.iterator(); IterativeRoboticons.hasNext();)
+		{
+			Roboticon roboticon = IterativeRoboticons.next();
+			Resource roboticonSpec = roboticon.getSpec();
+			switch (roboticonSpec)
+			{
+			case ENERGY:
+				energyProduction = roboticon.calcProd(roboticon.getSpec(), 1);
+			case ORE:
+				oreProduction = roboticon.calcProd(roboticon.getSpec(), 1);
+			}
+		}
+		ore += oreProduction;
+		energy += energyProduction;
 	}
 
 	public int getMoney()

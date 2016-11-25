@@ -502,4 +502,13 @@ public class MarketPlace
 	{
 		this.marketRoboticonSellPrice = marketRoboticonSellPrice;
 	}
+	
+	/**
+	 * Getter for access the pub for this market
+	 * @return Gives back the pub
+	 */
+	public Pub getPub()
+	{
+		return this.pub;
+	}
 }

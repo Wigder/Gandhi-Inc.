@@ -38,9 +38,9 @@ public class Plot
  * ---------	Initiating the internal variables	--------
  * ---------------------------------------------------------
  */	
-	private float foodMod;
-	private float energyMod;
-	private float oreMod;
+	private int foodMod;
+	private int energyMod;
+	private int oreMod;
 	//define types of terrain and their codes (0 for type 1, 1 for type 2, etc...)
 	private int terrain;
 	
@@ -50,7 +50,7 @@ public class Plot
 	private Roboticon plotRoboticon;
 	private boolean isAssigned = false;
 	
-	public Plot(float foodModifier, float energyModifier, float oreModifier, int terrainType)
+	public Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
 	{
 		this.foodMod = foodModifier;
 		this.energyMod = energyModifier;
@@ -63,17 +63,17 @@ public class Plot
  * ---------------------------------------------------------
  */	
 
-	public float getFoodMod()
+	public int getFoodMod()
 	{
 		return foodMod;
 	}
 	
-	public float getEnergyMod()
+	public int getEnergyMod()
 	{
 		return energyMod;
 	}
 	
-	public float getOreMod()
+	public int getOreMod()
 	{
 		return oreMod;
 	}

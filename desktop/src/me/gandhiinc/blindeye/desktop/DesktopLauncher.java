@@ -14,6 +14,7 @@ public class DesktopLauncher {
 		config.backgroundFPS = 0;
 		config.foregroundFPS = 0;
 		config.vSyncEnabled = false;
+		config.resizable = false;
 		config.title = "Blind Eye";
 		Game game = new Game();
 		LwjglApplication app = new LwjglApplication(game, config);
