@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;GameTest-core&apos; to &apos;BlindEye-core&apos;" description="Rename resource &apos;GameTest-core&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/GameTest-core" name="BlindEye-core" stamp="1479997810737" updateReferences="true"/>
-</session>
