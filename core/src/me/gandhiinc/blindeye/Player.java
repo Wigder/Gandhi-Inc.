@@ -50,8 +50,10 @@ public class Player
 			{
 			case ENERGY:
 				energyProduction = roboticon.calcProd(roboticon.getSpec(), 1);
+				break;
 			case ORE:
 				oreProduction = roboticon.calcProd(roboticon.getSpec(), 1);
+				break;
 			}
 		}
 		ore += oreProduction;
