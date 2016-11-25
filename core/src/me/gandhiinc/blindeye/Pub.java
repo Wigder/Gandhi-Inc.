@@ -1,20 +1,13 @@
-<<<<<<< Updated upstream:test/core/src/me/gandhiinc/blindeye/Pub.java
 package me.gandhiinc.blindeye;
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes:test/core/src/me/gandhiinc/test/Pub.java
+
 /** 
  *Represents the Pub methods, ie the gambling system of the game.
-=======
-package me.gandhiinc.test;
-
 /**
  * ---------------------------------------------------------
  * ----------------------  	PUB	  --------------------------
  * ---------------------------------------------------------
  * 
  *Represents the Pub methods, ie. the gambling system of the game.
->>>>>>> Stashed changes
  *
  *@author Luke Jenkinson
  *@version 1.0
@@ -143,11 +136,8 @@ public class Pub{
 
     /**
     *
-<<<<<<< Updated upstream
     *@return returns a array of 4 ints the first 3 of which are ints relating to emoji, the final int is the amount of money won, -price for a loss.
-=======
     *@return returns a class consisting of a string of the output, and an int of the amount of money won, 0 of a loss
->>>>>>> Stashed changes
     *
     **/
 
