@@ -13,24 +13,12 @@ public class Game extends ApplicationAdapter implements InputProcessor
 {
 	SpriteBatch batch;
 	Texture img;
-	int width, height;
-	float red, green, blue;
-	boolean up;
-	float speed = 0.01f;
 	
 	@Override
 	public void create () 
 	{
 		batch = new SpriteBatch();
-		img = new Texture("gandhi.png");
-		
-		width = Gdx.graphics.getWidth();
-		height = Gdx.graphics.getHeight();
-		
-		red = 0;
-		green = 0;
-		blue = 0;
-		up = true;
+		img = new Texture("YorkUniMap.png");
 		
 		Gdx.input.setInputProcessor(this); //This handles all the processing input (The processor of the input is "this")
 	}
@@ -38,63 +26,10 @@ public class Game extends ApplicationAdapter implements InputProcessor
 	@Override
 	public void render () 
 	{
-		if (up == true)
-		{
-			if (red >= 1.0f)
-			{
-				if (green >= 1.0f)
-				{
-					if (blue >= 1.0f)
-					{
-						up = false;
-					}
-					else
-					{
-						blue += speed;
-					}
-				}
-				else
-				{
-					green += speed;
-				}
-			}
-			else
-			{
-				red += speed;
-			}
-		}
-		else
-		{
-			if (red <= 0)
-			{
-				if (green <= 0)
-				{
-					if (blue <= 0)
-					{
-						up = true;
-					}
-					else
-					{
-						blue -= speed;
-					}
-				}
-				else
-				{
-					green -= speed;
-				}
-			}
-			else
-			{
-				red -= speed;
-			}
-		}
-		Gdx.gl.glClearColor(red, green, blue, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		for (int i = 0; i < (red + blue + green) * 100; i++)
-		{
-			batch.draw(img, red *10 * i, green * 10 * i);	
-		}
+		batch.draw(img, 0, 0);	
 		batch.end();
 	}
 	
