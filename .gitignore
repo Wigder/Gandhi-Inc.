@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ## Java
 
 *.class
@@ -68,3 +69,7 @@ build/
 ## OS Specific
 .DS_Store
 Thumbs.db
+=======
+/.gradle/
+.metadata/
+>>>>>>> Stashed changes

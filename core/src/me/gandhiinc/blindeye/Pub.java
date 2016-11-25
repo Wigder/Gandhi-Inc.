@@ -1,6 +1,13 @@
 package me.gandhiinc.blindeye;
+
 /** 
  *Represents the Pub methods, ie the gambling system of the game.
+/**
+ * ---------------------------------------------------------
+ * ----------------------  	PUB	  --------------------------
+ * ---------------------------------------------------------
+ * 
+ *Represents the Pub methods, ie. the gambling system of the game.
  *
  *@author Luke Jenkinson
  *@version 1.0
@@ -8,26 +15,18 @@ package me.gandhiinc.blindeye;
 
 import java.util.Random;
 import java.util.Arrays;
-import java.lang.Character;
 
 public class Pub{
     private int priceOfPlayingLottery = 10;
     private int priceOfPlayingScratchCard = 20;
     private int priceOfPlayingOneArmBandit = 30;
 
-// temporary variable, needs to be replaced with the method to get player money.
-    private int playerMoney = 1000;
-
-    public int getP(){
-        return playerMoney;
-    }
-
-    public static void main(String args[]){
-        Pub instance = new Pub();
-        System.out.println(instance.playLottery(1, 2, 3));
-        System.out.println(instance.playOneArmBandit()[0]);
-        System.out.println(instance.playScratchcard());
-    }
+//    public static void main(String args[]){
+//        Pub instance = new Pub();
+//        System.out.println(instance.playLottery(1, 2, 3));
+//        System.out.println(instance.playOneArmBandit()[0]);
+//        System.out.println(instance.playScratchcard());
+//    }
 
     /**
     *
@@ -42,7 +41,7 @@ public class Pub{
 
     /**
     *
-    *@return priceOfPlayingScratchcard returns the price of playing a scratchcard
+    *@return priceOfPlayingScratchcard returns the price of playing a scratch card
     *
     **/
     public int getPriceOfPlayingScratchCard(){
@@ -63,15 +62,15 @@ public class Pub{
 
     /**
     *
-    *@param number1 the first number in the lottery, should be between 1 and 20 incluseive
+    *@param number1 the first number in the lottery, should be between 1 and 20 inclusive
     *@param number2 the second number in the lottery, should be between 1 and 20 inclusive
     *@param number3 the third number in the lottery, should be between 1 and 20 inclusive
     *@return money returns the amount of money returned to the player, will be 0 for loss
     *
     **/
-
-    public int playLottery(int number1,int number2,int number3){
-        if(number1 == number2)throw new IllegalArgumentException();
+    public int playLottery(int number1,int number2,int number3) throws Exception
+    {
+    	if(number1 == number2)throw new IllegalArgumentException();
         else if(number1 == number3)throw new IllegalArgumentException();
         else if(number2 == number3)throw new IllegalArgumentException();
         else if(number1<1 || number1>20)throw new IllegalArgumentException();
@@ -105,6 +104,7 @@ public class Pub{
         }
     }
 
+
     /**
     *
     *@return returns a value of how much money has been won returns 0 for a loss
@@ -129,6 +129,7 @@ public class Pub{
     /**
     *
     *@return returns a array of 4 ints the first 3 of which are ints relating to emoji, the final int is the amount of money won, -price for a loss.
+    *@return returns a class consisting of a string of the output, and an int of the amount of money won, 0 of a loss
     *
     **/
 
