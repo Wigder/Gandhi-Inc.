@@ -15,26 +15,18 @@ package me.gandhiinc.blindeye;
 
 import java.util.Random;
 import java.util.Arrays;
-import java.lang.Character;
 
 public class Pub{
     private int priceOfPlayingLottery = 10;
     private int priceOfPlayingScratchCard = 20;
     private int priceOfPlayingOneArmBandit = 30;
 
-// temporary variable, needs to be replaced with the method to get player money.
-    private int playerMoney = 1000;
-
-    public int getP(){
-        return playerMoney;
-    }
-
-    public static void main(String args[]){
-        Pub instance = new Pub();
-        System.out.println(instance.playLottery(1, 2, 3));
-        System.out.println(instance.playOneArmBandit()[0]);
-        System.out.println(instance.playScratchcard());
-    }
+//    public static void main(String args[]){
+//        Pub instance = new Pub();
+//        System.out.println(instance.playLottery(1, 2, 3));
+//        System.out.println(instance.playOneArmBandit()[0]);
+//        System.out.println(instance.playScratchcard());
+//    }
 
     /**
     *

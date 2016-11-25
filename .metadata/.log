@@ -4070,3 +4070,13 @@ java.lang.IllegalStateException: Workspace already contains a project with name 
 	at org.eclipse.buildship.core.util.progress.ToolingApiInvoker.invoke(ToolingApiInvoker.java:63)
 	at org.eclipse.buildship.core.util.progress.ToolingApiJob.run(ToolingApiJob.java:70)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.ui 4 0 2016-11-25 10:47:22.543
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.ui 4 0 2016-11-25 10:50:06.878
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
