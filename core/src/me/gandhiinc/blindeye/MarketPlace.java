@@ -1,7 +1,7 @@
 package me.gandhiinc.blindeye;
 
 /** ---------------------------------------------------------
-  * -------------------	MARKET PLACE	--------------------
+  * -------------------	MARKET PLACE	---------------------
   * ---------------------------------------------------------
   * 
   * This is the Market Place class. It contains the following methods:
@@ -16,7 +16,7 @@ package me.gandhiinc.blindeye;
   * 
   * 	-	produceRoboticon()
   * 
-  *  The produceRoboticon function should be called at the end of each round of the game
+  *  The produceRoboticon function should be called at the end of each round of the game.
   *  It will produce new roboticons to the market stock depending on the market ore stock.
   *  
   *  There are also the getters and setters for each of the variables. This is to ensure
