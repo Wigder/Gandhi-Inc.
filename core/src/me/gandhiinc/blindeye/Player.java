@@ -21,6 +21,17 @@ public class Player
 
 	protected List<Roboticon> roboticons;
 	protected List<Plot> plots;
+	
+
+	public Player(int money, int ore, int energy, List<Roboticon> roboticons,
+			List<Plot> plots) 
+	{
+		this.money = money;
+		this.ore = ore;
+		this.energy = energy;
+		this.roboticons = roboticons;
+		this.plots = plots;
+	}
 
 	public void AquirePlot(Plot plot) throws Exception
 	{
