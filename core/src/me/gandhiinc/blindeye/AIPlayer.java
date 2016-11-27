@@ -1,9 +1,15 @@
 package me.gandhiinc.blindeye;
 
+import java.util.List;
 import java.util.Random;
 
 public class AIPlayer extends Player {
 	
+	public AIPlayer(int money, int ore, int energy, List<Roboticon> roboticons, List<Plot> plots) 
+	{
+		super(money, ore, energy, roboticons, plots);
+	}
+
 	public void CompleteTurn(Plot[] plots, MarketPlace market)
 	{
 		AIAquirePlot(plots);
