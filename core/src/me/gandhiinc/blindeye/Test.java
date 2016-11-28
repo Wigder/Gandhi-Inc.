@@ -1,3 +1,4 @@
+package me.gandhiinc.blindeye;
 
 /** 
  *Represents the Pub methods, ie the gambling system of the game.
