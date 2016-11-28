@@ -23,18 +23,19 @@ public class Test{
     public static void main(String args[]){ 
         Test instance = new Test();
         int counter = 0;
+        int stupidVariableNameToPissOffBen = 100000000;
         double runningTotal = 0;
-        while(counter < 1000000){
+        while(counter < stupidVariableNameToPissOffBen){
         	try{
         	runningTotal += instance.playScratchcard();
-        	System.out.println(counter);
+//        	System.out.println(counter);
         	counter += 1;
         	}
         	catch(Exception IlligalArgumentException){
         		System.out.println("hello");
         	}
         }
-        System.out.println(runningTotal);
+        System.out.println(runningTotal / stupidVariableNameToPissOffBen);
     }
 
     /**
@@ -127,7 +128,7 @@ public class Test{
         int random = rand.nextInt(10) + 1;
         if(random == 1){
 //            System.out.println("win")
-            return(10*getPriceOfPlayingScratchCard());
+            return((int) 9*getPriceOfPlayingScratchCard());
         }
         else{
 //            System.out.println("loose");
