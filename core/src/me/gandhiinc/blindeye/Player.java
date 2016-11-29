@@ -1,7 +1,7 @@
 package me.gandhiinc.blindeye;
 
 import java.util.Iterator;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * ---------------------------------------------------------
@@ -19,11 +19,11 @@ public class Player
 	protected int ore;
 	protected int energy;
 
-	protected List<Roboticon> roboticons;
-	protected List<Plot> plots;
+	protected ArrayList<Roboticon> roboticons;
+	protected ArrayList<Plot> plots;
 	
 
-	public Player(int money, int ore, int energy, List<Roboticon> roboticons, List<Plot> plots) 
+	public Player(int money, int ore, int energy, ArrayList<Roboticon> roboticons, ArrayList<Plot> plots) 
 	{
 		this.money = money;
 		this.ore = ore;
@@ -100,7 +100,7 @@ public class Player
 		this.energy = energy;
 	}
 
-	public List<Roboticon> getRoboticons() 
+	public ArrayList<Roboticon> getRoboticons() 
 	{
 		return roboticons;
 	}
