@@ -6,7 +6,7 @@ public class BlindEye
 	
 	public static void main(String args[])
 	{
-		Player p1 = new Player(16, 0, 0, null, null);
+		Player p1 = new Player("Player", 16, 0, 0);
 		MarketPlace market = new MarketPlace();
 		
 		// TEST BUYING

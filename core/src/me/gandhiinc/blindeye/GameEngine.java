@@ -4,13 +4,30 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * ---------------------------------------------------------
+ * --------------------   GameEngine -----------------------
+ * ---------------------------------------------------------
+ * 
+ * This is where all of the game logic will be done allowing a game to be played 
+ * It contains the following methods:
+ * 
+ * 		-	Start()
+ * 		-	Stop()
+ * 		-	update(float deltaTime)
+ * 
+ * @author Steven Tomlinson
+ * @version 1.0
+ *
+ * @date 29/11/16
+ */
 public class GameEngine 
 {
 
 	public static void main(String[] args) {
 		ArrayList<AIPlayer> players = new ArrayList<AIPlayer>();
-		players.add(new AIPlayer(50, 50, 50, new ArrayList<Roboticon>(), new ArrayList<Plot>()));
-		players.add(new AIPlayer(50, 50, 50, new ArrayList<Roboticon>(), new ArrayList<Plot>()));
+		players.add(new AIPlayer("Player 1", 50, 50, 50));
+		players.add(new AIPlayer("Player 2", 50, 50, 50));
 		GameEngine game = new GameEngine(null, players, 5, 6);
 
 		game.start();
@@ -38,23 +55,30 @@ public class GameEngine
 		
 	}
 
-	List<Player> humanPlayers;
-	List<AIPlayer> aiPlayers;
+	private List<Player> humanPlayers;
+	private List<AIPlayer> aiPlayers;
 
-	Plot[] plots;
+	private Plot[] plots;
 	
-	MarketPlace market;
+	private MarketPlace market;
 
-	public final int mapWidth;
-	public final int mapHeight;
+	private final int mapWidth;
+	private final int mapHeight;
 
-	public final long phase2Time = 2 * 60 * 1000;
-	public final int phase3Time = 2 * 60;
+	private final long phase2Time = 2 * 60 * 1000;
+	private final int phase3Time = 2 * 60;
 
-	boolean running = false;
+	private boolean running = false;
 	
-	long phaseTime;
+	private long phaseTime;
 
+	/**
+	 * This allows a new instance of the GameEngine object to be instantiated allow a game to be played.
+	 * @param humanPlayers The list of human players who are player as Player objects
+	 * @param aiPlayers The list of ai players who are playing as AIPlayer objects
+	 * @param mapWidth The with of the map
+	 * @param mapHeight The height of the map
+	 */
 	public GameEngine(ArrayList<Player> humanPlayers, ArrayList<AIPlayer> aiPlayers, int mapWidth, int mapHeight)
 	{
 		this.humanPlayers = humanPlayers;
@@ -74,16 +98,26 @@ public class GameEngine
 		phaseTime = phase2Time;
 	}
 
+	/**
+	 * Starts the game
+	 */
 	void start()
 	{
 		running = true;
 	}
 	
+	/**
+	 * Stops the game
+	 */
 	void stop()
 	{
 		running = false;
 	}
 	
+	/**
+	 * Updates the data in the game given a time since the last update
+	 * @param deltaTime Time since last update
+	 */
 	public void update(long deltaTime)
 	{
 		phaseTime -= deltaTime;

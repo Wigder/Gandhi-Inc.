@@ -1,15 +1,41 @@
 package me.gandhiinc.blindeye;
 
-import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * ---------------------------------------------------------
+ * --------------------   AIPLAYER   -----------------------
+ * ---------------------------------------------------------
+ * 
+ * This class extends Player and builds upon to all AI functionality for a player to make choices by itself
+ * It contains the following methods:
+ * 
+ * 		-	CompleteTurn(Plot[] plots, MarketPlace market)
+ * 
+ * @author Steven Tomlinson
+ * @version 1.0
+ *
+ *@see Player
+ */
 public class AIPlayer extends Player {
 	
-	public AIPlayer(int money, int ore, int energy, ArrayList<Roboticon> roboticons, ArrayList<Plot> plots) 
+	/**
+	 * The is the constructor of the AIPlayer class to instantiate a new instance of the AIPlayer class
+	 * @param name The name of the aiplayer object i.e Player 1
+	 * @param money The starting money of the player
+	 * @param ore The starting ore of the player
+	 * @param energy The starting energy of the player
+	 */
+	public AIPlayer(String name, int money, int ore, int energy) 
 	{
-		super(money, ore, energy, roboticons, plots);
+		super(name, money, ore, energy);
 	}
 
+	/**
+	 * The function for the ai to complete their turn automatically given a list of available plots and the market so that it can interact with them.
+	 * @param plots The list of available plots
+	 * @param market The market reference to interact with
+	 */
 	public void CompleteTurn(Plot[] plots, MarketPlace market)
 	{
 		AIAquirePlot(plots);
@@ -18,6 +44,10 @@ public class AIPlayer extends Player {
 		AIGamble(market);
 	}
 	
+	/**
+	 * Allows the AIPlayer to aquire a random plot given a list of available plots
+	 * @param plots List of available plots
+	 */
 	private void AIAquirePlot(Plot[] plots)
 	{
 		if (plots.length >= 1)
@@ -32,6 +62,10 @@ public class AIPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * Allows the AIPlayer to buy a roboticon from the market given. So if the AIPlayer has enough money to buy a roboticon then it has a 50/50 chance of buying one and then specialising it
+	 * @param market The market to buy the roboticon from
+	 */
 	private void AIAquireRoboticon(MarketPlace market)
 	{
 		if (this.money > market.getMarketRoboticonSellPrice())
@@ -60,6 +94,10 @@ public class AIPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * This allows the AIPlayer to gamble at a pub given a market to go to
+	 * @param market The market to access the pub
+	 */
 	private void AIGamble(MarketPlace market)
 	{
 		Random random = new Random();
