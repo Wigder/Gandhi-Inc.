@@ -85,12 +85,13 @@ public class MarketPlace
 			player.setOre(player.getOre() + quantity);													//Add the ore to the players ore
 			player.setMoney(player.getMoney() - totalAmount);											//Remove the money from his account
 			
-			int newStock = getMarketOreStock() + quantity;												//Calculates what the new stock is
+			int newStock = getMarketOreStock() - quantity;												//Calculates what the new stock is
 			setMarketOreStock(newStock);																//Sets the new stock value
 			
-			int newPrice = (int)(maxOrePrice * Math.pow(0.7, getMarketOreSellPrice()) + minOrePrice);	//Calculates the new sell price
-			setMarketOreSellPrice(newPrice + 1);														//Sets the new sell price
-			setMarketOreBuyPrice(newPrice - 1);															//Sets the new buy price
+			int newPrice = (int)(maxOrePrice * Math.pow(0.7, getMarketOreBuyPrice()) + minOrePrice);	//Calculates the new sell price
+			System.out.println("newPrice: " + newPrice);
+                        setMarketOreBuyPrice(newPrice + 1);														//Sets the new sell price
+			setMarketOreSellPrice(newPrice - 1);															//Sets the new buy price
 		}
 		else
 		{
@@ -114,13 +115,13 @@ public class MarketPlace
 		int totalAmount = quantity * getMarketEnergySellPrice();												//Calculate the total price
 		if(player.getMoney() > totalAmount)																		//Check if the player has enough money to pay
 		{
-			player.setOre(quantity);																			//Add the ore to the players ore
+			player.setEnergy(player.getEnergy() + quantity);																			//Add the ore to the players ore
 			player.setMoney(player.getMoney() -  totalAmount);													//Remove the money from his account
 			
-			int newStock = getMarketOreStock() + quantity;														//Calculates what the new stock is
+			int newStock = getMarketEnergyStock() - quantity;														//Calculates what the new stock is
 			setMarketOreStock(newStock);																		//Sets the new stock value
 			
-			int newPrice = (int)(maxEnergyPrice * Math.pow(0.7, getMarketEnergySellPrice()) + minEnergyPrice);	//Calculates the new sell price
+			int newPrice = (int)(maxEnergyPrice * Math.pow(0.7, getMarketEnergyBuyPrice()) + minEnergyPrice);	//Calculates the new sell price
 			setMarketEnergySellPrice(newPrice + 1);																//Sets the new sell price
 			setMarketEnergyBuyPrice(newPrice - 1);																//Sets the new buy price
 			
@@ -182,7 +183,14 @@ public class MarketPlace
 		
 		int totalAmount = getMarketOreBuyPrice();					//Calculate total amount player will receive
 		player.setMoney(player.getMoney() + totalAmount);			//Need to use a setter for players money
-		
+		player.setOre(player.getOre() - quantity);
+                setMarketOreStock(getMarketOreStock() + quantity);
+                
+                int newPrice = (int)(maxOrePrice * Math.pow(0.7, getMarketOreBuyPrice()) + minOrePrice);	//Calculates the new sell price
+                System.out.println("newPrice: " + newPrice);
+                setMarketOreBuyPrice(newPrice + 1);														//Sets the new sell price
+                setMarketOreSellPrice(newPrice - 1);	
+                     
 	}
 	
 	/**
@@ -510,5 +518,43 @@ public class MarketPlace
 	public Pub getPub()
 	{
 		return this.pub;
+	}
+        
+        public int getMaxOrePrice() 
+	{
+		return maxOrePrice;
+	}
+
+	public void setMaxOrePrice(int maxOrePrice) 
+	{
+		this.maxOrePrice = maxOrePrice;
+	}
+
+	public int getMinOrePrice() {
+		return minOrePrice;
+	}
+
+	public void setMinOrePrice(int minOrePrice) 
+	{
+		this.minOrePrice = minOrePrice;
+	}
+
+	public int getMaxEnergyPrice() 
+	{
+		return maxEnergyPrice;
+	}
+
+	public void setMaxEnergyPrice(int maxEnergyPrice) 
+	{
+		this.maxEnergyPrice = maxEnergyPrice;
+	}
+
+	public int getMinEnergyPrice() 
+	{
+		return minEnergyPrice;
+	}
+
+	public void setMinEnergyPrice(int minEnergyPrice) {
+		this.minEnergyPrice = minEnergyPrice;
 	}
 }
