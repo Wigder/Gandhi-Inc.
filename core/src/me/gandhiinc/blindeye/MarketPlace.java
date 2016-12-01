@@ -6,12 +6,10 @@ package me.gandhiinc.blindeye;
   * 
   * This is the Market Place class. It contains the following methods:
   * 	-	buyOre(int quantity)
-  * 	-	buyFood(int quantity)
   * 	-	buyEnergy(int quantity)
   * 	-	buyRoboticon(int quantity)
   * 
   * 	-	sellOre(int quantity)
-  * 	-	sellFood(int quantity)
   * 	-	sellEnergy(int quantity)
   * 
   * 	-	produceRoboticon()
@@ -27,7 +25,8 @@ package me.gandhiinc.blindeye;
   * @author 		Will Wood
   * @version		1.0	
   * @date			15/11/16	
-  */
+  */ 
+
 
 public class MarketPlace
 {
@@ -48,11 +47,9 @@ public class MarketPlace
 	private int minEnergyPrice;
 	
 	private int marketOreBuyPrice;
-	private int marketFoodBuyPrice;
 	private int marketEnergyBuyPrice;
 
 	private int marketOreSellPrice;
-	private int marketFoodSellPrice;
 	private int marketEnergySellPrice;
 	private int marketRoboticonSellPrice;
 	
@@ -363,7 +360,7 @@ public class MarketPlace
 	{
 		return marketEnergyStock;
 	}
-
+         
 	/**
 	 * Setter for the stock of the market's energy
 	 * @param marketEnergyStock
@@ -408,23 +405,6 @@ public class MarketPlace
 	{
 		this.marketOreBuyPrice = marketOreBuyPrice;
 	}
-	/**
-	 * Getter for the purchase price of the market's food
-	 * @return
-	 */
-	public int getMarketFoodBuyPrice() 
-	{
-		return marketFoodBuyPrice;
-	}
-	
-	/**
-	 * Setter for the purchase price of the market's food
-	 * @param marketFoodBuyPrice
-	 */
-	public void setMarketFoodBuyPrice(int marketFoodBuyPrice) 
-	{
-		this.marketFoodBuyPrice = marketFoodBuyPrice;
-	}
 	
 	/**
 	 * Getter for the purchase price of the market's energy
@@ -462,23 +442,6 @@ public class MarketPlace
 		this.marketOreSellPrice = marketOreSellPrice;
 	}
 	
-	/**
-	 * Getter for the selling price of the market's food
-	 * @return
-	 */
-	public int getMarketFoodSellPrice() 
-	{
-		return marketFoodSellPrice;
-	}
-	
-	/**
-	 * Setter for the selling price of the market's food
-	 * @param marketFoodSellPrice
-	 */
-	public void setMarketFoodSellPrice(int marketFoodSellPrice) 
-	{
-		this.marketFoodSellPrice = marketFoodSellPrice;
-	}
 	
 	/**
 	 * Getter for the selling price of the market's energy

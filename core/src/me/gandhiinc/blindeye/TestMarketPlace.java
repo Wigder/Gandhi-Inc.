@@ -1,6 +1,6 @@
 package me.gandhiinc.blindeye;
 
-public class BlindEye 
+public class TestMarketPlace 
 {
 	//Run tests in this class
 	
@@ -21,12 +21,12 @@ public class BlindEye
 		market.setMarketEnergyStock(5);
 		market.setMarketRoboticonStock(5);
 		System.out.println("Market stock: \n Ore: " + market.getMarketOreStock() + "\n Energy: " + market.getMarketEnergyStock() + "\n Roboticons: " + market.getMarketRoboticonStock());
-		System.out.println("\nSetting the market's selling price for ore to 2...");
-                System.err.println("Setting max and min ore price to 10 and 2 respectively.");
+		System.out.println("\nSetting the market's selling price for ore to 3...");
+                market.setMarketOreSellPrice(3);
+		System.out.println("Market's ore price: " + market.getMarketOreSellPrice());
+                System.out.println("Setting max and min ore price to 10 and 2 respectively.");
                 market.setMaxOrePrice(10);
                 market.setMinOrePrice(2);
-		market.setMarketOreSellPrice(3);
-		System.out.println("Market's ore price: " + market.getMarketOreSellPrice());
 		System.out.println("\nPlayer's money: " + p1.getMoney());
 		System.out.println("Player's ore stock: " + p1.getOre());
 		System.out.println("\nLet player buy 5 ore...\n");
