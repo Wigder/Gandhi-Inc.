@@ -61,6 +61,7 @@ public class Game extends ApplicationAdapter implements InputProcessor
 			{
 				int x = (int)(((float)screenX / img.getWidth()) * 6);
 				int y = (int)(((float)screenY / img.getHeight()) * 5);
+				//add check to get plot from list of plots and draw selection highlight around it
 				System.out.print("Point: (" + x + ", " + y + ") = Index: " + (x + y * 6));
 			}
 			System.out.println("Mouse Click\tX: " + screenX + "\tY: " + screenY);
