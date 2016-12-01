@@ -160,7 +160,7 @@ public class Roboticon {
 	 * @param plot		the plot object being assigned
 	 * @return			a boolean for success of the operation
 	 */
-	boolean setPlot (Plot plot) {
+	public boolean setPlot (Plot plot) {
 		AssignedPlot = plot;
 		return true;
 	}
