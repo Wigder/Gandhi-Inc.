@@ -21,13 +21,6 @@ public class Pub{
     private int priceOfPlayingScratchCard = 20;
     private int priceOfPlayingOneArmBandit = 30;
 
-//    public static void main(String args[]){
-//        Pub instance = new Pub();
-//        System.out.println(instance.playLottery(1, 2, 3));
-//        System.out.println(instance.playOneArmBandit()[0]);
-//        System.out.println(instance.playScratchcard());
-//    }
-
     /**
     *
     *@return priceOfPlayingLottery This returns the price of playing the lottery 
@@ -97,7 +90,7 @@ public class Pub{
             arrayOfInputNumbers[2] = number3;
             Arrays.sort(arrayOfInputNumbers);
 //            for (int index = 0; index < arrayOfRandomNumbers.length; index++) System.out.println(arrayOfRandomNumbers[index]);    
-            if(arrayOfRandomNumbers[0]==arrayOfInputNumbers[0] && arrayOfRandomNumbers[1]==arrayOfInputNumbers[1] && arrayOfRandomNumbers[2]==arrayOfInputNumbers[2])return 80000;
+            if(arrayOfRandomNumbers[0]==arrayOfInputNumbers[0] && arrayOfRandomNumbers[1]==arrayOfInputNumbers[1] && arrayOfRandomNumbers[2]==arrayOfInputNumbers[2])return (1331*getPriceOfPlayingLottery());
             else{
                 return(-1*getPriceOfPlayingLottery());
             }
@@ -118,7 +111,7 @@ public class Pub{
         int random = rand.nextInt(10) + 1;
         if(random == 1){
 //            System.out.println("win")
-            return(10*getPriceOfPlayingScratchCard());
+            return(9*getPriceOfPlayingScratchCard());
         }
         else{
 //            System.out.println("loose");
@@ -143,7 +136,7 @@ public class Pub{
         outputArray[1] = (128512 + random2);
         outputArray[2] = (128512 + random3);
         if(random1 == random2 && random1 == random3){
-            outputArray[3] = (30*getPriceOfPlayingOneArmBandit());
+            outputArray[3] = (100*getPriceOfPlayingOneArmBandit());
             return outputArray;         
         }
         else{
