@@ -21,8 +21,14 @@ public class Test{
     private int priceOfPlayingScratchCard = 20;
     private int priceOfPlayingOneArmBandit = 30;
 
-    public static void main(String args[]){ 
-        Test instance = new Test();
+    public static void main(String args[]){
+    	Pub pub = new Pub();
+    	try {
+			System.out.println(pub.playLottery(1, 2, 3));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        /*Test instance = new Test();
         int counter = 0;
         int stupidVariableNameToPissOffBen = 100000000;
         double runningTotal = 0;
@@ -36,7 +42,7 @@ public class Test{
         		System.out.println("hello");
         	}
         }
-        System.out.println(runningTotal / stupidVariableNameToPissOffBen);
+        System.out.println(runningTotal / stupidVariableNameToPissOffBen);*/
     }
 
     /**
