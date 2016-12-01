@@ -13,7 +13,7 @@ import java.util.Random;
  * @author Robert Sayles
  * @version 1.0
  */
-class Roboticon {
+public class Roboticon {
 	/* Setting the standard production rate as a constant for reference during specialisation
 	 * Handling production as integers internally (to avoid potential decimal inaccuracies, etc)
 	 */

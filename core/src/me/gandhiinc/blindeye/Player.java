@@ -31,6 +31,7 @@ public class Player
 	protected ArrayList<Roboticon> roboticons;
 	protected ArrayList<Plot> plots;
 	
+	protected String name;
 
 	/**
 	 * The is the constructor of the Player class to instantiate a new instance of the Player class
@@ -41,6 +42,7 @@ public class Player
 	 */
 	public Player(String name, int money, int ore, int energy) 
 	{
+		this.name = name;
 		this.money = money;
 		this.ore = ore;
 		this.energy = energy;
@@ -126,6 +128,11 @@ public class Player
 		return energy;
 	}
 
+	public String getName()
+	{
+		return name;
+	}
+	
 	/**
 	 * This sets the money the player has to specific value
 	 * @param money The value for the money to be set to
@@ -170,6 +177,11 @@ public class Player
 	public void addRoboticon(Roboticon roboticon)
 	{
 		roboticons.add(roboticon);
+	}
+	
+	public ArrayList<Plot> getPlots()
+	{
+		return plots;
 	}
 	
 } 

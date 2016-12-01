@@ -57,6 +57,12 @@ public class Game extends ApplicationAdapter implements InputProcessor
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) //any mouse click
 	{ 
 		if (button == Input.Buttons.LEFT) //if left mouse click
+			if (screenX <= img.getWidth() && screenY <= img.getHeight())
+			{
+				int x = (int)(((float)screenX / img.getWidth()) * 6);
+				int y = (int)(((float)screenY / img.getHeight()) * 5);
+				System.out.print("Point: (" + x + ", " + y + ") = Index: " + (x + y * 6));
+			}
 			System.out.println("Mouse Click\tX: " + screenX + "\tY: " + screenY);
 		return false;
 	}
