@@ -48,7 +48,7 @@ public class Plot
 	public static final int cost = 50;
 	
 	private Roboticon plotRoboticon;
-	private boolean isAssigned = false;
+	private Player player;
 	
 	public Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
 	{
@@ -88,19 +88,14 @@ public class Plot
 		terrain = newTerrainType;
 	}
 	
-	public boolean getAssignment()
+	public Player getPlayer()
 	{
-		return isAssigned;
+		return player;
 	}
 	
-	public void setAssigned()
+	public void setPlayer(Player player)
 	{
-		isAssigned = true;
-	}
-	
-	public void setUnassigned()
-	{
-		isAssigned = false;
+		this.player = player;
 	}
 	
 	public void addRoboticon(Roboticon roboticon)

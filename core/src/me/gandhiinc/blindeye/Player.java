@@ -55,10 +55,10 @@ public class Player
 	 */
 	public void AquirePlot(Plot plot) throws Exception
 	{
-		if (plot.getAssignment() == false)
+		if (plot.getPlayer() == null)
 		{
 			plots.add(plot);
-			plot.setAssigned();
+			plot.setPlayer(this);
 		}
 		else
 			throw new Exception("The plot has already been assigned to a player");

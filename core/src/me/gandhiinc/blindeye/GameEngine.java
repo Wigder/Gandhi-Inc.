@@ -134,7 +134,7 @@ public class GameEngine
 			ArrayList<Plot> validPlots = new ArrayList<Plot>();
 			for (Plot plot: plots)
 			{
-				if (plot.getAssignment() == false)
+				if (plot.getPlayer() == null)
 					validPlots.add(plot);
 			}
 			
@@ -144,7 +144,7 @@ public class GameEngine
 		ArrayList<Plot> validPlots = new ArrayList<Plot>();
 		for (Plot plot: plots)
 		{
-			if (plot.getAssignment() == false)
+			if (plot.getPlayer() == null)
 				validPlots.add(plot);
 		}
 		
