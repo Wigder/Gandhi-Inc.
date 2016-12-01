@@ -139,7 +139,7 @@ public class Test{
 
     /**
     *
-    *@return returns a array of 4 ints the first 3 of which are ints relating to emoji, the final int is the amount of money won, -price for a loss.
+    *@return returns an array of 4 ints the first 3 of which are ints relating to emoji, the final int is the amount of money won, -price for a loss.
     *@return returns a class consisting of a string of the output, and an int of the amount of money won, 0 of a loss
     *
     **/
