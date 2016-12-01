@@ -51,7 +51,7 @@ public class Roboticon {
 	/**
 	 * Constructor for roboticons
 	 */
-	Roboticon () {
+	public Roboticon () {
 		
 	}
 	
@@ -66,7 +66,7 @@ public class Roboticon {
 	 * @return			the production rate for requested resource as an integer
 	 * @throws IllegalArgumentException	exception if resource is unrecognised
 	 */
-	int getBaseProd (Resource resource) {
+	public int getBaseProd (Resource resource) {
 		switch (resource) {										// Check which resource is requested
 		case ORE:
 			return OreProd;										// Return ORE
@@ -86,7 +86,7 @@ public class Roboticon {
 	 * @return			a boolean for success of the operation
 	 * @throws IllegalArgumentException	exception if resource is unrecognised or new value is negative
 	 */
-	boolean setBaseProd (Resource resource, int newprod) {
+	public boolean setBaseProd (Resource resource, int newprod) {
 		if (newprod >= 0) {										// Check that new value is zero or greater
 			switch (resource) {									// Check which resource is being set
 		case ORE:
@@ -118,7 +118,7 @@ public class Roboticon {
 	 * @return			a boolean for success of the operation
 	 * @throws IllegalArgumentException	exception if resource is unrecognised
 	 */
-	boolean setSpec (Resource resource) {
+	public boolean setSpec (Resource resource) {
 		switch (resource) {										// Check which resource is being specialised for
 		case NONE:												// Reset to blank specialisation
 			this.Specialisation = Resource.NONE;
@@ -146,7 +146,7 @@ public class Roboticon {
 	 * 
 	 * @return 			the current specialisation as an enumerated resource type
 	 */
-	Resource getSpec () {
+	public Resource getSpec () {
 		return this.Specialisation;
 	}
 	
@@ -170,7 +170,7 @@ public class Roboticon {
 	 * 
 	 * @return			returns the currently assigned plot object
 	 */
-	Plot getPlot () {
+	public Plot getPlot () {
 		return this.AssignedPlot;
 	}
 	
@@ -186,7 +186,7 @@ public class Roboticon {
 	 * @return			returns the modified production rate for the given resource
 	 * @throws IllegalArgumentException	exception if resource is unrecognised
 	 */
-	int calcProd (Resource resource, int playermod) {
+	public int calcProd (Resource resource, int playermod) {
 		int plotmod = 0;															// Plot modifier zero initially and if no plot assigned
 		if (this.AssignedPlot != null) {											// Check if a plot has been assigned
 				switch (resource) {
