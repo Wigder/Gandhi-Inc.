@@ -10,6 +10,21 @@ import java.util.Random;
  * Roboticon class
  * Implements the roboticon class for the game
  * 
+ * Has private attributes:
+ * - Constant BASEPROD as int
+ * - Base production rate of each resource as ints
+ * 		- OreProd
+ * 		- EnergyProd
+ * - Specialisation as enumerated Resource
+ * - AssignedPlot as Plot
+ * 
+ * Contains getters and setters for:
+ * - Base Production ('BaseProd')
+ * - Specialisation ('Spec')
+ * - Plot ('Plot')
+ * Also includes a method to calculate the roboticon's production for this round after modifiers have been applied
+ * Note that BaseProd should normally be set by the specialisation process, rather than changed manually
+ * 
  * @author Robert Sayles
  * @version 1.0
  */
@@ -17,7 +32,7 @@ class Roboticon {
 	/* Setting the standard production rate as a constant for reference during specialisation
 	 * Handling production as integers internally (to avoid potential decimal inaccuracies, etc)
 	 */
-	private static int BASEPROD = 20;							// Set base production rate as 2.0
+	private static final int BASEPROD = 20;							// Set base production rate as 2.0
 	/* Store the roboticon's base production for each resource
 	 * Note that the food resource will not be implemented until Phase Three
 	 * Values are initially zero, as roboticons cannot produce resources without a specialisation
@@ -49,6 +64,7 @@ class Roboticon {
 	 * 
 	 * @param resource	the resource for which the base production is being requested as an enumerated type
 	 * @return			the production rate for requested resource as an integer
+	 * @throws IllegalArgumentException	exception if resource is unrecognised
 	 */
 	int getBaseProd (Resource resource) {
 		switch (resource) {										// Check which resource is requested
@@ -57,7 +73,8 @@ class Roboticon {
 		case ENERGY:
 			return EnergyProd;									// Return ENERGY
 		default:
-			return 0;											// Not a resource, return zero
+			throw new IllegalArgumentException(
+					"Trying to get base production for an unknown resource");		// Not a resource, return zero
 		}
 	}
 	
@@ -67,6 +84,7 @@ class Roboticon {
 	 * @param resource	the resource for which the base production rate is being set as an enumerated type
 	 * @param newprod	the new production rate as an integer
 	 * @return			a boolean for success of the operation
+	 * @throws IllegalArgumentException	exception if resource is unrecognised or new value is negative
 	 */
 	boolean setBaseProd (Resource resource, int newprod) {
 		if (newprod >= 0) {										// Check that new value is zero or greater
@@ -78,10 +96,12 @@ class Roboticon {
 			this.EnergyProd = newprod;							// Set ENERGY
 			return true;										// Return success
 		default:
-			return false;										//Not a resource, return failure
+			throw new IllegalArgumentException(
+					"Trying to set base production for an unknown resource ");	//Not a resource, return error
 		} 
 		} else {
-			return false;										// New value is negative, reject and return failure
+			throw new IllegalArgumentException(
+					"Trying to set base production to a negative value");	// New value is negative, reject and return failure
 		}
 		
 	}
@@ -96,6 +116,7 @@ class Roboticon {
 	 * 
 	 * @param resource	the resource being set as an enumerated type
 	 * @return			a boolean for success of the operation
+	 * @throws IllegalArgumentException	exception if resource is unrecognised
 	 */
 	boolean setSpec (Resource resource) {
 		switch (resource) {										// Check which resource is being specialised for
@@ -115,7 +136,8 @@ class Roboticon {
 			this.EnergyProd = BASEPROD;
 			return true;										// Return success
 		default:												// Not a resource, don't change
-			return false;										// Return failure
+			throw new IllegalArgumentException(
+					"Trying to set specialisation to an unknown resource");				// Return failure
 		}
 	}
 	
@@ -162,17 +184,22 @@ class Roboticon {
 	 * @param resource	the resource for which production is to be calculated as an enumerated type
 	 * @param playermod	the production modifiers on the player for that resource (eg. from events)
 	 * @return			returns the modified production rate for the given resource
+	 * @throws IllegalArgumentException	exception if resource is unrecognised
 	 */
 	int calcProd (Resource resource, int playermod) {
 		int plotmod = 0;															// Plot modifier zero initially and if no plot assigned
 		if (this.AssignedPlot != null) {											// Check if a plot has been assigned
-				switch (resource)
-				{
+				switch (resource) {
 				case ENERGY:
 					plotmod = this.AssignedPlot.getEnergyMod();
+					break;
 				case ORE:
 					plotmod = this.AssignedPlot.getOreMod();
+					break;
+				default:
+					throw new IllegalArgumentException("Unknown resource in production calculation");
 				}
+				// If resource is unrecognised, then it cannot be produced so the modifer remains 0
 		}
 		int variance = rnd.nextInt(11)-5;											// Generate production variance between -0.5 and +0.5
 		int finalprod = (this.getBaseProd(resource)+variance) * plotmod * playermod;// Calculate final modified production rate
