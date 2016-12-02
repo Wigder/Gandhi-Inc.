@@ -152,5 +152,20 @@ public class GameEngine
 			stop();
 		
 	}
+	
+	public Plot[] getPlots()
+	{
+		return plots;
+	}
+	
+	public int getMapWidth()
+	{
+		return mapWidth;
+	}
+	
+	public int getMapHeight()
+	{
+		return mapHeight;
+	}
 
 }
