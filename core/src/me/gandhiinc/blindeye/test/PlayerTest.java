@@ -37,7 +37,7 @@ public class PlayerTest {
             ArrayList<Plot> plots = testPlayer.getPlots();
             assertEquals(plots.contains(desiredPlot), true);
         } catch (Exception e) {
-            e.printStackTrace();
+            fail("Unexpected Excpetion thrown: " + e.getMessage() + "\n Stack Trace: " + e.getStackTrace());
         }
 
     }

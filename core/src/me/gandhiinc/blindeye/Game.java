@@ -23,6 +23,8 @@ public class Game extends ApplicationAdapter implements InputProcessor
 	
 	GameEngine gameEngine;
 	
+	int activePlotIndex = -1;
+	
 	@Override
 	public void create () 
 	{
@@ -64,17 +66,23 @@ public class Game extends ApplicationAdapter implements InputProcessor
 			{
 				if (gameEngine.getAIPlayers().indexOf(gameEngine.getPlots()[i].getPlayer()) == 0)
 				{
-					shapeRenderer.setColor(1, 0, 0, 0.45f);
-					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (i / gameEngine.getMapWidth()) * 174, 174, 174);
+					shapeRenderer.setColor(1, 0, 0, 0.35f);
+					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (gameEngine.getMapHeight() - (i / gameEngine.getMapWidth()) - 1) * 174, 174, 174);
 				}
 				else if (gameEngine.getAIPlayers().indexOf(gameEngine.getPlots()[i].getPlayer()) == 1)
 				{
-					shapeRenderer.setColor(0, 0, 1, 0.45f);
-					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (i / gameEngine.getMapWidth()) * 174, 174, 174);	
+					shapeRenderer.setColor(0, 0, 1, 0.35f);
+					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (gameEngine.getMapHeight() - (i / gameEngine.getMapWidth()) - 1) * 174, 174, 174);	
 				}
 			}
 		}
-	
+		
+		if (activePlotIndex >= 0 && activePlotIndex < gameEngine.getPlots().length)
+		{
+			shapeRenderer.setColor(1, 1, 1, 0.5f);
+			shapeRenderer.rect((activePlotIndex % gameEngine.getMapWidth()) * 174, (gameEngine.getMapHeight() - (activePlotIndex / gameEngine.getMapWidth()) - 1) * 174, 173, 173);
+		}
+		
 		shapeRenderer.end();
 		
 		Gdx.gl.glDisable(GL20.GL_BLEND);
@@ -86,17 +94,19 @@ public class Game extends ApplicationAdapter implements InputProcessor
 			{
 				if (gameEngine.getPlots()[i].hasRoboticon())
 				{
-					batch.draw(roboticonImg, (i % gameEngine.getMapWidth()) * 175, (i / gameEngine.getMapWidth()) * 175);
+					batch.draw(roboticonImg, (i % gameEngine.getMapWidth()) * 175, (gameEngine.getMapHeight() - (i / gameEngine.getMapWidth()) - 1) * 175);
 				}
 			}
 		}
 		batch.end();
-			
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (gameEngine.isRunning())	
+		{
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
@@ -130,6 +140,7 @@ public class Game extends ApplicationAdapter implements InputProcessor
 				int y = (int)(((float)screenY / mapImg.getHeight()) * gameEngine.getMapHeight());
 				//add check to get plot from list of plots and draw selection highlight around it
 				System.out.print("Point: (" + x + ", " + y + ") = Index: " + (x + y * gameEngine.getMapWidth()) + "\t|\t");
+				activePlotIndex = (x + y * gameEngine.getMapWidth());
 			}
 			System.out.println("Mouse Click\tX: " + screenX + "\tY: " + screenY);
 		return false;
