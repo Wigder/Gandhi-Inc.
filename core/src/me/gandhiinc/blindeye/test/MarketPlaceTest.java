@@ -15,10 +15,9 @@ public class MarketPlaceTest {
 	public void testBuyOre() 
 	{
 		testPlayer.setMoney(10);
-		
+		testPlayer.setOre(0);
         int desiredPlayerMoney = 0;
         int desiredPlayerOre = 5;
-        
         market.setMarketOreSellPrice(2);
         
         try 
@@ -38,10 +37,9 @@ public class MarketPlaceTest {
 	public void testBuyEnergy() 
 	{
 		testPlayer.setMoney(10);
-		
+		testPlayer.setEnergy(0);
 		int desiredPlayerMoney = 0;
         int desiredPlayerEnergy = 5;
-        
         market.setMarketEnergySellPrice(2);
         
         try 
@@ -59,22 +57,45 @@ public class MarketPlaceTest {
 	@Test
 	public void testBuyRoboticon() 
 	{
+		int desiredRoboticons = 1;
+		int desiredOreStock = 0;
+		
+		testPlayer.getRoboticons().clear();
+		
+		market.setMarketRoboticonStock(0);
+		market.setMarketOreStock(16);
+		
+		market.produceRoboticon();
+		
+		assertEquals(market.getMarketRoboticonStock(), desiredRoboticons);
+		assertEquals(market.getMarketOreStock(), desiredOreStock);
+	}
+
+	@Test
+	public void testSellOre() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSellOre() {
+	public void testSellEnergy() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSellEnergy() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testProduceRoboticon() {
-		fail("Not yet implemented");
+	public void testProduceRoboticon() 
+	{
+		int desiredRoboticons = 2;
+		int desiredOreStock = 0;
+		
+		market.setMarketRoboticonStock(0);
+		market.setMarketOreStock(16);
+		
+		market.produceRoboticon();
+		
+		assertEquals(market.getMarketRoboticonStock(), desiredRoboticons);
+		assertEquals(market.getMarketOreStock(), desiredOreStock);
 	}
 
 	@Test
@@ -213,17 +234,20 @@ public class MarketPlaceTest {
 	}
 
 	@Test
-	public void testSetMaxEnergyPrice() {
+	public void testSetMaxEnergyPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMinEnergyPrice() {
+	public void testGetMinEnergyPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMinEnergyPrice() {
+	public void testSetMinEnergyPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
