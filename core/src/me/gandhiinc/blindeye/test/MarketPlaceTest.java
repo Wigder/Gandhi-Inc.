@@ -57,24 +57,47 @@ public class MarketPlaceTest {
 	@Test
 	public void testBuyRoboticon() 
 	{
-		int desiredRoboticons = 1;
-		int desiredOreStock = 0;
+		int desiredPlayerRoboticons = 1;
+		int desiredMarketRoboticons = 0;
 		
 		testPlayer.getRoboticons().clear();
+		market.setMarketRoboticonStock(1);
 		
-		market.setMarketRoboticonStock(0);
-		market.setMarketOreStock(16);
+		try 
+		{
+			market.buyRoboticon(testPlayer, 1);
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
 		
-		market.produceRoboticon();
-		
-		assertEquals(market.getMarketRoboticonStock(), desiredRoboticons);
-		assertEquals(market.getMarketOreStock(), desiredOreStock);
+		assertEquals(testPlayer.getRoboticons().size(), desiredPlayerRoboticons);
+		assertEquals(market.getMarketRoboticonStock(), desiredMarketRoboticons);
 	}
 
 	@Test
 	public void testSellOre() 
 	{
-		fail("Not yet implemented");
+		testPlayer.setMoney(0);
+		testPlayer.setOre(5);
+        int desiredPlayerMoney = 10;
+        int desiredPlayerOre = 0;
+        int desiredMarketOreStock = 5;
+        
+        market.setMarketOreStock(0);
+        market.setMarketOreBuyPrice(2);
+        
+        try 
+        {
+			market.sellOre(testPlayer, 5);
+		} catch (Exception e) 
+        {
+			e.printStackTrace();
+		}
+        
+        assertEquals(testPlayer.getOre(), desiredPlayerOre);
+        assertEquals(testPlayer.getMoney(), desiredPlayerMoney);
+        assertEquals(market.getMarketOreStock(), desiredMarketOreStock);
 	}
 
 	@Test
@@ -97,9 +120,18 @@ public class MarketPlaceTest {
 		assertEquals(market.getMarketRoboticonStock(), desiredRoboticons);
 		assertEquals(market.getMarketOreStock(), desiredOreStock);
 	}
+	
+	@Test
+	public void testMarketExchangeRate()
+	{
+		
+	}
+	
+	// SEE PUB CLASS
 
 	@Test
-	public void testScratchCard() {
+	public void testScratchCard() 
+	{
 		fail("Not yet implemented");
 	}
 
@@ -109,97 +141,118 @@ public class MarketPlaceTest {
 	}
 
 	@Test
-	public void testOneArmBandit() {
+	public void testOneArmBandit() 
+	{
+		fail("Not yet implemented");
+	}
+
+	// GETTERS & SETTERS
+	
+	@Test
+	public void testGetMarketOreStock() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketOreStock() {
+	public void testSetMarketOreStock() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMarketOreStock() {
+	public void testGetMarketFoodStock() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketFoodStock() {
+	public void testSetMarketFoodStock() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMarketFoodStock() {
+	public void testGetMarketEnergyStock() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketEnergyStock() {
+	public void testSetMarketEnergyStock() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMarketEnergyStock() {
+	public void testGetMarketRoboticonStock() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketRoboticonStock() {
+	public void testSetMarketRoboticonStock() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMarketRoboticonStock() {
+	public void testGetMarketOreBuyPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketOreBuyPrice() {
+	public void testSetMarketOreBuyPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMarketOreBuyPrice() {
+	public void testGetMarketEnergyBuyPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketEnergyBuyPrice() {
+	public void testSetMarketEnergyBuyPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMarketEnergyBuyPrice() {
+	public void testGetMarketOreSellPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketOreSellPrice() {
+	public void testSetMarketOreSellPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMarketOreSellPrice() {
+	public void testGetMarketEnergySellPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketEnergySellPrice() {
+	public void testSetMarketEnergySellPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMarketEnergySellPrice() {
+	public void testGetMarketRoboticonSellPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMarketRoboticonSellPrice() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketRoboticonSellPrice() {
+	public void testSetMarketRoboticonSellPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
@@ -209,27 +262,32 @@ public class MarketPlaceTest {
 	}
 
 	@Test
-	public void testGetMaxOrePrice() {
+	public void testGetMaxOrePrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMaxOrePrice() {
+	public void testSetMaxOrePrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMinOrePrice() {
+	public void testGetMinOrePrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetMinOrePrice() {
+	public void testSetMinOrePrice() 
+	{
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetMaxEnergyPrice() {
+	public void testGetMaxEnergyPrice() 
+	{
 		fail("Not yet implemented");
 	}
 
