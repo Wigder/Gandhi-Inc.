@@ -1,23 +1,64 @@
 package me.gandhiinc.blindeye.test;
 
 import static org.junit.Assert.*;
+import me.gandhiinc.blindeye.MarketPlace;
+import me.gandhiinc.blindeye.Player;
 
 import org.junit.Test;
 
 public class MarketPlaceTest {
 
+	Player testPlayer = new Player("Player", 10, 0, 0);
+	MarketPlace market = new MarketPlace();
+	
 	@Test
-	public void testBuyOre() {
-		fail("Not yet implemented");
+	public void testBuyOre() 
+	{
+		testPlayer.setMoney(10);
+		
+        int desiredPlayerMoney = 0;
+        int desiredPlayerOre = 5;
+        
+        market.setMarketOreSellPrice(2);
+        
+        try 
+        {
+			market.buyOre(testPlayer, 5);
+		} catch (Exception e) 
+        {
+			e.printStackTrace();
+		}
+        
+        assertEquals(testPlayer.getOre(), desiredPlayerOre);
+        assertEquals(testPlayer.getMoney(), desiredPlayerMoney);
+	}
+
+	
+	@Test
+	public void testBuyEnergy() 
+	{
+		testPlayer.setMoney(10);
+		
+		int desiredPlayerMoney = 0;
+        int desiredPlayerEnergy = 5;
+        
+        market.setMarketEnergySellPrice(2);
+        
+        try 
+        {
+			market.buyEnergy(testPlayer, 5);
+		} catch (Exception e) 
+        {
+			e.printStackTrace();
+		}
+        
+        assertEquals(testPlayer.getEnergy(), desiredPlayerEnergy);
+        assertEquals(testPlayer.getMoney(), desiredPlayerMoney);
 	}
 
 	@Test
-	public void testBuyEnergy() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testBuyRoboticon() {
+	public void testBuyRoboticon() 
+	{
 		fail("Not yet implemented");
 	}
 
