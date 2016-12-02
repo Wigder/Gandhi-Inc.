@@ -52,10 +52,10 @@ public class Plot
 	
 	public Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
 	{
-		this.foodMod = foodModifier;
-		this.energyMod = energyModifier;
-		this.oreMod = oreModifier;
-		this.terrain = terrainType; 
+		foodMod = foodModifier;
+		energyMod = energyModifier;
+		oreMod = oreModifier;
+		terrain = terrainType; 
 	}
 
 /* ---------------------------------------------------------
