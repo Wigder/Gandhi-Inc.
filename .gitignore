@@ -74,3 +74,4 @@ Thumbs.db
 .metadata/
 >>>>>>> Stashed changes
 /.nb-gradle/
+.nb-gradle-properties

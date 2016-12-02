@@ -1,6 +1,6 @@
 package me.gandhiinc.blindeye;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -13,13 +13,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Game extends ApplicationAdapter implements InputProcessor
 {
 	SpriteBatch batch;
-	Texture img;
+	Texture mapImg;
+	Texture roboticonImg;
+	
+	GameEngine gameEngine;
 	
 	@Override
 	public void create () 
 	{
+		ArrayList<AIPlayer> players = new ArrayList<AIPlayer>();
+		players.add(new AIPlayer("Player 1", 50, 50, 50));
+		players.add(new AIPlayer("Player 2", 50, 50, 50));
+		gameEngine = new GameEngine(null, players, 6, 5);
+		gameEngine.start();
 		batch = new SpriteBatch();
-		img = new Texture("YorkUniMap.png");
+		mapImg = new Texture("YorkUniMap.png");
+		roboticonImg = new Texture("Graphics/Roboticon.png");
 		
 		Gdx.input.setInputProcessor(this); //This handles all the processing input (The processor of the input is "this")
 	}
@@ -27,18 +36,35 @@ public class Game extends ApplicationAdapter implements InputProcessor
 	@Override
 	public void render () 
 	{
+		gameEngine.updateTest();
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0);	
+		
+		batch.draw(mapImg, 0, 0);
+		
+		for (int i = 0; i < gameEngine.getPlots().length; i++)
+		{
+			if (gameEngine.getPlots()[i].hasRoboticon())
+				batch.draw(roboticonImg, (i % gameEngine.getMapWidth()) * 175, (i / gameEngine.getMapWidth()) * 175);
+		}
 		batch.end();
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@Override
 	public void dispose () 
 	{
 		batch.dispose();
-		img.dispose();
+		mapImg.dispose();
 	}
 
 	@Override
@@ -57,11 +83,12 @@ public class Game extends ApplicationAdapter implements InputProcessor
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) //any mouse click
 	{ 
 		if (button == Input.Buttons.LEFT) //if left mouse click
-			if (screenX <= img.getWidth() && screenY <= img.getHeight())
+			if (screenX <= mapImg.getWidth() && screenY <= mapImg.getHeight())
 			{
-				int x = (int)(((float)screenX / img.getWidth()) * 6);
-				int y = (int)(((float)screenY / img.getHeight()) * 5);
-				System.out.print("Point: (" + x + ", " + y + ") = Index: " + (x + y * 6));
+				int x = (int)(((float)screenX / mapImg.getWidth()) * gameEngine.getMapWidth());
+				int y = (int)(((float)screenY / mapImg.getHeight()) * gameEngine.getMapHeight());
+				//add check to get plot from list of plots and draw selection highlight around it
+				System.out.print("Point: (" + x + ", " + y + ") = Index: " + (x + y * gameEngine.getMapWidth()) + "\t|\t");
 			}
 			System.out.println("Mouse Click\tX: " + screenX + "\tY: " + screenY);
 		return false;
