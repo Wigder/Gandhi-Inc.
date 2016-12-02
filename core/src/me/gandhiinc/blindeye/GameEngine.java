@@ -26,8 +26,8 @@ public class GameEngine
 
 	public static void main(String[] args) {
 		ArrayList<AIPlayer> players = new ArrayList<AIPlayer>();
-		players.add(new AIPlayer("Player 1", 50, 50, 50));
-		players.add(new AIPlayer("Player 2", 50, 50, 50));
+		players.add(new AIPlayer("Player 1", 50, 0, 0));
+		players.add(new AIPlayer("Player 2", 50, 0, 0));
 		GameEngine game = new GameEngine(null, players, 5, 6);
 
 		game.start();
@@ -107,10 +107,25 @@ public class GameEngine
 	}
 	
 	/**
+	 * Checks to see if the game is running
+	 * @return The running variable
+	 */
+	public boolean isRunning()
+	{
+		return running;
+	}
+	
+	/**
 	 * Stops the game
 	 */
 	void stop()
 	{
+		for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext();)
+		{
+			AIPlayer player = playerIterator.next();
+			System.out.println("Name: " + player.getName() + " Money: " + player.getMoney() + " Energy: "
+			+ player.getEnergy() + " Ore: " + player.getOre() + " Roboticons: " + player.getRoboticons().size() + " Plots: " + player.getPlots().size());
+		}
 		running = false;
 	}
 	
@@ -148,8 +163,12 @@ public class GameEngine
 				validPlots.add(plot);
 		}
 		
+		market.produceRoboticon();
+		
 		if (validPlots.size() == 0)
 			stop();
+		
+		
 		
 	}
 	
@@ -166,6 +185,16 @@ public class GameEngine
 	public int getMapHeight()
 	{
 		return mapHeight;
+	}
+	
+	public List<Player> getHumanPlayers()
+	{
+		return humanPlayers;
+	}
+	
+	public List<AIPlayer> getAIPlayers()
+	{
+		return aiPlayers;
 	}
 
 }

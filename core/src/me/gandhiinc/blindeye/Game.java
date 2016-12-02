@@ -1,6 +1,7 @@
 package me.gandhiinc.blindeye;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -9,10 +10,14 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Game extends ApplicationAdapter implements InputProcessor
 {
 	SpriteBatch batch;
+	ShapeRenderer shapeRenderer;
 	Texture mapImg;
 	Texture roboticonImg;
 	
@@ -27,6 +32,7 @@ public class Game extends ApplicationAdapter implements InputProcessor
 		gameEngine = new GameEngine(null, players, 6, 5);
 		gameEngine.start();
 		batch = new SpriteBatch();
+		shapeRenderer = new ShapeRenderer();
 		mapImg = new Texture("YorkUniMap.png");
 		roboticonImg = new Texture("Graphics/Roboticon.png");
 		
@@ -36,7 +42,8 @@ public class Game extends ApplicationAdapter implements InputProcessor
 	@Override
 	public void render () 
 	{
-		gameEngine.updateTest();
+		if (gameEngine.isRunning())
+			gameEngine.updateTest();
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -46,11 +53,42 @@ public class Game extends ApplicationAdapter implements InputProcessor
 		
 		for (int i = 0; i < gameEngine.getPlots().length; i++)
 		{
-			if (gameEngine.getPlots()[i].hasRoboticon())
-				batch.draw(roboticonImg, (i % gameEngine.getMapWidth()) * 175, (i / gameEngine.getMapWidth()) * 175);
+			if (gameEngine.getPlots()[i].getPlayer() != null)
+			{
+				if (gameEngine.getPlots()[i].hasRoboticon())
+				{
+					batch.draw(roboticonImg, (i % gameEngine.getMapWidth()) * 175, (i / gameEngine.getMapWidth()) * 175);
+				}
+			}
 		}
 		batch.end();
 
+		Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		
+		shapeRenderer.begin(ShapeType.Filled);
+		
+		for (int i = 0; i < gameEngine.getPlots().length; i++)
+		{
+			if (gameEngine.getPlots()[i].getPlayer() != null)
+			{
+				if (gameEngine.getAIPlayers().indexOf(gameEngine.getPlots()[i].getPlayer()) == 0)
+				{
+					shapeRenderer.setColor(1, 0, 0, 0.3f);
+					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (i / gameEngine.getMapWidth()) * 174, 174, 174);
+				}
+				else if (gameEngine.getAIPlayers().indexOf(gameEngine.getPlots()[i].getPlayer()) == 1)
+				{
+					shapeRenderer.setColor(0, 0, 1, 0.3f);
+					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (i / gameEngine.getMapWidth()) * 174, 174, 174);	
+				}
+			}
+		}
+	
+		shapeRenderer.end();
+		
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+			
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {

@@ -35,10 +35,10 @@ public class MarketPlace
  * ---------	Initiating the internal variables	--------
  * ---------------------------------------------------------
  */	
-	private int marketOreStock;
-	private int marketFoodStock;
-	private int marketEnergyStock;
-	private int marketRoboticonStock;
+	private int marketOreStock = 100;
+	private int marketFoodStock = 100;
+	private int marketEnergyStock = 100;
+	private int marketRoboticonStock = 10;
 	
 	private int maxOrePrice;
 	private int minOrePrice;
@@ -142,7 +142,7 @@ public class MarketPlace
 		{
 			throw eMoney;									//Error the player doesn't have enough money
 		}
-		if(getMarketRoboticonStock()-quantity >= 0)
+		if(getMarketRoboticonStock()-quantity <= 0)
 		{
 			throw eStockBuy;								//Error the market doesn't have enough stock
 		}
