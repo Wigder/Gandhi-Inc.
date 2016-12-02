@@ -1,12 +1,13 @@
 package me.gandhiinc.blindeye.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import me.gandhiinc.blindeye.Roboticon;
-import me.gandhiinc.blindeye.Resource;
 import me.gandhiinc.blindeye.Plot;
+import me.gandhiinc.blindeye.Resource;
+import me.gandhiinc.blindeye.Roboticon;
 
 public class TestRoboticon {
 
@@ -86,7 +87,7 @@ public class TestRoboticon {
 		
 		LabRat.setSpec(Resource.ORE);
 		assertEquals(LabRat.getSpec(), Resource.ORE);
-		assertEquals(LabRat.getBaseProd(Resource.ENERGY), 2);
+		assertEquals(LabRat.getBaseProd(Resource.ENERGY), 0);
 		assertEquals(LabRat.getBaseProd(Resource.ORE), 20);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,21 +143,33 @@ public class TestRoboticon {
 		try {
 			int expResult = 20*TestPlot.getEnergyMod()*PlayerModEnergy;
 			LabRat.setSpec(Resource.ENERGY);
+			int variance = 5*TestPlot.getEnergyMod()*PlayerModEnergy;
 			for (int i=0;i<20;i++){
 			int actualResult = LabRat.calcProd(Resource.ENERGY, PlayerModEnergy);
-			assertTrue((expResult-5) <= actualResult);
-			assertTrue((expResult+5) >= actualResult);
+			assertTrue((expResult-variance) <= actualResult);
+			assertTrue((expResult+variance) >= actualResult);
 			}
 			expResult = 20*TestPlot.getOreMod()*PlayerModOre;
 			LabRat.setSpec(Resource.ORE);
+			variance = 5*TestPlot.getOreMod()*PlayerModOre;
 			for (int i=0;i<20;i++){
 				int actualResult = LabRat.calcProd(Resource.ORE, PlayerModOre);
-				assertTrue((expResult-5) <= actualResult);
-				assertTrue((expResult+5) >= actualResult);
+				assertTrue((expResult-variance) <= actualResult);
+				assertTrue((expResult+variance) >= actualResult);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testCalcProd_FailResource() {
+		Roboticon LabRat = new Roboticon();
+		Plot TestPlot = new Plot(0,20,40,0);
+		int PlayerModNone = 30;
+		LabRat.setPlot(TestPlot);
+		
+		int Result = LabRat.calcProd(Resource.NONE, PlayerModNone);
 	}
 
 }
