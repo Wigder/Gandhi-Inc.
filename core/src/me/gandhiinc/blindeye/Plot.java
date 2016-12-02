@@ -47,7 +47,7 @@ public class Plot
 	//cost to purchase a plot; should be fixed; define this later on
 	public static final int cost = 50;
 	
-	private Roboticon plotRoboticon;
+	private Roboticon roboticon;
 	private Player player;
 	
 	public Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
@@ -100,17 +100,17 @@ public class Plot
 	
 	public void addRoboticon(Roboticon roboticon)
 	{
-		plotRoboticon = roboticon;
+		this.roboticon = roboticon;
 	}
 	
 	public void removeRoboticon()
 	{
-		plotRoboticon = null;
+		this.roboticon = null;
 	}
 	
 	public boolean hasRoboticon()
 	{
-		if (plotRoboticon != null)
+		if (this.roboticon != null)
 		{
 			return true;
 		}
@@ -122,7 +122,7 @@ public class Plot
 	
 	public Roboticon getRoboticon()
 	{
-		return plotRoboticon;
+		return this.roboticon;
 	}
 	
 }
