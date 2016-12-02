@@ -51,18 +51,8 @@ public class Game extends ApplicationAdapter implements InputProcessor
 		
 		batch.draw(mapImg, 0, 0);
 		
-		for (int i = 0; i < gameEngine.getPlots().length; i++)
-		{
-			if (gameEngine.getPlots()[i].getPlayer() != null)
-			{
-				if (gameEngine.getPlots()[i].hasRoboticon())
-				{
-					batch.draw(roboticonImg, (i % gameEngine.getMapWidth()) * 175, (i / gameEngine.getMapWidth()) * 175);
-				}
-			}
-		}
 		batch.end();
-
+		
 		Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		
@@ -74,12 +64,12 @@ public class Game extends ApplicationAdapter implements InputProcessor
 			{
 				if (gameEngine.getAIPlayers().indexOf(gameEngine.getPlots()[i].getPlayer()) == 0)
 				{
-					shapeRenderer.setColor(1, 0, 0, 0.3f);
+					shapeRenderer.setColor(1, 0, 0, 0.45f);
 					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (i / gameEngine.getMapWidth()) * 174, 174, 174);
 				}
 				else if (gameEngine.getAIPlayers().indexOf(gameEngine.getPlots()[i].getPlayer()) == 1)
 				{
-					shapeRenderer.setColor(0, 0, 1, 0.3f);
+					shapeRenderer.setColor(0, 0, 1, 0.45f);
 					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (i / gameEngine.getMapWidth()) * 174, 174, 174);	
 				}
 			}
@@ -88,6 +78,19 @@ public class Game extends ApplicationAdapter implements InputProcessor
 		shapeRenderer.end();
 		
 		Gdx.gl.glDisable(GL20.GL_BLEND);
+		
+		batch.begin();
+		for (int i = 0; i < gameEngine.getPlots().length; i++)
+		{
+			if (gameEngine.getPlots()[i].getPlayer() != null)
+			{
+				if (gameEngine.getPlots()[i].hasRoboticon())
+				{
+					batch.draw(roboticonImg, (i % gameEngine.getMapWidth()) * 175, (i / gameEngine.getMapWidth()) * 175);
+				}
+			}
+		}
+		batch.end();
 			
 		try {
 			Thread.sleep(1000);
