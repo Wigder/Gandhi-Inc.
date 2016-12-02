@@ -199,7 +199,7 @@ public class Roboticon {
 				default:
 					throw new IllegalArgumentException("Unknown resource in production calculation");
 				}
-				// If resource is unrecognised, then it cannot be produced so the modifer remains 0
+				// If resource is unrecognised, then it cannot be produced so the modifier remains 0
 		}
 		int variance = rnd.nextInt(11)-5;											// Generate production variance between -0.5 and +0.5
 		int finalprod = (this.getBaseProd(resource)+variance) * plotmod * playermod;// Calculate final modified production rate
