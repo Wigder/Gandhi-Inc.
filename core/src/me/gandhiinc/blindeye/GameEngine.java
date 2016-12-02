@@ -24,7 +24,7 @@ import java.util.List;
 public class GameEngine 
 {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		ArrayList<AIPlayer> players = new ArrayList<AIPlayer>();
 		players.add(new AIPlayer("Player 1", 50, 0, 0));
 		players.add(new AIPlayer("Player 2", 50, 0, 0));
@@ -53,7 +53,7 @@ public class GameEngine
 		
 		System.out.println("End");
 		
-	}
+	}*/
 
 	private List<Player> humanPlayers;
 	private List<AIPlayer> aiPlayers;
@@ -120,12 +120,6 @@ public class GameEngine
 	 */
 	void stop()
 	{
-		for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext();)
-		{
-			AIPlayer player = playerIterator.next();
-			System.out.println("Name: " + player.getName() + " Money: " + player.getMoney() + " Energy: "
-			+ player.getEnergy() + " Ore: " + player.getOre() + " Roboticons: " + player.getRoboticons().size() + " Plots: " + player.getPlots().size());
-		}
 		running = false;
 	}
 	
@@ -168,7 +162,12 @@ public class GameEngine
 		if (validPlots.size() == 0)
 			stop();
 		
-		
+		for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext();)
+		{
+			AIPlayer player = playerIterator.next();
+			System.out.println("Name: " + player.getName() + " Money: " + player.getMoney() + " Energy: "
+			+ player.getEnergy() + " Ore: " + player.getOre() + " Roboticons: " + player.getRoboticons().size() + " Plots: " + player.getPlots().size());
+		}
 		
 	}
 	

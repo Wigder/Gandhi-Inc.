@@ -17,6 +17,6 @@ public class DesktopLauncher {
 		config.resizable = false;
 		config.title = "Blind Eye";
 		Game game = new Game();
-		LwjglApplication app = new LwjglApplication(game, config);
+		new LwjglApplication(game, config);
 	}
 }

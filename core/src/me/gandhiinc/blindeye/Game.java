@@ -1,7 +1,6 @@
 package me.gandhiinc.blindeye;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -12,22 +11,30 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class Game extends ApplicationAdapter implements InputProcessor
+public class Game extends ApplicationAdapter
 {
-	SpriteBatch batch;
-	ShapeRenderer shapeRenderer;
-	Texture mapImg;
-	Texture roboticonImg;
+	private SpriteBatch batch;
+	private ShapeRenderer shapeRenderer;
+	private Texture mapImg;
+	private Texture roboticonImg;
 	
-	GameEngine gameEngine;
+	private Stage stage;
 	
-	int activePlotIndex = -1;
+	private GameEngine gameEngine;
+	
+	private int activePlotIndex = -1;
 	
 	@Override
 	public void create () 
 	{
+		
 		ArrayList<AIPlayer> players = new ArrayList<AIPlayer>();
 		players.add(new AIPlayer("Player 1", 50, 50, 50));
 		players.add(new AIPlayer("Player 2", 50, 50, 50));
@@ -38,7 +45,36 @@ public class Game extends ApplicationAdapter implements InputProcessor
 		mapImg = new Texture("YorkUniMap.png");
 		roboticonImg = new Texture("Graphics/Roboticon.png");
 		
-		Gdx.input.setInputProcessor(this); //This handles all the processing input (The processor of the input is "this")
+		stage = new Stage(){
+	        @Override
+	        public boolean keyDown(int keyCode) {
+	            if (keyCode == Input.Keys.ESCAPE) {
+	                activePlotIndex = -1;
+	            }
+	            return super.keyDown(keyCode);
+	        }
+		};
+		
+		Actor mapActor = new Actor();
+		mapActor.setBounds(0, 0, mapImg.getWidth(), mapImg.getHeight());
+		
+		mapActor.addListener(new InputListener(){
+			public boolean touchDown(InputEvent event, float screenX, float screenY, int pointer, int button)
+			{
+				if (button == Input.Buttons.LEFT)
+				{
+					int x = (int)(((float)screenX / mapImg.getWidth()) * gameEngine.getMapWidth());
+					int y = (int)(((float)(mapImg.getHeight() - screenY) / mapImg.getHeight()) * gameEngine.getMapHeight());
+					System.out.println("X: " + screenX + " Y: " + screenY + "Point: (" + x + ", " + y + ") = Index: " + (x + y * gameEngine.getMapWidth()));
+					activePlotIndex = (x + y * gameEngine.getMapWidth());
+				}
+				return true;
+			}
+		});
+		
+		stage.addActor(mapActor);
+		
+		Gdx.input.setInputProcessor(stage); //This handles all the processing input (The processor of the input is "this")
 	}
 	
 	@Override
@@ -99,6 +135,8 @@ public class Game extends ApplicationAdapter implements InputProcessor
 			}
 		}
 		batch.end();
+		
+		/*
 		if (gameEngine.isRunning())	
 		{
 			try {
@@ -108,6 +146,7 @@ public class Game extends ApplicationAdapter implements InputProcessor
 				e.printStackTrace();
 			}
 		}
+		*/
 		
 	}
 	
@@ -118,65 +157,4 @@ public class Game extends ApplicationAdapter implements InputProcessor
 		mapImg.dispose();
 	}
 
-	@Override
-	public boolean keyUp(int keycode) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) //any mouse click
-	{ 
-		if (button == Input.Buttons.LEFT) //if left mouse click
-			if (screenX <= mapImg.getWidth() && screenY <= mapImg.getHeight())
-			{
-				int x = (int)(((float)screenX / mapImg.getWidth()) * gameEngine.getMapWidth());
-				int y = (int)(((float)screenY / mapImg.getHeight()) * gameEngine.getMapHeight());
-				//add check to get plot from list of plots and draw selection highlight around it
-				System.out.print("Point: (" + x + ", " + y + ") = Index: " + (x + y * gameEngine.getMapWidth()) + "\t|\t");
-				activePlotIndex = (x + y * gameEngine.getMapWidth());
-			}
-			System.out.println("Mouse Click\tX: " + screenX + "\tY: " + screenY);
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) 
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) 
-	{
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean keyDown(int keycode) 
-	{
-		if (keycode == Input.Keys.ESCAPE)
-			Gdx.app.exit();
-				
-		return true;
-	}
 }
