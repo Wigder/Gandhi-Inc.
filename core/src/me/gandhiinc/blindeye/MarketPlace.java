@@ -211,18 +211,27 @@ public class MarketPlace
 	public void setPrices()
 	{
 		System.out.println("Current Ore Price: " + getMarketOreSellPrice() + " prevOreStock: " + prevOreStock + " marketOreStock: " + marketOreStock + " log: " + Math.log((double)prevOreStock / (double)marketOreStock));
-		float newOrePrice = (float) Math.log((double)prevOreStock / (double)marketOreStock) * 10;
-		if (newOrePrice < 0.5f)
+		if (prevOreStock != 0 && marketOreStock != 0)
 		{
-			newOrePrice = 0.5f;
+			float newOrePrice = (float) Math.log((double)prevOreStock / (double)marketOreStock) * 10;
+			if (newOrePrice < 0.5f)
+			{
+				newOrePrice = 0.5f;
+			}
+			setMarketOreBuyPrice(newOrePrice - 0.1f);
+			setMarketOreSellPrice(newOrePrice + 0.1f);	
 		}
-		setMarketOreBuyPrice(newOrePrice - 0.1f);
-		setMarketOreSellPrice(newOrePrice + 0.1f);	
 		
-		float newEnergyPrice = (float) Math.pow(getMarketEnergySellPrice(), ((float)prevEnergyStock / (float)marketEnergyStock));
-		setMarketEnergyBuyPrice(newEnergyPrice - 0.1f);
-		setMarketEnergySellPrice(newEnergyPrice + 0.1f);
-		
+		if (prevOreStock != 0 && marketOreStock != 0)
+		{
+			float newEnergyPrice = (float) Math.log((double)prevEnergyStock / (double)marketEnergyStock) * 10;
+			if (newEnergyPrice < 0.5f)
+			{
+				newEnergyPrice = 0.5f;
+			}
+			setMarketEnergyBuyPrice(newEnergyPrice - 0.1f);
+			setMarketEnergySellPrice(newEnergyPrice + 0.1f);
+		}
 		prevOreStock = marketOreStock;
 		prevEnergyStock = marketEnergyStock;
 	}

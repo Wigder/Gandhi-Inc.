@@ -10,7 +10,7 @@ public class GameTest {
 
 	public static void main(String[] arg) throws Exception
 	{
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 10000; i++)
 		{
 			ArrayList<AIPlayer> players = new ArrayList<AIPlayer>();
 			players.add(new AIPlayer("1", 50, 50, 50));
@@ -26,6 +26,10 @@ public class GameTest {
 					if (player.getMoney() > 10000)
 					{
 						throw new Exception("What the fuck is going on!!!!!!");
+					}
+					if (player.getMoney() < 0)
+					{	
+						throw new Exception("What the fuck is going on!!!!!! on game: " + i);
 					}
 				}
 			}
