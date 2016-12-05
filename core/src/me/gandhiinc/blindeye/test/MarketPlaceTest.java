@@ -45,7 +45,8 @@ public class MarketPlaceTest {
         try 
         {
 			market.buyEnergy(testPlayer, 5);
-		} catch (Exception e) 
+		} 
+        catch (Exception e) 
         {
 			e.printStackTrace();
 		}
@@ -66,7 +67,8 @@ public class MarketPlaceTest {
 		try 
 		{
 			market.buyRoboticon(testPlayer, 1);
-		} catch (Exception e) 
+		} 
+		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
@@ -90,7 +92,8 @@ public class MarketPlaceTest {
         try 
         {
 			market.sellOre(testPlayer, 5);
-		} catch (Exception e) 
+		} 
+        catch (Exception e) 
         {
 			e.printStackTrace();
 		}
@@ -124,8 +127,28 @@ public class MarketPlaceTest {
 	@Test
 	public void testMarketExchangeRate()
 	{
+		int desiredFinalOreBuyPrice = 2;
+		int desiredFinalOreSellPrice = 5;
 		
+		market.setMarketOreStock(5);
+		market.setMarketOreBuyPrice(2);
+		
+		try 
+		{
+			market.buyOre(testPlayer, 1);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		assertEquals(market.getMarketOreBuyPrice(), desiredFinalOreBuyPrice);
+		assertEquals(market.getMarketOreBuyPrice(), desiredFinalOreSellPrice);
 	}
+	
+	// TEST ERRORS
+	
+	
 	
 	// SEE PUB CLASS
 
