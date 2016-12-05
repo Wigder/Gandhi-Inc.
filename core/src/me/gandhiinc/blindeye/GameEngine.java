@@ -70,7 +70,7 @@ public class GameEngine
 	/**
 	 * Starts the game
 	 */
-	void start()
+	public void start()
 	{
 		running = true;
 	}
@@ -87,7 +87,7 @@ public class GameEngine
 	/**
 	 * Stops the game
 	 */
-	void stop()
+	public void stop()
 	{
 		running = false;
 	}

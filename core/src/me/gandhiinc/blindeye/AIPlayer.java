@@ -41,7 +41,7 @@ public class AIPlayer extends Player {
 		AIAcquirePlot(plots);
 		AIAcquireRoboticon(market);
 		ProduceResources();
-		AIGamble(market);
+		//AIGamble(market);
 		SellResources(market);
 	}
 	

@@ -210,7 +210,12 @@ public class MarketPlace
 	
 	public void setPrices()
 	{
-		float newOrePrice = (float) Math.pow(getMarketOreSellPrice(), ((float)prevOreStock / (float)marketOreStock));
+		System.out.println("Current Ore Price: " + getMarketOreSellPrice() + " prevOreStock: " + prevOreStock + " marketOreStock: " + marketOreStock + " log: " + Math.log((double)prevOreStock / (double)marketOreStock));
+		float newOrePrice = (float) Math.log((double)prevOreStock / (double)marketOreStock) * 10;
+		if (newOrePrice < 0.5f)
+		{
+			newOrePrice = 0.5f;
+		}
 		setMarketOreBuyPrice(newOrePrice - 0.1f);
 		setMarketOreSellPrice(newOrePrice + 0.1f);	
 		
