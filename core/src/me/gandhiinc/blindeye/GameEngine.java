@@ -24,37 +24,6 @@ import java.util.List;
 public class GameEngine 
 {
 
-	/*public static void main(String[] args) {
-		ArrayList<AIPlayer> players = new ArrayList<AIPlayer>();
-		players.add(new AIPlayer("Player 1", 50, 0, 0));
-		players.add(new AIPlayer("Player 2", 50, 0, 0));
-		GameEngine game = new GameEngine(null, players, 5, 6);
-
-		game.start();
-		
-		while(game.running)
-		{
-			game.updateTest();
-			for (int i = 0; i < game.plots.length; i++)
-			{
-				System.out.print("[");
-				int x = 1;
-				for (Iterator<AIPlayer> playerIterator = game.aiPlayers.iterator(); playerIterator.hasNext(); )
-				{
-					AIPlayer player = playerIterator.next();
-					if (player.plots.contains(game.plots[i]))
-						System.out.print(x);
-					x++;
-				}
-				System.out.print("]");
-			}
-			System.out.println("");
-		}
-		
-		System.out.println("End");
-		
-	}*/
-
 	private List<Player> humanPlayers;
 	private List<AIPlayer> aiPlayers;
 
@@ -158,7 +127,7 @@ public class GameEngine
 		}
 		
 		market.produceRoboticon();
-		
+		market.setPrices();
 		if (validPlots.size() == 0)
 			stop();
 		

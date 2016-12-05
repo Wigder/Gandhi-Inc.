@@ -38,24 +38,26 @@ public class AIPlayer extends Player {
 	 */
 	public void CompleteTurn(Plot[] plots, MarketPlace market)
 	{
-		AIAquirePlot(plots);
-		AIAquireRoboticon(market);
+		AIAcquirePlot(plots);
+		AIAcquireRoboticon(market);
 		ProduceResources();
 		AIGamble(market);
+		SellResources(market);
 	}
 	
 	/**
-	 * Allows the AIPlayer to aquire a random plot given a list of available plots
+	 * Allows the AIPlayer to acquire a random plot given a list of available plots
 	 * @param plots List of available plots
 	 */
-	private void AIAquirePlot(Plot[] plots)
+	private void AIAcquirePlot(Plot[] plots)
 	{
+		//If there is a valid plot to acquire, then acquire a random plot from the list of valid plots
 		if (plots.length >= 1)
 		{
 			Random random = new Random();
 			int plotIndex = random.nextInt(plots.length);
 			try {
-				AquirePlot(plots[plotIndex]);
+				AcquirePlot(plots[plotIndex]);
 			} catch (Exception e) {
 				return;
 			}
@@ -66,14 +68,17 @@ public class AIPlayer extends Player {
 	 * Allows the AIPlayer to buy a roboticon from the market given. So if the AIPlayer has enough money to buy a roboticon then it has a 50/50 chance of buying one and then specialising it
 	 * @param market The market to buy the roboticon from
 	 */
-	private void AIAquireRoboticon(MarketPlace market)
+	private void AIAcquireRoboticon(MarketPlace market)
 	{
+		//If the player has enough money to buy a roboticon
 		if (this.money > market.getMarketRoboticonSellPrice())
 		{
+			//The player has a 50% chance of buying a roboticon
 			Random random = new Random();	
 			boolean isBuying = random.nextBoolean();
 			if (isBuying)
 			{
+				//If they are buying a roboticon then attempt to buy a roboticon and speciliase it with it being a 50:50 chance of either resource
 				try {
 					market.buyRoboticon(this, 1);
 					if (random.nextBoolean())
@@ -81,6 +86,7 @@ public class AIPlayer extends Player {
 					else
 						roboticons.get(roboticons.size() - 1).setSpec(Resource.ORE);
 					
+					//Then assign the roboticon to the last plot that was acquired
 					Plot lastPlot = plots.get(plots.size() - 1);
 					if (lastPlot.hasRoboticon() == false)
 					{
@@ -88,7 +94,7 @@ public class AIPlayer extends Player {
 						lastPlot.addRoboticon(roboticons.get(roboticons.size() - 1));
 					}
 				} catch (Exception e) {
-					return;
+					e.printStackTrace();
 				}
 			}
 		}
@@ -138,6 +144,27 @@ public class AIPlayer extends Player {
 				break;
 			}
 		}
+	}
+	
+	private void SellResources(MarketPlace market)
+	{
+		if (ore > 0)
+		{
+			try {
+				market.sellOre(this, ore);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if (energy > 0)
+		{
+			try {
+				market.sellEnergy(this, energy);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 }

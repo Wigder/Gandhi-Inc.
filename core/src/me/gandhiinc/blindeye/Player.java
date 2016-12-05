@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * This where all of the information for each player is along with all of the actions they can perform.
  * It contains the following methods:
  * 
- * 		-	AquirePlot(Plot plot)
+ * 		-	AcquirePlot(Plot plot)
  * 		-	SpecialiseRoboticon(Roboticon roboticon, Resource resource)
  * 		-	ProduceResources()
  * 
@@ -51,11 +51,11 @@ public class Player
 	}
 
 	/**
-	 * This alows the player to aquire a new plot which in turn adds theplot to the list of plots the player owns
-	 * @param plot The plot which is going to be aquired.
+	 * This allows the player to acquire a new plot which in turn adds the plot to the list of plots the player owns
+	 * @param plot The plot which is going to be acquired.
 	 * @throws Exception If the plot already belongs to a player
 	 */
-	public void AquirePlot(Plot plot) throws Exception
+	public void AcquirePlot(Plot plot) throws Exception
 	{
 		if (plot.getPlayer() == null)
 		{
@@ -94,6 +94,8 @@ public class Player
 				break;
 			case ORE:
 				oreProduction = roboticon.calcProd(roboticon.getSpec(), 1);
+				break;
+			default:
 				break;
 			}
 		}

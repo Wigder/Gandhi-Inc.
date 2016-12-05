@@ -40,17 +40,20 @@ public class MarketPlace
 	private int marketEnergyStock = 100;
 	private int marketRoboticonStock = 10;
 	
-	private int maxOrePrice;
-	private int minOrePrice;
+	private int prevOreStock = 100;
+	private int prevEnergyStock = 100;
 	
-	private int maxEnergyPrice;
-	private int minEnergyPrice;
+	private float maxOrePrice;
+	private float minOrePrice;
 	
-	private int marketOreBuyPrice;
-	private int marketEnergyBuyPrice;
+	private float maxEnergyPrice;
+	private float minEnergyPrice;
+	
+	private float marketOreBuyPrice = 1.5f;
+	private float marketEnergyBuyPrice = 1.5f;
 
-	private int marketOreSellPrice;
-	private int marketEnergySellPrice;
+	private float marketOreSellPrice = 1.5f;
+	private float marketEnergySellPrice = 1.5f;
 	private int marketRoboticonSellPrice;
 	
 	private Pub pub = new Pub();
@@ -76,7 +79,7 @@ public class MarketPlace
 		{
 			throw eStockBuy;																			//Return error to say the market doesn't have enough
 		}
-		int totalAmount = quantity * getMarketOreSellPrice();                                                   //Calculate the total price
+		int totalAmount = (int) (quantity * getMarketOreSellPrice());                                                   //Calculate the total price
 		if(player.getMoney() >= totalAmount)                                                                    //Check if the player has enough money to pay
 		{
 			player.setOre(player.getOre() + quantity);                                                      //Add the ore to the players ore
@@ -108,11 +111,11 @@ public class MarketPlace
 		{
 			throw eStockBuy;																					//Return error to say the market doesn't have enough
 		}
-		int totalAmount = quantity * getMarketEnergySellPrice();                                                        //Calculate the total price
+		float totalAmount = quantity * getMarketEnergySellPrice();                                                        //Calculate the total price
 		if(player.getMoney() > totalAmount)                                                                             //Check if the player has enough money to pay
 		{
 			player.setEnergy(player.getEnergy() + quantity);																			//Add the ore to the players ore
-			player.setMoney(player.getMoney() -  totalAmount);							//Remove the money from his account
+			player.setMoney(player.getMoney() -  (int) totalAmount);							//Remove the money from his account
 			
 			int newStock = getMarketEnergyStock() - quantity;							//Calculates what the new stock is
 			setMarketEnergyStock(newStock);										//Sets the new stock value
@@ -138,18 +141,18 @@ public class MarketPlace
 	 */
 	public void buyRoboticon(Player player, int quantity) throws Exception
 	{
-		if(getMarketRoboticonSellPrice() > player.getMoney())
+		if(getMarketRoboticonSellPrice() * quantity > player.getMoney())
 		{
 			throw eMoney;									//Error the player doesn't have enough money
 		}
-		if(getMarketRoboticonStock()-quantity <= 0)
+		if(getMarketRoboticonStock()-quantity < 1)
 		{
 			throw eStockBuy;								//Error the market doesn't have enough stock
 		}
 		else
 		{
 			setMarketRoboticonStock(getMarketRoboticonStock() - quantity); 			//Reduce the stock by the quantity purchased
-			
+			player.setMoney(player.getMoney() - (getMarketRoboticonSellPrice() * quantity));
 			for (int i = 0; i < quantity; i++)
 				player.addRoboticon(new Roboticon());					// Add the roboticon to the player
 		}
@@ -177,14 +180,10 @@ public class MarketPlace
 			throw e;										//Display error that the player doesn't have enough Ore
 		}
 		
-		int totalAmount = getMarketOreBuyPrice();                                                       //Calculate total amount player will receive
-		player.setMoney(player.getMoney() + totalAmount);                                               //Need to use a setter for players money
+		float totalAmount = getMarketOreBuyPrice() * quantity;                                                       //Calculate total amount player will receive
+		player.setMoney(player.getMoney() + (int)totalAmount);                                               //Need to use a setter for players money
 		player.setOre(player.getOre() - quantity);
-                setMarketOreStock(getMarketOreStock() + quantity);
-                
-                int newPrice = (int)(maxOrePrice * Math.pow(0.7, getMarketOreSellPrice()) + minOrePrice);	//Calculates the new sell price
-                setMarketOreBuyPrice(newPrice + 1);														//Sets the new sell price
-                setMarketOreSellPrice(newPrice - 1);	
+        setMarketOreStock(getMarketOreStock() + quantity);
                      
 	}
 	
@@ -202,17 +201,26 @@ public class MarketPlace
 		{
 			throw e;										//Display error that the player doesn't have enough Ore
 		}
-		int totalAmount = getMarketEnergyBuyPrice();                                                    //Calculate total amount player will receive
-		player.setMoney(player.getMoney() + totalAmount);                                               //Need to use a setter for players money
+		float totalAmount = getMarketEnergyBuyPrice() * quantity;                                                    //Calculate total amount player will receive
 		
-                player.setMoney(player.getMoney() + totalAmount);                                               //Need to use a setter for players money
-		player.setEnergy(player.getOre() - quantity);
-                setMarketEnergyStock(getMarketEnergyStock() + quantity);
-                
-                int newPrice = (int)(maxOrePrice * Math.pow(0.7, getMarketEnergySellPrice()) + minOrePrice);	//Calculates the new sell price
-                setMarketEnergyBuyPrice(newPrice + 1);														//Sets the new sell price
-                setMarketEnergySellPrice(newPrice - 1);	
-	}	
+        player.setMoney(player.getMoney() + (int) totalAmount);                                               //Need to use a setter for players money
+		player.setEnergy(player.getEnergy() - quantity);
+        setMarketEnergyStock(getMarketEnergyStock() + quantity);
+	}
+	
+	public void setPrices()
+	{
+		float newOrePrice = (float) Math.pow(getMarketOreSellPrice(), ((float)prevOreStock / (float)marketOreStock));
+		setMarketOreBuyPrice(newOrePrice - 0.1f);
+		setMarketOreSellPrice(newOrePrice + 0.1f);	
+		
+		float newEnergyPrice = (float) Math.pow(getMarketEnergySellPrice(), ((float)prevEnergyStock / (float)marketEnergyStock));
+		setMarketEnergyBuyPrice(newEnergyPrice - 0.1f);
+		setMarketEnergySellPrice(newEnergyPrice + 0.1f);
+		
+		prevOreStock = marketOreStock;
+		prevEnergyStock = marketEnergyStock;
+	}
 	
 /* ---------------------------------------------------------
  * ---------------	Generating Roboticons	----------------
@@ -392,7 +400,7 @@ public class MarketPlace
 	 * Getter for the purchase price of the market's ore
 	 * @return
 	 */
-	public int getMarketOreBuyPrice() 
+	public float getMarketOreBuyPrice() 
 	{
 		return marketOreBuyPrice;
 	}
@@ -401,7 +409,7 @@ public class MarketPlace
 	 * Setter for the purchase price of the market's ore
 	 * @param marketOreBuyPrice
 	 */
-	public void setMarketOreBuyPrice(int marketOreBuyPrice) 
+	public void setMarketOreBuyPrice(float marketOreBuyPrice) 
 	{
 		this.marketOreBuyPrice = marketOreBuyPrice;
 	}
@@ -410,7 +418,7 @@ public class MarketPlace
 	 * Getter for the purchase price of the market's energy
 	 * @return
 	 */
-	public int getMarketEnergyBuyPrice() 
+	public float getMarketEnergyBuyPrice() 
 	{
 		return marketEnergyBuyPrice;
 	}
@@ -419,7 +427,7 @@ public class MarketPlace
 	 * Setter for the purchase price of the market's energy
 	 * @param marketEnergyBuyPrice
 	 */
-	public void setMarketEnergyBuyPrice(int marketEnergyBuyPrice) 
+	public void setMarketEnergyBuyPrice(float marketEnergyBuyPrice) 
 	{
 		this.marketEnergyBuyPrice = marketEnergyBuyPrice;
 	}
@@ -428,7 +436,7 @@ public class MarketPlace
 	 * Getter for the selling price of the market's ore
 	 * @return
 	 */
-	public int getMarketOreSellPrice() 
+	public float getMarketOreSellPrice() 
 	{
 		return marketOreSellPrice;
 	}
@@ -437,7 +445,7 @@ public class MarketPlace
 	 * Setter for the selling price of the market's ore
 	 * @param marketOreSellPrice
 	 */
-	public void setMarketOreSellPrice(int marketOreSellPrice) 
+	public void setMarketOreSellPrice(float marketOreSellPrice) 
 	{
 		this.marketOreSellPrice = marketOreSellPrice;
 	}
@@ -447,7 +455,7 @@ public class MarketPlace
 	 * Getter for the selling price of the market's energy
 	 * @return
 	 */
-	public int getMarketEnergySellPrice() 
+	public float getMarketEnergySellPrice() 
 	{
 		return marketEnergySellPrice;
 	}
@@ -456,7 +464,7 @@ public class MarketPlace
 	 * Setter for the selling price of the market's energy
 	 * @param marketEnergySellPrice
 	 */
-	public void setMarketEnergySellPrice(int marketEnergySellPrice) 
+	public void setMarketEnergySellPrice(float marketEnergySellPrice) 
 	{
 		this.marketEnergySellPrice = marketEnergySellPrice;
 	}
@@ -488,41 +496,41 @@ public class MarketPlace
 		return this.pub;
 	}
         
-        public int getMaxOrePrice() 
+        public float getMaxOrePrice() 
 	{
 		return maxOrePrice;
 	}
 
-	public void setMaxOrePrice(int maxOrePrice) 
+	public void setMaxOrePrice(float maxOrePrice) 
 	{
 		this.maxOrePrice = maxOrePrice;
 	}
 
-	public int getMinOrePrice() {
+	public float getMinOrePrice() {
 		return minOrePrice;
 	}
 
-	public void setMinOrePrice(int minOrePrice) 
+	public void setMinOrePrice(float minOrePrice) 
 	{
 		this.minOrePrice = minOrePrice;
 	}
 
-	public int getMaxEnergyPrice() 
+	public float getMaxEnergyPrice() 
 	{
 		return maxEnergyPrice;
 	}
 
-	public void setMaxEnergyPrice(int maxEnergyPrice) 
+	public void setMaxEnergyPrice(float maxEnergyPrice) 
 	{
 		this.maxEnergyPrice = maxEnergyPrice;
 	}
 
-	public int getMinEnergyPrice() 
+	public float getMinEnergyPrice() 
 	{
 		return minEnergyPrice;
 	}
 
-	public void setMinEnergyPrice(int minEnergyPrice) {
+	public void setMinEnergyPrice(float minEnergyPrice) {
 		this.minEnergyPrice = minEnergyPrice;
 	}
 }

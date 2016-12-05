@@ -33,7 +33,7 @@ public class PlayerTest {
         Plot desiredPlot = new Plot(0, 0, 0, 0);
         Player testPlayer = new Player("", 0, 0, 0);
         try {
-            testPlayer.AquirePlot(desiredPlot);
+            testPlayer.AcquirePlot(desiredPlot);
             ArrayList<Plot> plots = testPlayer.getPlots();
             assertEquals(plots.contains(desiredPlot), true);
         } catch (Exception e) {
