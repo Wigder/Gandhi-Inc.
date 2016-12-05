@@ -164,7 +164,7 @@ public class Game extends ApplicationAdapter
 				
 		stage.act();
 		
-		/*
+		
 		if (gameEngine.isRunning())	
 		{
 			try {
@@ -174,7 +174,7 @@ public class Game extends ApplicationAdapter
 				e.printStackTrace();
 			}
 		}
-		*/
+		
 		
 	}
 	

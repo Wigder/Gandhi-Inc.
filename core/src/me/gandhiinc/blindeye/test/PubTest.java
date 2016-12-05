@@ -1,6 +1,8 @@
-package me.gandhiinc.blindeye;
+package me.gandhiinc.blindeye.test;
 
-public class Test2{
+import me.gandhiinc.blindeye.Pub;
+
+public class PubTest{
 	public static void main(String args[]){
 		Pub instance = new Pub();
         int counter = 0;
