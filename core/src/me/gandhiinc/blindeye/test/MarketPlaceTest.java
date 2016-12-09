@@ -127,11 +127,10 @@ public class MarketPlaceTest {
 	@Test
 	public void testMarketExchangeRate()
 	{
-		int desiredFinalOreBuyPrice = 2;
-		int desiredFinalOreSellPrice = 5;
+		double desiredFinalOreBuyPrice = 2;
+		double desiredFinalOreSellPrice = 5;
 		
-		market.setMarketOreStock(5);
-		market.setMarketOreBuyPrice(2);
+		market.setPrices();
 		
 		try 
 		{
@@ -143,11 +142,42 @@ public class MarketPlaceTest {
 		}
 		
 		assertEquals(market.getMarketOreBuyPrice(), desiredFinalOreBuyPrice);
-		assertEquals(market.getMarketOreBuyPrice(), desiredFinalOreSellPrice);
+		assertEquals(market.getMarketEnergySellPrice(), desiredFinalOreSellPrice);
+		
+		
 	}
+	
+	
 	
 	// TEST ERRORS
 	
+	public void testForErrors()
+	{
+		//THE FOLLOWING SHOULD RETURN INVALID INPUTS
+		
+		market.setMarketOreBuyPrice(-1);
+		market.setMarketEnergyBuyPrice(-1);
+		market.setMarketRoboticonSellPrice(-1);
+		market.setMarketOreSellPrice(-1);
+		market.setMarketEnergySellPrice(-1);
+	
+		// RETURN ERROR THAT PLAYER HASN'T GOT ENOUGH MONEY
+		
+		testPlayer.setMoney(0);
+		testPlayer.setOre(0);
+		testPlayer.setEnergy(0);
+		
+		try 
+		{
+			market.buyOre(testPlayer, 1);
+		} 
+		catch (Exception e) 
+		{
+			// Exception should be caught
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	// SEE PUB CLASS

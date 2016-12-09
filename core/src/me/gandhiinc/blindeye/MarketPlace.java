@@ -73,24 +73,24 @@ public class MarketPlace
 	 * @param quantity - A defined quantity with input from the user
 	 * @throws Exception - Exception thrown if the Market is out of stock or if the player doesn't have sufficient funds
 	 */
-	public void buyOre(Player player, int quantity)	throws Exception						//Function to buy Ore from the market
+	public void buyOre(Player player, int quantity)	throws Exception									//Function to buy Ore from the market
 	{	
-		if(quantity > getMarketOreStock()) 									//Check the Market has enough stock
+		if(quantity > getMarketOreStock()) 																//Check the Market has enough stock
 		{
 			throw eStockBuy;																			//Return error to say the market doesn't have enough
 		}
-		int totalAmount = (int) (quantity * getMarketOreSellPrice());                                                   //Calculate the total price
-		if(player.getMoney() >= totalAmount)                                                                    //Check if the player has enough money to pay
+		int totalAmount = (int) (quantity * getMarketOreSellPrice());                                   //Calculate the total price
+		if(player.getMoney() >= totalAmount)                                                            //Check if the player has enough money to pay
 		{
-			player.setOre(player.getOre() + quantity);                                                      //Add the ore to the players ore
-			player.setMoney(player.getMoney() - totalAmount);						//Remove the money from his account
+			player.setOre(player.getOre() + quantity);                                                  //Add the ore to the players ore
+			player.setMoney(player.getMoney() - totalAmount);											//Remove the money from his account
 			
-			int newStock = getMarketOreStock() - quantity;							//Calculates what the new stock is
-			setMarketOreStock(newStock);                                                                    //Sets the new stock value
+			int newStock = getMarketOreStock() - quantity;												//Calculates what the new stock is
+			setMarketOreStock(newStock);                                                                //Sets the new stock value
 			
 			int newPrice = (int)(maxOrePrice * Math.pow(0.7, getMarketOreSellPrice()) + minOrePrice);	//Calculates the new sell price
-                        setMarketOreBuyPrice(newPrice + 1);								//Sets the new sell price
-			setMarketOreSellPrice(newPrice - 1);								//Sets the new buy price
+                        setMarketOreBuyPrice(newPrice + 1);												//Sets the new sell price
+			setMarketOreSellPrice(newPrice - 1);														//Sets the new buy price
 		}
 		else
 		{
@@ -107,27 +107,27 @@ public class MarketPlace
 	 */
 	public void buyEnergy(Player player, int quantity) throws Exception							//Function to buy Energy from the market
 	{
-		if(quantity > getMarketEnergyStock()) 										//Check the Market has enough stock
+		if(quantity > getMarketEnergyStock()) 													//Check the Market has enough stock
 		{
-			throw eStockBuy;																					//Return error to say the market doesn't have enough
+			throw eStockBuy;																	//Return error to say the market doesn't have enough
 		}
-		float totalAmount = quantity * getMarketEnergySellPrice();                                                        //Calculate the total price
+		float totalAmount = quantity * getMarketEnergySellPrice();                                                  //Calculate the total price
 		if(player.getMoney() > totalAmount)                                                                             //Check if the player has enough money to pay
 		{
 			player.setEnergy(player.getEnergy() + quantity);																			//Add the ore to the players ore
 			player.setMoney(player.getMoney() -  (int) totalAmount);							//Remove the money from his account
 			
-			int newStock = getMarketEnergyStock() - quantity;							//Calculates what the new stock is
-			setMarketEnergyStock(newStock);										//Sets the new stock value
+			int newStock = getMarketEnergyStock() - quantity;									//Calculates what the new stock is
+			setMarketEnergyStock(newStock);														//Sets the new stock value
 			
 			int newPrice = (int)(maxEnergyPrice * Math.pow(0.7, getMarketEnergySellPrice()) + minEnergyPrice);	//Calculates the new sell price
-			setMarketEnergySellPrice(newPrice + 1);									//Sets the new sell price
-			setMarketEnergyBuyPrice(newPrice - 1);                                                                  //Sets the new buy price
+			setMarketEnergySellPrice(newPrice + 1);												//Sets the new sell price
+			setMarketEnergyBuyPrice(newPrice - 1);                                              //Sets the new buy price
 			
 		}
 		else
 		{
-			throw eMoney;																						//Return error that player does not have enough
+			throw eMoney;																		//Return error that player does not have enough
 		}
 	}
 
