@@ -14,6 +14,11 @@ public class MarketPlaceTest {
 	@Test
 	public void testBuyOre() 
 	{
+		/*Set the player's money to 10 and their ore to 0
+		 * The market sell price is set to 2
+		 * Then we get the player to buy 5 ore at the cost of 10
+		 * The players money should be 0 once the sale has proceeded
+		*/
 		testPlayer.setMoney(10);
 		testPlayer.setOre(0);
         int desiredPlayerMoney = 0;
@@ -124,6 +129,7 @@ public class MarketPlaceTest {
 		assertEquals(market.getMarketOreStock(), desiredOreStock);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testMarketExchangeRate()
 	{
@@ -180,7 +186,7 @@ public class MarketPlaceTest {
 	}
 	
 	
-	// SEE PUB CLASS
+	// SEE PUB CLASS & INTEGRATE 
 
 	@Test
 	public void testScratchCard() 
