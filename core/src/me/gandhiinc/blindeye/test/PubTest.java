@@ -2,6 +2,11 @@ package me.gandhiinc.blindeye.test;
 
 import me.gandhiinc.blindeye.Pub;
 
+
+/*
+//these tests should all be aproxamatly equil to 0
+*/
+
 public class PubTest{
 	public static void main(String args[]){
 		Pub instance = new Pub();
@@ -14,7 +19,7 @@ public class PubTest{
         	counter += 1;
         	}
         	catch(Exception IlligalArgumentException){
-        		System.out.println("hello");
+        		System.out.println("Error");
         	}
         }
         double average = runningTotal / totalTests;
@@ -29,7 +34,7 @@ public class PubTest{
         	counter += 1;
         	}
         	catch(Exception IlligalArgumentException){
-        		System.out.println("hello");
+        		System.out.println("Error");
         	}
         }
         System.out.println(runningTotal / totalTests);
@@ -43,7 +48,7 @@ public class PubTest{
         	counter += 1;
         	}
         	catch(Exception IlligalArgumentException){
-        		System.out.println("hello");
+        		System.out.println("Error");
         	}
         }
         System.out.println(runningTotal / totalTests);
