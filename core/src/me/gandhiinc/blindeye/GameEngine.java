@@ -29,17 +29,22 @@ public class GameEngine
 
 	private Plot[] plots;
 	
+	private Plot activePlot;
+	
 	private MarketPlace market;
 
 	private final int mapWidth;
 	private final int mapHeight;
 
-	private final long phase2Time = 2 * 60 * 1000;
+	private final float phase2Time = 2 * 60;
 	private final int phase3Time = 2 * 60;
-
+	private int phase = 1;
+	
+	private Player currentPlayer;
+	
 	private boolean running = false;
 	
-	private long phaseTime;
+	private float phaseTime;
 
 	/**
 	 * This allows a new instance of the GameEngine object to be instantiated allow a game to be played.
@@ -64,6 +69,8 @@ public class GameEngine
 			plots[i] = new Plot(1, 1, 1, 1);
 		}
 		
+		activePlot = null;
+		
 		phaseTime = phase2Time;
 	}
 
@@ -72,6 +79,9 @@ public class GameEngine
 	 */
 	public void start()
 	{
+		currentPlayer = humanPlayers.get(0);
+		phase = 1;
+		phaseTime = -1;
 		running = true;
 	}
 	
@@ -96,15 +106,47 @@ public class GameEngine
 	 * Updates the data in the game given a time since the last update
 	 * @param deltaTime Time since last update
 	 */
-	public void update(long deltaTime)
+	public void update(float deltaTime)
 	{
-		phaseTime -= deltaTime;
-		System.out.println((phaseTime / 1000));
+		if (phase != 1)
+			phaseTime -= deltaTime;
+		System.out.println((phaseTime));
 		if (phaseTime < 0 )
-			System.out.println("Game End");
+		{
+			if (phase == 3)
+			{
+				if (humanPlayers.indexOf(currentPlayer) == humanPlayers.size() - 1)
+				{
+					for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext(); )
+					{
+						AIPlayer player = playerIterator.next();
+						ArrayList<Plot> validPlots = new ArrayList<Plot>();
+						for (Plot plot: plots)
+						{
+							if (plot.getPlayer() == null)
+								validPlots.add(plot);
+						}
+						
+						player.CompleteTurn(validPlots.toArray(new Plot[validPlots.size()]), market);	
+					}
+					
+					ArrayList<Plot> validPlots = new ArrayList<Plot>();
+					for (Plot plot: plots)
+					{
+						if (plot.getPlayer() == null)
+							validPlots.add(plot);
+					}
+					
+					market.produceRoboticon();
+					market.setPrices();
+					if (validPlots.size() == 0)
+						stop();
+				}
+			}
+		}
 	}
 	
-	public void updateTest()
+	/*public void updateTest()
 	{
 		for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext(); )
 		{
@@ -138,7 +180,7 @@ public class GameEngine
 			+ player.getEnergy() + " Ore: " + player.getOre() + " Roboticons: " + player.getRoboticons().size() + " Plots: " + player.getPlots().size());
 		}
 		
-	}
+	}*/
 	
 	public Plot[] getPlots()
 	{
@@ -164,5 +206,34 @@ public class GameEngine
 	{
 		return aiPlayers;
 	}
-
+	
+	public Plot getActivePlot()
+	{
+		return activePlot;
+	}
+	
+	public void setActivePlot(Plot plot)
+	{
+		activePlot = plot;
+	}
+	
+	public float getPhaseTime()
+	{
+		return phaseTime;
+	}
+	
+	public int getPhase()
+	{
+		return phase;
+	}
+	
+	public void setPhase(int phase)
+	{
+		this.phase = phase;
+	}
+	
+	public Player getCurrentPlayer()
+	{
+		return currentPlayer;
+	}
 }

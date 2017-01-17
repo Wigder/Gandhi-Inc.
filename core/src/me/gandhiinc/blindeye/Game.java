@@ -8,12 +8,18 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class Game extends ApplicationAdapter
 {
@@ -22,22 +28,31 @@ public class Game extends ApplicationAdapter
 	private Texture mapImg;
 	private Texture roboticonImg;
 	
-	private Stage stage;
+	private Stage gameStage;
+	private Label timeLabel;
+	private Label nameLabel;
+	private Label oreLabel;
+	private Label energyLabel;
+	private Label moneyLabel;
+	private TextButton nextPhaseButton;
 	
 	private GameEngine gameEngine;
 	
-	private int activePlotIndex = -1;
+	FreeTypeFontGenerator font;
 	
 	@Override
 	public void create () 
 	{
+		
 		//Setup the players for the game
-		ArrayList<AIPlayer> players = new ArrayList<AIPlayer>();
-		players.add(new AIPlayer("Player 1", 50, 50, 50));
-		players.add(new AIPlayer("Player 2", 50, 50, 50));
+		ArrayList<AIPlayer> aiPlayers = new ArrayList<AIPlayer>();
+		aiPlayers.add(new AIPlayer("Player 1", 50, 50, 50));
+		
+		ArrayList<Player> humanPlayers = new ArrayList<Player>();
+		humanPlayers.add(new Player("Steven", 50, 50, 50));
 		
 		//Create the game and the then start the game
-		gameEngine = new GameEngine(null, players, 6, 5);
+		gameEngine = new GameEngine(humanPlayers, aiPlayers, 6, 5);
 		gameEngine.start();
 		
 		//Create the require renderers
@@ -45,15 +60,16 @@ public class Game extends ApplicationAdapter
 		shapeRenderer = new ShapeRenderer();
 		
 		//Setup the required assets
-		mapImg = new Texture("YorkUniMap.png");
-		roboticonImg = new Texture("Graphics/Roboticon.png");
+		mapImg = new Texture(Gdx.files.internal("YorkUniMap.png"));
+		roboticonImg = new Texture(Gdx.files.internal("Graphics/Roboticon.png"));
+		font = new FreeTypeFontGenerator(Gdx.files.internal("earthorbiter.ttf"));
 		
 		//Create a new stage object to implement the UI
-		stage = new Stage(){
+		gameStage = new Stage(){
 	        @Override
 	        public boolean keyDown(int keyCode) {
 	            if (keyCode == Input.Keys.ESCAPE) {
-	                activePlotIndex = -1;
+	                gameEngine.setActivePlot(null);
 	            }
 	            return super.keyDown(keyCode);
 	        }
@@ -76,35 +92,62 @@ public class Game extends ApplicationAdapter
 					int y = (int)(((float)(mapImg.getHeight() - screenY) / mapImg.getHeight()) * gameEngine.getMapHeight());
 					//Logging to make sure the that the active plot index is set correctly
 					System.out.println("X: " + screenX + " Y: " + screenY + "Point: (" + x + ", " + y + ") = Index: " + (x + y * gameEngine.getMapWidth()));
-					activePlotIndex = (x + y * gameEngine.getMapWidth());
+					gameEngine.setActivePlot(gameEngine.getPlots()[x + y * gameEngine.getMapWidth()]);
 				}
 				return true;
 			}
 		});
 		
+		LabelStyle timels = new LabelStyle();
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 40;
+		timels.font = font.generateFont(parameter);
+		timeLabel = new Label("Time:", timels);
+		timeLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 40);
+		
+		LabelStyle namels = new LabelStyle();
+		parameter.size = 25;
+		namels.font = font.generateFont(parameter);
+		nameLabel = new Label("Player: ", namels);
+		nameLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 80);
+		
+		LabelStyle resource = new LabelStyle();
+		parameter.size = 30;
+		
+		resource.font = font.generateFont(parameter);
+		
+		oreLabel = new Label("", resource);
+		energyLabel = new Label("", resource);
+		moneyLabel = new Label("", resource);
+		
+		oreLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 120);
+		energyLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 160);
+		moneyLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 200);
+		
+		nextPhaseButton = new TextButton(null, null);
+		
 		//Add the map actor to the stage
-		stage.addActor(mapActor);
+		gameStage.addActor(mapActor);
+		gameStage.addActor(timeLabel);
+		gameStage.addActor(nameLabel);
+		gameStage.addActor(oreLabel);
+		gameStage.addActor(energyLabel);
+		gameStage.addActor(moneyLabel);
 		
 		//This handles all the processing input (The processor of the input is "stage")
-		Gdx.input.setInputProcessor(stage); //This handles all the processing input (The processor of the input is "this")
+		Gdx.input.setInputProcessor(gameStage); //This handles all the processing input (The processor of the input is "this")
 	}
 	
-	@Override
-	public void render () 
+	public void renderMap()
 	{
-		//Only update if the game is running
-		if (gameEngine.isRunning())
-			gameEngine.updateTest();
-		
-		//Clear to the back ground to black
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
 		//Draw the map to the screen (Happens first so that the map is on the bottom so all the UI appears above it)
 		batch.begin();
 		batch.draw(mapImg, 0, 0);
 		batch.end();
-		
+	}
+	
+	public void renderTileHighlights()
+	{
 		//Allows transparency of of the UI rectangles (Allows the merging of the fragment (Colour) shaders, simulating transparency)
 		Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
 		//Sets transparency on the alpha channel
@@ -137,6 +180,22 @@ public class Game extends ApplicationAdapter
 				}
 			}
 		}
+		shapeRenderer.end();
+		
+		//Stop using transparency for the rest of the graphics
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+	}
+	
+	public void renderActiveTileHighlight()
+	{
+		//Allows transparency of of the UI rectangles (Allows the merging of the fragment (Colour) shaders, simulating transparency)
+		Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
+		//Sets transparency on the alpha channel
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		
+		shapeRenderer.begin(ShapeType.Filled);
+		
+		int activePlotIndex = java.util.Arrays.asList(gameEngine.getPlots()).indexOf(gameEngine.getActivePlot());
 		
 		if (activePlotIndex >= 0 && activePlotIndex < gameEngine.getPlots().length)
 		{
@@ -148,7 +207,10 @@ public class Game extends ApplicationAdapter
 		
 		//Stop using transparency for the rest of the graphics
 		Gdx.gl.glDisable(GL20.GL_BLEND);
-		
+	}
+	
+	public void renderRoboticons()
+	{
 		batch.begin();
 		for (int i = 0; i < gameEngine.getPlots().length; i++)
 		{
@@ -161,21 +223,41 @@ public class Game extends ApplicationAdapter
 			}
 		}
 		batch.end();
-				
-		stage.act();
+	}
+	
+	public void renderUI()
+	{
+		Integer time = new Integer((int)gameEngine.getPhaseTime());
+		if (time < 0)
+			timeLabel.setText("Time: n/a");
+		else
+			timeLabel.setText("Time: " + time.toString());
 		
-		/*
-		if (gameEngine.isRunning())	
-		{
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		*/
+		nameLabel.setText("Name: " + gameEngine.getCurrentPlayer().getName());
+
+		oreLabel.setText("Ore: " + gameEngine.getCurrentPlayer().getOre());
+		energyLabel.setText("Energy: " + gameEngine.getCurrentPlayer().getEnergy());
+		moneyLabel.setText("Money: " + gameEngine.getCurrentPlayer().getMoney());
 		
+		gameStage.draw();
+	}
+	
+	@Override
+	public void render () 
+	{
+		//Clear to the back ground to black
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		if (gameEngine.isRunning())
+			gameEngine.update(Gdx.graphics.getDeltaTime());
+		
+		renderMap();
+		renderTileHighlights();
+		renderActiveTileHighlight();
+		renderRoboticons();
+		renderUI();
+		gameStage.act();
 	}
 	
 	@Override
@@ -184,7 +266,7 @@ public class Game extends ApplicationAdapter
 		shapeRenderer.dispose();
 		batch.dispose();
 		mapImg.dispose();
-		stage.dispose();
+		gameStage.dispose();
 	}
 
 }
