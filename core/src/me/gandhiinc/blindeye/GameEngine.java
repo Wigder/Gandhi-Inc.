@@ -36,8 +36,7 @@ public class GameEngine
 	private final int mapWidth;
 	private final int mapHeight;
 
-	private final float phase2Time = 2 * 60;
-	private final int phase3Time = 2 * 60;
+	private final float PHASE_TIME_CONST = 2 * 60;
 	private int phase = 1;
 	
 	private Player currentPlayer;
@@ -71,7 +70,7 @@ public class GameEngine
 		
 		activePlot = null;
 		
-		phaseTime = phase2Time;
+		phaseTime = PHASE_TIME_CONST;
 	}
 
 	/**
@@ -239,12 +238,17 @@ public class GameEngine
 		this.phase = phase;
 		if (phase != 1)
 		{
-			phaseTime = phase2Time;
+			phaseTime = PHASE_TIME_CONST;
 		}
 	}
 	
 	public Player getCurrentPlayer()
 	{
 		return currentPlayer;
+	}
+	
+	public MarketPlace getMarket()
+	{
+		return market;
 	}
 }

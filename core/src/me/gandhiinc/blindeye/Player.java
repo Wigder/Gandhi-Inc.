@@ -186,4 +186,32 @@ public class Player
 		return plots;
 	}
 	
+	public ArrayList<Roboticon> getUnspecialisedRoboticons()
+	{
+		ArrayList<Roboticon> retList = new ArrayList<Roboticon>();
+		for (Iterator<Roboticon> roboticonIterator = roboticons.iterator(); roboticonIterator.hasNext(); )
+		{
+			Roboticon r = roboticonIterator.next();
+			if (r.getSpec() == Resource.NONE)
+			{
+				retList.add(r);
+			}
+		}
+		return retList;
+	}
+	
+	public ArrayList<Roboticon> getUnassignedRoboticons()
+	{
+		ArrayList<Roboticon> retList = new ArrayList<Roboticon>();
+		for (Iterator<Roboticon> roboticonIterator = roboticons.iterator(); roboticonIterator.hasNext(); )
+		{
+			Roboticon r = roboticonIterator.next();
+			if (r.getPlot() == null)
+			{
+				retList.add(r);
+			}
+		}
+		return retList;
+	}
+	
 } 

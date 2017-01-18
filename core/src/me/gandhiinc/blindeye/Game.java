@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -40,6 +41,10 @@ public class Game extends ApplicationAdapter
 	private Label energyLabel;
 	private Label moneyLabel;
 	private TextButton nextPhaseButton;
+	private TextButton buyRoboticonButton;
+	private TextButton SpecialiseRoboticonButton;
+	private TextButton AssignRoboticonButton;
+	
 	
 	private GameEngine gameEngine;
 	
@@ -64,11 +69,21 @@ public class Game extends ApplicationAdapter
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		
+		initAssests();
+		initGameUI();
+		
+	}
+	
+	public void initAssests()
+	{
 		//Setup the required assets
 		mapImg = new Texture(Gdx.files.internal("YorkUniMap.png"));
 		roboticonImg = new Texture(Gdx.files.internal("Graphics/Roboticon.png"));
 		font = new FreeTypeFontGenerator(Gdx.files.internal("earthorbiter.ttf"));
-		
+	}
+	
+	public void initGameUI()
+	{
 		//Create a new stage object to implement the UI
 		gameStage = new Stage(){
 	        @Override
@@ -82,30 +97,23 @@ public class Game extends ApplicationAdapter
 	        }
 		};
 		
-		//Create a new empty map to get mouse click events on the map
-		Actor mapActor = new Actor();
-		//Set the bounds to where the map will exist on the screen
-		mapActor.setBounds(0, 0, mapImg.getWidth(), mapImg.getHeight());
-		//Add a new event listener to listen for click (called touch in this library) events on the map actor 
-		mapActor.addListener(new InputListener(){
-			public boolean touchDown(InputEvent event, float screenX, float screenY, int pointer, int button)
-			{
-				if (button == Input.Buttons.LEFT)
-				{
-					//Get the percentage of the width of where the click was and then multiply how many tiles are in the width to get the x position of the tile that was clicked on
-					int x = (int)(((float)screenX / mapImg.getWidth()) * gameEngine.getMapWidth());
-					//Since our 0 tile is in the top left and the 0 pixel is in the bottom left we have to reverse the value by doing Image height - Screen Click Y to align the values
-					//Then a similar calculation to find the y position of the tile that was clicked
-					int y = (int)(((float)(mapImg.getHeight() - screenY) / mapImg.getHeight()) * gameEngine.getMapHeight());
-					//Logging to make sure the that the active plot index is set correctly
-					System.out.println("X: " + screenX + " Y: " + screenY + "Point: (" + x + ", " + y + ") = Index: " + (x + y * gameEngine.getMapWidth()));
-					gameEngine.setActivePlot(gameEngine.getPlots()[x + y * gameEngine.getMapWidth()]);
-
-				}
-				return true;
-			}
-		});
+		initMap();
+		initGameUIElements();
 		
+		gameStage.addActor(buyRoboticonButton);
+		gameStage.addActor(timeLabel);
+		gameStage.addActor(nameLabel);
+		gameStage.addActor(oreLabel);
+		gameStage.addActor(energyLabel);
+		gameStage.addActor(moneyLabel);
+		gameStage.addActor(nextPhaseButton);
+		
+		//This handles all the processing input (The processor of the input is "stage")
+		Gdx.input.setInputProcessor(gameStage);
+	}
+	
+	public void initGameUIElements()
+	{
 		LabelStyle timels = new LabelStyle();
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 40;
@@ -152,39 +160,96 @@ public class Game extends ApplicationAdapter
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-				if (gameEngine.getPhase() == 1)
-				{
-					if (gameEngine.getActivePlot() == null)
-						gameEngine.setPhase(2);
-					else
-					{
-						try {
-							gameEngine.getCurrentPlayer().AcquirePlot(gameEngine.getActivePlot());
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						gameEngine.setPhase(2);
-						nextPhaseButton.setText("Skip");
-					}
+				onNextPhaseClick();
+			}
+		});
+		
+		parameter.size = 20;
+		tbs.font = font.generateFont(parameter);
+		buyRoboticonButton = new TextButton("Buy Roboticon, " + new Integer(gameEngine.getMarket().getMarketRoboticonSellPrice()), tbs);
+		buyRoboticonButton.setPosition(mapImg.getWidth() + 10,  mapImg.getHeight() - 360);
+		
+		buyRoboticonButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				try {
+					gameEngine.getMarket().buyRoboticon(gameEngine.getCurrentPlayer(), 1);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				else
-				{
-					gameEngine.setPhaseTime(-1);
+			}
+		});
+		
+		SpecialiseRoboticonButton = new TextButton("Specialise Roboticon", tbs);
+		SpecialiseRoboticonButton.setPosition(mapImg.getWidth() + 10,  mapImg.getHeight() - 360);
+		
+		SpecialiseRoboticonButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+
+			};
+				
+		});
+	}
+	
+	public void onNextPhaseClick()
+	{
+		if (gameEngine.getPhase() == 1)
+		{
+			if (gameEngine.getActivePlot() == null)
+				gameEngine.setPhase(2);
+			else
+			{
+				try {
+					gameEngine.getCurrentPlayer().AcquirePlot(gameEngine.getActivePlot());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+				gameEngine.setPhase(2);
+				nextPhaseButton.setText("Skip");
+			}
+		}
+		else
+		{
+			gameEngine.setPhaseTime(-1);
+		}
+	}
+	
+	public void initMap()
+	{
+		//Create a new empty map to get mouse click events on the map
+		Actor mapActor = new Actor();
+		//Set the bounds to where the map will exist on the screen
+		mapActor.setBounds(0, 0, mapImg.getWidth(), mapImg.getHeight());
+		//Add a new event listener to listen for click (called touch in this library) events on the map actor 
+		mapActor.addListener(new InputListener(){
+			public boolean touchDown(InputEvent event, float screenX, float screenY, int pointer, int button)
+			{
+				return onMapTouchDown(screenX, screenY, button);
 			}
 		});
 		
 		//Add the map actor to the stage
 		gameStage.addActor(mapActor);
-		gameStage.addActor(timeLabel);
-		gameStage.addActor(nameLabel);
-		gameStage.addActor(oreLabel);
-		gameStage.addActor(energyLabel);
-		gameStage.addActor(moneyLabel);
-		gameStage.addActor(nextPhaseButton);
-		
-		//This handles all the processing input (The processor of the input is "stage")
-		Gdx.input.setInputProcessor(gameStage); //This handles all the processing input (The processor of the input is "this")
+	}
+	
+	public boolean onMapTouchDown(float screenX, float screenY, int button)
+	{
+		if (button == Input.Buttons.LEFT)
+		{
+			//Get the percentage of the width of where the click was and then multiply how many tiles are in the width to get the x position of the tile that was clicked on
+			int x = (int)(((float)screenX / mapImg.getWidth()) * gameEngine.getMapWidth());
+			//Since our 0 tile is in the top left and the 0 pixel is in the bottom left we have to reverse the value by doing Image height - Screen Click Y to align the values
+			//Then a similar calculation to find the y position of the tile that was clicked
+			int y = (int)(((float)(mapImg.getHeight() - screenY) / mapImg.getHeight()) * gameEngine.getMapHeight());
+			//Logging to make sure the that the active plot index is set correctly
+			System.out.println("X: " + screenX + " Y: " + screenY + "Point: (" + x + ", " + y + ") = Index: " + (x + y * gameEngine.getMapWidth()));
+			gameEngine.setActivePlot(gameEngine.getPlots()[x + y * gameEngine.getMapWidth()]);
+
+		}
+		return true;
 	}
 	
 	public void renderMap()
