@@ -110,8 +110,8 @@ public class GameEngine
 	{
 		if (phase != 1)
 			phaseTime -= deltaTime;
-		System.out.println((phaseTime));
-		if (phaseTime < 0 )
+
+		if (phaseTime < 0)
 		{
 			if (phase == 3)
 			{
@@ -130,18 +130,20 @@ public class GameEngine
 						player.CompleteTurn(validPlots.toArray(new Plot[validPlots.size()]), market);	
 					}
 					
-					ArrayList<Plot> validPlots = new ArrayList<Plot>();
-					for (Plot plot: plots)
-					{
-						if (plot.getPlayer() == null)
-							validPlots.add(plot);
-					}
-					
 					market.produceRoboticon();
 					market.setPrices();
-					if (validPlots.size() == 0)
-						stop();
+					currentPlayer = humanPlayers.get(0);
 				}
+				else
+				{
+					currentPlayer = humanPlayers.get(humanPlayers.indexOf(currentPlayer) + 1);
+				}
+				phase = 1;
+				phaseTime = -1;
+			}
+			else if (phase != 1)
+			{
+				setPhase(phase + 1);
 			}
 		}
 	}
@@ -222,6 +224,11 @@ public class GameEngine
 		return phaseTime;
 	}
 	
+	public void setPhaseTime(float phaseTime)
+	{
+		this.phaseTime = phaseTime;
+	}
+	
 	public int getPhase()
 	{
 		return phase;
@@ -230,6 +237,10 @@ public class GameEngine
 	public void setPhase(int phase)
 	{
 		this.phase = phase;
+		if (phase != 1)
+		{
+			phaseTime = phase2Time;
+		}
 	}
 	
 	public Player getCurrentPlayer()

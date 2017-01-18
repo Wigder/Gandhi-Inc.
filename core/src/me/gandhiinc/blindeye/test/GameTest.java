@@ -19,7 +19,7 @@ public class GameTest {
 			game.start();
 			while (game.isRunning())
 			{
-				game.updateTest();
+				//game.updateTest();
 				for (Iterator<AIPlayer> playerIterator = game.getAIPlayers().iterator(); playerIterator.hasNext();)
 				{
 					AIPlayer player = playerIterator.next();

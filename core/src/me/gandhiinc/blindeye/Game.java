@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -16,10 +18,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Game extends ApplicationAdapter
 {
@@ -70,6 +75,8 @@ public class Game extends ApplicationAdapter
 	        public boolean keyDown(int keyCode) {
 	            if (keyCode == Input.Keys.ESCAPE) {
 	                gameEngine.setActivePlot(null);
+	                nextPhaseButton.setDisabled(false);
+					nextPhaseButton.setText("Skip");
 	            }
 	            return super.keyDown(keyCode);
 	        }
@@ -93,6 +100,7 @@ public class Game extends ApplicationAdapter
 					//Logging to make sure the that the active plot index is set correctly
 					System.out.println("X: " + screenX + " Y: " + screenY + "Point: (" + x + ", " + y + ") = Index: " + (x + y * gameEngine.getMapWidth()));
 					gameEngine.setActivePlot(gameEngine.getPlots()[x + y * gameEngine.getMapWidth()]);
+
 				}
 				return true;
 			}
@@ -124,7 +132,47 @@ public class Game extends ApplicationAdapter
 		energyLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 160);
 		moneyLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 200);
 		
-		nextPhaseButton = new TextButton(null, null);
+		TextButtonStyle tbs = new TextButtonStyle();
+		
+		Pixmap backgroundColor = new Pixmap(Gdx.graphics.getWidth() - mapImg.getWidth() - 20, 50, Pixmap.Format.RGB888);
+		backgroundColor.setColor(Color.DARK_GRAY);
+		backgroundColor.fill();
+		tbs.up = new Image(new Texture(backgroundColor)).getDrawable();
+		tbs.down = new Image(new Texture(backgroundColor)).getDrawable();
+		backgroundColor.setColor(Color.LIGHT_GRAY);
+		backgroundColor.fill();
+		tbs.over = new Image(new Texture(backgroundColor)).getDrawable();
+
+		tbs.font = font.generateFont(parameter);
+		
+		nextPhaseButton = new TextButton("Skip", tbs);
+		nextPhaseButton.setPosition(mapImg.getWidth() + 10,  mapImg.getHeight() - 300);
+		nextPhaseButton.addListener(new ClickListener(){
+			
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				if (gameEngine.getPhase() == 1)
+				{
+					if (gameEngine.getActivePlot() == null)
+						gameEngine.setPhase(2);
+					else
+					{
+						try {
+							gameEngine.getCurrentPlayer().AcquirePlot(gameEngine.getActivePlot());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						gameEngine.setPhase(2);
+						nextPhaseButton.setText("Skip");
+					}
+				}
+				else
+				{
+					gameEngine.setPhaseTime(-1);
+				}
+			}
+		});
 		
 		//Add the map actor to the stage
 		gameStage.addActor(mapActor);
@@ -133,6 +181,7 @@ public class Game extends ApplicationAdapter
 		gameStage.addActor(oreLabel);
 		gameStage.addActor(energyLabel);
 		gameStage.addActor(moneyLabel);
+		gameStage.addActor(nextPhaseButton);
 		
 		//This handles all the processing input (The processor of the input is "stage")
 		Gdx.input.setInputProcessor(gameStage); //This handles all the processing input (The processor of the input is "this")
@@ -238,6 +287,22 @@ public class Game extends ApplicationAdapter
 		oreLabel.setText("Ore: " + gameEngine.getCurrentPlayer().getOre());
 		energyLabel.setText("Energy: " + gameEngine.getCurrentPlayer().getEnergy());
 		moneyLabel.setText("Money: " + gameEngine.getCurrentPlayer().getMoney());
+		if (gameEngine.getActivePlot() != null)
+		{
+			if (gameEngine.getPhase() == 1)
+			{
+				if (gameEngine.getActivePlot().getPlayer() != null)
+				{
+					nextPhaseButton.setTouchable(Touchable.disabled);
+					nextPhaseButton.setText("Owned!");
+				}
+				else
+				{
+					nextPhaseButton.setTouchable(Touchable.enabled);
+					nextPhaseButton.setText("Buy Plot");
+				}
+			}
+		}
 		
 		gameStage.draw();
 	}

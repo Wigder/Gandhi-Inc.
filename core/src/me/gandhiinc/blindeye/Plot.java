@@ -92,6 +92,7 @@ public class Plot
 		energyMod = energyModifier;
 		oreMod = oreModifier;
 		terrain = terrainType; 
+		player = null;
 	}
 
 /* ---------------------------------------------------------
