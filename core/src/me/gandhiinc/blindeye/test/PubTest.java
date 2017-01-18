@@ -4,7 +4,7 @@ import me.gandhiinc.blindeye.Pub;
 
 
 /*
-//these tests should all be aproxamatly equil to 0
+//these tests should all be aproxamatly equal to 0
 */
 
 public class PubTest{
