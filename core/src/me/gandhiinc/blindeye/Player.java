@@ -206,7 +206,7 @@ public class Player
 		for (Iterator<Roboticon> roboticonIterator = roboticons.iterator(); roboticonIterator.hasNext(); )
 		{
 			Roboticon r = roboticonIterator.next();
-			if (r.getPlot() == null)
+			if (r.getPlot() == null && r.getSpec() != Resource.NONE)
 			{
 				retList.add(r);
 			}

@@ -1,6 +1,8 @@
 package me.gandhiinc.blindeye;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -42,8 +44,8 @@ public class Game extends ApplicationAdapter
 	private Label moneyLabel;
 	private TextButton nextPhaseButton;
 	private TextButton buyRoboticonButton;
-	private TextButton SpecialiseRoboticonButton;
-	private TextButton AssignRoboticonButton;
+	private TextButton specialiseRoboticonButton;
+	private TextButton assignRoboticonButton;
 	
 	
 	private GameEngine gameEngine;
@@ -59,7 +61,7 @@ public class Game extends ApplicationAdapter
 		aiPlayers.add(new AIPlayer("Player 1", 50, 50, 50));
 		
 		ArrayList<Player> humanPlayers = new ArrayList<Player>();
-		humanPlayers.add(new Player("Steven", 50, 50, 50));
+		humanPlayers.add(new Player("Player 2", 50, 50, 50));
 		
 		//Create the game and the then start the game
 		gameEngine = new GameEngine(humanPlayers, aiPlayers, 6, 5);
@@ -91,7 +93,6 @@ public class Game extends ApplicationAdapter
 	            if (keyCode == Input.Keys.ESCAPE) {
 	                gameEngine.setActivePlot(null);
 	                nextPhaseButton.setDisabled(false);
-					nextPhaseButton.setText("Skip");
 	            }
 	            return super.keyDown(keyCode);
 	        }
@@ -100,6 +101,8 @@ public class Game extends ApplicationAdapter
 		initMap();
 		initGameUIElements();
 		
+		gameStage.addActor(assignRoboticonButton);
+		gameStage.addActor(specialiseRoboticonButton);
 		gameStage.addActor(buyRoboticonButton);
 		gameStage.addActor(timeLabel);
 		gameStage.addActor(nameLabel);
@@ -140,7 +143,7 @@ public class Game extends ApplicationAdapter
 		energyLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 160);
 		moneyLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 200);
 		
-		TextButtonStyle tbs = new TextButtonStyle();
+		final TextButtonStyle tbs = new TextButtonStyle();
 		
 		Pixmap backgroundColor = new Pixmap(Gdx.graphics.getWidth() - mapImg.getWidth() - 20, 50, Pixmap.Format.RGB888);
 		backgroundColor.setColor(Color.DARK_GRAY);
@@ -181,17 +184,83 @@ public class Game extends ApplicationAdapter
 			}
 		});
 		
-		SpecialiseRoboticonButton = new TextButton("Specialise Roboticon", tbs);
-		SpecialiseRoboticonButton.setPosition(mapImg.getWidth() + 10,  mapImg.getHeight() - 360);
+		parameter.size = 18;
+		tbs.font = font.generateFont(parameter);
+		specialiseRoboticonButton = new TextButton("Specialise Roboticon", tbs);
+		specialiseRoboticonButton.setPosition(mapImg.getWidth() + 10,  mapImg.getHeight() - 420);
 		
-		SpecialiseRoboticonButton.addListener(new ClickListener(){
+		specialiseRoboticonButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-
-			};
-				
+				roboticonSpecialiseMenu(tbs);
+			}	
 		});
+		
+		assignRoboticonButton = new TextButton("Assign Roboticon", tbs);
+		assignRoboticonButton.setPosition(mapImg.getWidth() + 10,  mapImg.getHeight() - 480);
+		
+		assignRoboticonButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				Roboticon r = gameEngine.getCurrentPlayer().getUnassignedRoboticons().get(0);
+				Plot p = gameEngine.getActivePlot();
+				r.setPlot(p);
+				p.addRoboticon(r);
+			}	
+		});
+		
+	}
+	
+	public void roboticonSpecialiseMenu(TextButtonStyle tbs)
+	{
+		final TextButton ore = new TextButton("Ore", tbs);
+		final TextButton energy = new TextButton("Energy", tbs);
+		final TextButton cancel = new TextButton("Cancel", tbs);
+		ore.setWidth(100);
+		energy.setWidth(100);
+		cancel.setWidth(100);
+		
+		ore.setPosition(0, 0);
+		energy.setPosition(110, 0);
+		cancel.setPosition(220, 0);
+		
+		ore.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				gameEngine.getCurrentPlayer().getUnspecialisedRoboticons().get(0).setSpec(Resource.ORE);
+				ore.remove();
+				energy.remove();
+				cancel.remove();
+			}
+		});
+		
+		energy.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				gameEngine.getCurrentPlayer().getUnspecialisedRoboticons().get(0).setSpec(Resource.ENERGY);
+				ore.remove();
+				energy.remove();
+				cancel.remove();
+			}
+		});
+		
+		cancel.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				ore.remove();
+				energy.remove();
+				cancel.remove();
+			}
+		});
+		
+		gameStage.addActor(ore);
+		gameStage.addActor(energy);
+		gameStage.addActor(cancel);
 	}
 	
 	public void onNextPhaseClick()
@@ -208,7 +277,6 @@ public class Game extends ApplicationAdapter
 					e.printStackTrace();
 				}
 				gameEngine.setPhase(2);
-				nextPhaseButton.setText("Skip");
 			}
 		}
 		else
@@ -269,12 +337,16 @@ public class Game extends ApplicationAdapter
 		
 		shapeRenderer.begin(ShapeType.Filled);
 		
-		for (int i = 0; i < gameEngine.getPlots().length; i++)
+		//Only 2 Players, will need tweaking to work for more than 2!
+		int playerCount = 0;
+		for (Iterator<Player> playerIterator = gameEngine.getHumanPlayers().iterator(); playerIterator.hasNext(); )
 		{
-			//If a plot is owned by a player then draw a transparent rectangle over it to signify its ownership
-			if (gameEngine.getPlots()[i].getPlayer() != null)
+			Player p = playerIterator.next();
+			for (Iterator<Plot> plotIterator = p.getPlots().iterator(); plotIterator.hasNext(); )
 			{
-				if (gameEngine.getAIPlayers().indexOf(gameEngine.getPlots()[i].getPlayer()) == 0)
+				Plot plot = plotIterator.next();
+				int i = Arrays.asList(gameEngine.getPlots()).indexOf(plot);
+				if (playerCount == 0)
 				{
 					//the setColor function is in the form of setColor(red, green, blue, alpha) all of them being floats
 					shapeRenderer.setColor(1, 0, 0, 0.35f);
@@ -283,7 +355,7 @@ public class Game extends ApplicationAdapter
 					//The rect function is in the form of rect(x, y, width, height) where x and y are the bottom left of the rectangle
 					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (gameEngine.getMapHeight() - (i / gameEngine.getMapWidth()) - 1) * 174, 174, 174);
 				}
-				else if (gameEngine.getAIPlayers().indexOf(gameEngine.getPlots()[i].getPlayer()) == 1)
+				else
 				{
 					//the setColor function is in the form of setColor(red, green, blue, alpha) all of them being floats
 					shapeRenderer.setColor(0, 0, 1, 0.35f);
@@ -293,7 +365,38 @@ public class Game extends ApplicationAdapter
 					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (gameEngine.getMapHeight() - (i / gameEngine.getMapWidth()) - 1) * 174, 174, 174);	
 				}
 			}
+			playerCount++;
 		}
+		
+		for (Iterator<AIPlayer> playerIterator = gameEngine.getAIPlayers().iterator(); playerIterator.hasNext(); )
+		{
+			AIPlayer p = playerIterator.next();
+			for (Iterator<Plot> plotIterator = p.getPlots().iterator(); plotIterator.hasNext(); )
+			{
+				Plot plot = plotIterator.next();
+				int i = Arrays.asList(gameEngine.getPlots()).indexOf(plot);
+				if (playerCount == 0)
+				{
+					//the setColor function is in the form of setColor(red, green, blue, alpha) all of them being floats
+					shapeRenderer.setColor(1, 0, 0, 0.35f);
+					//X position is the remainder of the index divided by the map width, then to get the pixel value we multiply the tile width
+					//Y position is the index divided by the map width then decremented to 0 index, and then invert to align with the correct coordinate system
+					//The rect function is in the form of rect(x, y, width, height) where x and y are the bottom left of the rectangle
+					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (gameEngine.getMapHeight() - (i / gameEngine.getMapWidth()) - 1) * 174, 174, 174);
+				}
+				else
+				{
+					//the setColor function is in the form of setColor(red, green, blue, alpha) all of them being floats
+					shapeRenderer.setColor(0, 0, 1, 0.35f);
+					//X position is the remainder of the index divided by the map width, then to get the pixel value we multiply the tile width
+					//Y position is the index divided by the map width then decremented to 0 index, and then invert to align with the correct coordinate system
+					//The rect function is in the form of rect(x, y, width, height) where x and y are the bottom left of the rectangle
+					shapeRenderer.rect((i % gameEngine.getMapWidth()) * 174, (gameEngine.getMapHeight() - (i / gameEngine.getMapWidth()) - 1) * 174, 174, 174);	
+				}
+			}
+			playerCount++;
+		}
+	
 		shapeRenderer.end();
 		
 		//Stop using transparency for the rest of the graphics
@@ -352,6 +455,7 @@ public class Game extends ApplicationAdapter
 		oreLabel.setText("Ore: " + gameEngine.getCurrentPlayer().getOre());
 		energyLabel.setText("Energy: " + gameEngine.getCurrentPlayer().getEnergy());
 		moneyLabel.setText("Money: " + gameEngine.getCurrentPlayer().getMoney());
+		
 		if (gameEngine.getActivePlot() != null)
 		{
 			if (gameEngine.getPhase() == 1)
@@ -367,6 +471,60 @@ public class Game extends ApplicationAdapter
 					nextPhaseButton.setText("Buy Plot");
 				}
 			}
+		}
+		
+		if (gameEngine.getPhase() == 1)
+		{
+			if (gameEngine.getActivePlot() == null)
+			{
+				nextPhaseButton.setText("Skip");
+			}
+			else if (gameEngine.getActivePlot().getPlayer() != null)
+			{
+				nextPhaseButton.setTouchable(Touchable.disabled);
+				nextPhaseButton.setText("Owned!");
+			}
+			else
+			{
+				nextPhaseButton.setTouchable(Touchable.enabled);
+				nextPhaseButton.setText("Buy Plot");
+			}
+		}
+		else
+		{
+			nextPhaseButton.setText("Skip");
+		}
+		
+		if (gameEngine.getPhase() == 2)
+		{
+			buyRoboticonButton.setVisible(true);
+			specialiseRoboticonButton.setVisible(true);
+			assignRoboticonButton.setVisible(true);
+			
+			if (gameEngine.getMarket().getMarketRoboticonStock() < 1 || gameEngine.getCurrentPlayer().getMoney() < gameEngine.getMarket().getMarketRoboticonSellPrice())
+				buyRoboticonButton.setTouchable(Touchable.disabled);
+			else
+				buyRoboticonButton.setTouchable(Touchable.enabled);
+			
+			if (gameEngine.getCurrentPlayer().getUnspecialisedRoboticons().size() == 0)
+				specialiseRoboticonButton.setTouchable(Touchable.disabled);
+			else
+				specialiseRoboticonButton.setTouchable(Touchable.enabled);
+			
+			if (gameEngine.getActivePlot() == null)
+				assignRoboticonButton.setTouchable(Touchable.disabled);
+			else if (gameEngine.getActivePlot().getPlayer() != gameEngine.getCurrentPlayer())
+				assignRoboticonButton.setTouchable(Touchable.disabled);
+			else if (gameEngine.getCurrentPlayer().getUnassignedRoboticons().size() == 0)
+				assignRoboticonButton.setTouchable(Touchable.disabled);
+			else
+				assignRoboticonButton.setTouchable(Touchable.enabled);
+		}
+		else
+		{
+			buyRoboticonButton.setVisible(false);
+			specialiseRoboticonButton.setVisible(false);
+			assignRoboticonButton.setVisible(false);
 		}
 		
 		gameStage.draw();

@@ -114,6 +114,7 @@ public class GameEngine
 		{
 			if (phase == 3)
 			{
+				currentPlayer.ProduceResources();
 				if (humanPlayers.indexOf(currentPlayer) == humanPlayers.size() - 1)
 				{
 					for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext(); )
