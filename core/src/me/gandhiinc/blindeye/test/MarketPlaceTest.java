@@ -186,25 +186,6 @@ public class MarketPlaceTest {
 	}
 	
 	
-	// SEE PUB CLASS & INTEGRATE 
-
-	@Test
-	public void testScratchCard() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testLottery() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testOneArmBandit() 
-	{
-		fail("Not yet implemented");
-	}
-
 	// GETTERS & SETTERS
 	
 	@Test
