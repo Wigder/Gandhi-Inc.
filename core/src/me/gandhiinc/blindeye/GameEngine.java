@@ -112,7 +112,7 @@ public class GameEngine
 
 		if (phaseTime < 0)
 		{
-			if (phase == 3)
+			if (phase == 2)
 			{
 				currentPlayer.ProduceResources();
 				if (humanPlayers.indexOf(currentPlayer) == humanPlayers.size() - 1)
@@ -128,22 +128,39 @@ public class GameEngine
 						}
 						
 						player.CompleteTurn(validPlots.toArray(new Plot[validPlots.size()]), market);	
+						market.produceRoboticon();
 					}
-					
-					market.produceRoboticon();
-					market.setPrices();
 					currentPlayer = humanPlayers.get(0);
+					phase = 3;
+					phaseTime = PHASE_TIME_CONST;
 				}
 				else
 				{
 					currentPlayer = humanPlayers.get(humanPlayers.indexOf(currentPlayer) + 1);
+					phase = 1;
+					phaseTime = -1;
 				}
-				phase = 1;
-				phaseTime = -1;
+				market.produceRoboticon();
 			}
-			else if (phase != 1)
+			else if (phase == 3)
 			{
-				setPhase(phase + 1);
+				if (humanPlayers.indexOf(currentPlayer) == humanPlayers.size() - 1)
+				{
+					for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext(); )
+					{
+						AIPlayer player = playerIterator.next();
+						player.SellResources(market);
+					}
+					currentPlayer = humanPlayers.get(0);
+					phase = 1;
+					phaseTime = -1;
+				}
+				else
+				{
+					currentPlayer = humanPlayers.get(humanPlayers.indexOf(currentPlayer) + 1);
+					phase = 3;
+					phaseTime = PHASE_TIME_CONST;
+				}
 			}
 		}
 	}

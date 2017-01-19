@@ -54,7 +54,7 @@ public class MarketPlace
 
 	private float marketOreSellPrice = 1.5f;
 	private float marketEnergySellPrice = 1.5f;
-	private int marketRoboticonSellPrice;
+	private int marketRoboticonSellPrice = 30;
 	
 	private Pub pub = new Pub();
 	Exception eMoney = new Exception("You do not have enough Money!");
@@ -145,7 +145,7 @@ public class MarketPlace
 		{
 			throw eMoney;									//Error the player doesn't have enough money
 		}
-		if(getMarketRoboticonStock()-quantity < 1)			//Checks if there is enough stock to purchase the given quantity
+		if(getMarketRoboticonStock()-quantity < 0)			//Checks if there is enough stock to purchase the given quantity
 		{
 			throw eStockBuy;								//Error the market doesn't have enough stock
 		}

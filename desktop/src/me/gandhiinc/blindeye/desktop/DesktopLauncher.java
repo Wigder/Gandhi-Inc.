@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		config.height = 869;
 		config.backgroundFPS = 0;
 		config.foregroundFPS = 0;
-		config.vSyncEnabled = true;
+		config.vSyncEnabled = false;
 		config.resizable = false;
 		config.title = "Blind Eye";
 		Game game = new Game();

@@ -42,7 +42,6 @@ public class AIPlayer extends Player {
 		AIAcquireRoboticon(market);
 		ProduceResources();
 		//AIGamble(market);
-		SellResources(market);
 	}
 	
 	/**
@@ -146,7 +145,7 @@ public class AIPlayer extends Player {
 		}
 	}
 	
-	private void SellResources(MarketPlace market)
+	public void SellResources(MarketPlace market)
 	{
 		if (ore > 0)
 		{
