@@ -186,7 +186,9 @@ public class MarketPlaceTest {
 	}
 	
 	
-	// GETTERS & SETTERS
+	// GETTERS & SETTERS   -- maybe not doing getters and setters 
+
+// get rid of 
 	
 	@Test
 	public void testGetMarketOreStock() 
