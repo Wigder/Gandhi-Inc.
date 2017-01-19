@@ -21,12 +21,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Game extends ApplicationAdapter
@@ -42,15 +44,30 @@ public class Game extends ApplicationAdapter
 	private Label oreLabel;
 	private Label energyLabel;
 	private Label moneyLabel;
+	private Label marketStockLabel;
 	private TextButton nextPhaseButton;
 	private TextButton buyRoboticonButton;
 	private TextButton specialiseRoboticonButton;
 	private TextButton assignRoboticonButton;
+	private TextButton oreSpecButton;
+	private TextButton energySpecButton;
+	private TextButton cancelSpecButton;
+	private TextButton oreAddSellButton;
+	private TextButton oreMinusSellButton;
+	private TextButton oreAddBuyButton;
+	private TextButton oreMinusBuyButton;
+	private TextButton energyAddSellButton;
+	private TextButton energyMinusSellButton;
+	private TextButton energyAddBuyButton;
+	private TextButton energyMinusBuyButton;
 	
+	
+	private TextButtonStyle tbs;
 	
 	private GameEngine gameEngine;
 	
 	FreeTypeFontGenerator font;
+	FreeTypeFontParameter parameter;
 	
 	@Override
 	public void create () 
@@ -101,14 +118,26 @@ public class Game extends ApplicationAdapter
 		initMap();
 		initGameUIElements();
 		
+		gameStage.addActor(marketStockLabel);
+		gameStage.addActor(oreAddSellButton);
+		//gameStage.addActor(oreMinusSellButton);
+		//gameStage.addActor(oreAddBuyButton);
+		//gameStage.addActor(oreMinusBuyButton);
+		//gameStage.addActor(energyAddSellButton);
+		//gameStage.addActor(energyMinusSellButton);
+		//gameStage.addActor(energyAddBuyButton);
+		//gameStage.addActor(energyMinusBuyButton);
+		
 		gameStage.addActor(assignRoboticonButton);
 		gameStage.addActor(specialiseRoboticonButton);
 		gameStage.addActor(buyRoboticonButton);
+		
 		gameStage.addActor(timeLabel);
 		gameStage.addActor(nameLabel);
 		gameStage.addActor(oreLabel);
 		gameStage.addActor(energyLabel);
 		gameStage.addActor(moneyLabel);
+		
 		gameStage.addActor(nextPhaseButton);
 		
 		//This handles all the processing input (The processor of the input is "stage")
@@ -117,8 +146,44 @@ public class Game extends ApplicationAdapter
 	
 	public void initGameUIElements()
 	{
+		parameter = new FreeTypeFontParameter();
+		tbs = new TextButtonStyle();
+		
+		initNextPhaseButton();
+		initPlayerStatsUI();
+		initPhaseTwoUI();
+		initPhaseThreeUI();
+		
+	}
+	
+	public void initNextPhaseButton()
+	{
+		Pixmap backgroundColor = new Pixmap(Gdx.graphics.getWidth() - mapImg.getWidth() - 20, 50, Pixmap.Format.RGB888);
+		backgroundColor.setColor(Color.DARK_GRAY);
+		backgroundColor.fill();
+		tbs.up = new Image(new Texture(backgroundColor)).getDrawable();
+		tbs.down = new Image(new Texture(backgroundColor)).getDrawable();
+		backgroundColor.setColor(Color.LIGHT_GRAY);
+		backgroundColor.fill();
+		tbs.over = new Image(new Texture(backgroundColor)).getDrawable();
+		parameter.size = 40;
+		tbs.font = font.generateFont(parameter);
+		
+		nextPhaseButton = new TextButton("Skip", tbs);
+		nextPhaseButton.setPosition(mapImg.getWidth() + 10,  mapImg.getHeight() - 300);
+		nextPhaseButton.addListener(new ClickListener(){
+			
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				onNextPhaseClick();
+			}
+		});
+	}
+	
+	public void initPlayerStatsUI()
+	{
 		LabelStyle timels = new LabelStyle();
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 40;
 		timels.font = font.generateFont(parameter);
 		timeLabel = new Label("Time:", timels);
@@ -142,30 +207,10 @@ public class Game extends ApplicationAdapter
 		oreLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 120);
 		energyLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 160);
 		moneyLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 200);
-		
-		final TextButtonStyle tbs = new TextButtonStyle();
-		
-		Pixmap backgroundColor = new Pixmap(Gdx.graphics.getWidth() - mapImg.getWidth() - 20, 50, Pixmap.Format.RGB888);
-		backgroundColor.setColor(Color.DARK_GRAY);
-		backgroundColor.fill();
-		tbs.up = new Image(new Texture(backgroundColor)).getDrawable();
-		tbs.down = new Image(new Texture(backgroundColor)).getDrawable();
-		backgroundColor.setColor(Color.LIGHT_GRAY);
-		backgroundColor.fill();
-		tbs.over = new Image(new Texture(backgroundColor)).getDrawable();
-
-		tbs.font = font.generateFont(parameter);
-		
-		nextPhaseButton = new TextButton("Skip", tbs);
-		nextPhaseButton.setPosition(mapImg.getWidth() + 10,  mapImg.getHeight() - 300);
-		nextPhaseButton.addListener(new ClickListener(){
-			
-			@Override
-			public void clicked(InputEvent event, float x, float y)
-			{
-				onNextPhaseClick();
-			}
-		});
+	}
+	
+	public void initPhaseTwoUI()
+	{
 		
 		parameter.size = 20;
 		tbs.font = font.generateFont(parameter);
@@ -210,57 +255,80 @@ public class Game extends ApplicationAdapter
 				p.addRoboticon(r);
 			}	
 		});
+	}
+	
+	public void initPhaseThreeUI()
+	{
+		LabelStyle lbls = new LabelStyle();
+		parameter.size = 18;
+		lbls.font = font.generateFont(parameter);
+		marketStockLabel = new Label("Market:\n"
+				+ "Ore Stock: 800\n"
+				+ "Energy Stock: 800\n"
+				+ "Ore Buy Price: 50\n"
+				+ "Ore Sell Price: 50\n"
+				+ "Energy Buy Price: 50\n"
+				+ "Energy Sell Price: 50", lbls);
+		marketStockLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 440);
+		parameter.size = 30;
+		tbs.font = font.generateFont(parameter);
+		oreAddSellButton = new TextButton("+", tbs);
+		oreAddSellButton.setWidth(30);
+		oreAddSellButton.setHeight(30);
 		
 	}
 	
 	public void roboticonSpecialiseMenu(TextButtonStyle tbs)
 	{
-		final TextButton ore = new TextButton("Ore", tbs);
-		final TextButton energy = new TextButton("Energy", tbs);
-		final TextButton cancel = new TextButton("Cancel", tbs);
-		ore.setWidth(100);
-		energy.setWidth(100);
-		cancel.setWidth(100);
+		parameter.size = 20;
+		tbs.font = font.generateFont(parameter);
+		oreSpecButton = new TextButton("Ore", tbs);
+		energySpecButton = new TextButton("Energy", tbs);
+		cancelSpecButton = new TextButton("Cancel", tbs);
 		
-		ore.setPosition(0, 0);
-		energy.setPosition(110, 0);
-		cancel.setPosition(220, 0);
+		oreSpecButton.setWidth(100);
+		energySpecButton.setWidth(100);
+		cancelSpecButton.setWidth(100);
 		
-		ore.addListener(new ClickListener(){
+		oreSpecButton.setPosition(0, 0);
+		energySpecButton.setPosition(110, 0);
+		cancelSpecButton.setPosition(220, 0);
+		
+		oreSpecButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
 				gameEngine.getCurrentPlayer().getUnspecialisedRoboticons().get(0).setSpec(Resource.ORE);
-				ore.remove();
-				energy.remove();
-				cancel.remove();
+				oreSpecButton.remove();
+				energySpecButton.remove();
+				cancelSpecButton.remove();
 			}
 		});
 		
-		energy.addListener(new ClickListener(){
+		energySpecButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
 				gameEngine.getCurrentPlayer().getUnspecialisedRoboticons().get(0).setSpec(Resource.ENERGY);
-				ore.remove();
-				energy.remove();
-				cancel.remove();
+				oreSpecButton.remove();
+				energySpecButton.remove();
+				cancelSpecButton.remove();
 			}
 		});
 		
-		cancel.addListener(new ClickListener(){
+		cancelSpecButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-				ore.remove();
-				energy.remove();
-				cancel.remove();
+				oreSpecButton.remove();
+				energySpecButton.remove();
+				cancelSpecButton.remove();
 			}
 		});
 		
-		gameStage.addActor(ore);
-		gameStage.addActor(energy);
-		gameStage.addActor(cancel);
+		gameStage.addActor(oreSpecButton);
+		gameStage.addActor(energySpecButton);
+		gameStage.addActor(cancelSpecButton);
 	}
 	
 	public void onNextPhaseClick()
@@ -525,6 +593,12 @@ public class Game extends ApplicationAdapter
 			buyRoboticonButton.setVisible(false);
 			specialiseRoboticonButton.setVisible(false);
 			assignRoboticonButton.setVisible(false);
+			if (gameStage.getActors().contains(oreSpecButton, true))
+			{
+				oreSpecButton.remove();
+				energySpecButton.remove();
+				cancelSpecButton.remove();
+			}
 		}
 		
 		gameStage.draw();
