@@ -58,9 +58,9 @@ public class Game extends ApplicationAdapter
 		
 		//Setup the players for the game
 		ArrayList<AIPlayer> aiPlayers = new ArrayList<AIPlayer>();
-		aiPlayers.add(new AIPlayer("Player 1", 50, 50, 50));
 		
 		ArrayList<Player> humanPlayers = new ArrayList<Player>();
+		humanPlayers.add(new Player("Player 1", 50, 50, 50));
 		humanPlayers.add(new Player("Player 2", 50, 50, 50));
 		
 		//Create the game and the then start the game
@@ -500,7 +500,7 @@ public class Game extends ApplicationAdapter
 			buyRoboticonButton.setVisible(true);
 			specialiseRoboticonButton.setVisible(true);
 			assignRoboticonButton.setVisible(true);
-			
+			System.out.println(gameEngine.getMarket().getMarketRoboticonStock());
 			if (gameEngine.getMarket().getMarketRoboticonStock() < 1 || gameEngine.getCurrentPlayer().getMoney() < gameEngine.getMarket().getMarketRoboticonSellPrice())
 				buyRoboticonButton.setTouchable(Touchable.disabled);
 			else
