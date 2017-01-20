@@ -60,7 +60,15 @@ public class Game extends ApplicationAdapter
 	private TextButton energyMinusSellButton;
 	private TextButton energyAddBuyButton;
 	private TextButton energyMinusBuyButton;
+	private TextButton energyBuyButton;
+	private TextButton energySellButton;
+	private TextButton oreBuyButton;
+	private TextButton oreSellButton;
 	
+	private int oreBuyAmount = 0;
+	private int oreSellAmount = 0;
+	private int energyBuyAmount = 0;
+	private int energySellAmount = 0;
 	
 	private TextButtonStyle tbs;
 	
@@ -119,14 +127,18 @@ public class Game extends ApplicationAdapter
 		initGameUIElements();
 		
 		gameStage.addActor(marketStockLabel);
+		gameStage.addActor(energyBuyButton);
+		gameStage.addActor(energySellButton);
+		gameStage.addActor(oreBuyButton);
+		gameStage.addActor(oreSellButton);
 		gameStage.addActor(oreAddSellButton);
-		//gameStage.addActor(oreMinusSellButton);
-		//gameStage.addActor(oreAddBuyButton);
-		//gameStage.addActor(oreMinusBuyButton);
-		//gameStage.addActor(energyAddSellButton);
-		//gameStage.addActor(energyMinusSellButton);
-		//gameStage.addActor(energyAddBuyButton);
-		//gameStage.addActor(energyMinusBuyButton);
+		gameStage.addActor(oreMinusSellButton);
+		gameStage.addActor(oreAddBuyButton);
+		gameStage.addActor(oreMinusBuyButton);
+		gameStage.addActor(energyAddSellButton);
+		gameStage.addActor(energyMinusSellButton);
+		gameStage.addActor(energyAddBuyButton);
+		gameStage.addActor(energyMinusBuyButton);
 		
 		gameStage.addActor(assignRoboticonButton);
 		gameStage.addActor(specialiseRoboticonButton);
@@ -262,20 +274,214 @@ public class Game extends ApplicationAdapter
 		LabelStyle lbls = new LabelStyle();
 		parameter.size = 18;
 		lbls.font = font.generateFont(parameter);
-		marketStockLabel = new Label("Market:\n"
-				+ "Ore Stock: 800\n"
-				+ "Energy Stock: 800\n"
-				+ "Ore Buy Price: 50\n"
-				+ "Ore Sell Price: 50\n"
-				+ "Energy Buy Price: 50\n"
-				+ "Energy Sell Price: 50", lbls);
-		marketStockLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 440);
+		marketStockLabel = new Label("", lbls);
+		marketStockLabel.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 480);
 		parameter.size = 30;
 		tbs.font = font.generateFont(parameter);
+		
+		oreAddBuyButton = new TextButton("+", tbs);
+		oreAddBuyButton.setWidth(30);
+		oreAddBuyButton.setHeight(30);
+		oreAddBuyButton.setPosition(Gdx.graphics.getWidth() - 40, mapImg.getHeight() - 505);
+		oreAddBuyButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				oreBuyAmount += 5;
+				if (oreBuyAmount > gameEngine.getMarket().getMarketOreStock())
+				{
+					oreBuyAmount = gameEngine.getMarket().getMarketOreStock();
+				}
+				if (oreBuyAmount * gameEngine.getMarket().getMarketOreBuyPrice() > gameEngine.getCurrentPlayer().getMoney())
+				{
+					oreBuyAmount = (int)((float)gameEngine.getCurrentPlayer().getMoney() / gameEngine.getMarket().getMarketOreBuyPrice());
+				}
+			}	
+		});
+		
+		oreMinusBuyButton = new TextButton("-", tbs);
+		oreMinusBuyButton.setWidth(30);
+		oreMinusBuyButton.setHeight(30);
+		oreMinusBuyButton.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 505);
+		oreMinusBuyButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				oreBuyAmount -= 5;
+				if (oreBuyAmount < 0)
+				{
+					oreBuyAmount = 0;
+				}
+			}	
+		});
+		
 		oreAddSellButton = new TextButton("+", tbs);
 		oreAddSellButton.setWidth(30);
 		oreAddSellButton.setHeight(30);
+		oreAddSellButton.setPosition(Gdx.graphics.getWidth() - 40, mapImg.getHeight() - 560);
+		oreAddSellButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				oreSellAmount += 5;
+				if (oreSellAmount > gameEngine.getCurrentPlayer().getOre())
+				{
+					oreSellAmount = gameEngine.getCurrentPlayer().getOre();
+				}
+			}	
+		});
 		
+		oreMinusSellButton = new TextButton("-", tbs);
+		oreMinusSellButton.setWidth(30);
+		oreMinusSellButton.setHeight(30);
+		oreMinusSellButton.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 560);
+		oreMinusSellButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				oreSellAmount -= 5;
+				if (oreSellAmount < 0)
+				{
+					oreSellAmount = 0;
+				}
+			}	
+		});
+		
+		energyAddBuyButton = new TextButton("+", tbs);
+		energyAddBuyButton.setWidth(30);
+		energyAddBuyButton.setHeight(30);
+		energyAddBuyButton.setPosition(Gdx.graphics.getWidth() - 40, mapImg.getHeight() - 630);
+		energyAddBuyButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				energyBuyAmount += 5;
+				if (energyBuyAmount > gameEngine.getMarket().getMarketEnergyStock())
+				{
+					energyBuyAmount = gameEngine.getMarket().getMarketEnergyStock();
+				}
+				if (energyBuyAmount * gameEngine.getMarket().getMarketEnergyBuyPrice() > gameEngine.getCurrentPlayer().getMoney())
+				{
+					energyBuyAmount = (int)((float)gameEngine.getCurrentPlayer().getMoney() / gameEngine.getMarket().getMarketEnergyBuyPrice());
+				}
+			}	
+		});
+		
+		energyMinusBuyButton = new TextButton("-", tbs);
+		energyMinusBuyButton.setWidth(30);
+		energyMinusBuyButton.setHeight(30);
+		energyMinusBuyButton.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 630);
+		energyMinusBuyButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				energyBuyAmount -= 5;
+				if (energyBuyAmount < 0)
+				{
+					energyBuyAmount = 0;
+				}
+			}	
+		});
+		
+		energyAddSellButton = new TextButton("+", tbs);
+		energyAddSellButton.setWidth(30);
+		energyAddSellButton.setHeight(30);
+		energyAddSellButton.setPosition(Gdx.graphics.getWidth() - 40, mapImg.getHeight() - 685);
+		energyAddSellButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				energySellAmount += 5;
+				if (energySellAmount > gameEngine.getCurrentPlayer().getEnergy())
+				{
+					energySellAmount = gameEngine.getCurrentPlayer().getEnergy();
+				}
+			}	
+		});
+		
+		energyMinusSellButton = new TextButton("-", tbs);
+		energyMinusSellButton.setWidth(30);
+		energyMinusSellButton.setHeight(30);
+		energyMinusSellButton.setPosition(mapImg.getWidth() + 10, mapImg.getHeight() - 685);
+		energyMinusSellButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				energySellAmount -= 5;
+				if (energySellAmount < 0)
+				{
+					energySellAmount = 0;
+				}
+			}	
+		});
+		
+		oreBuyButton = new TextButton("0", tbs);
+		oreBuyButton.setWidth(100);
+		oreBuyButton.setHeight(30);
+		oreBuyButton.setPosition(mapImg.getWidth() + 65, mapImg.getHeight() - 505);
+		oreBuyButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				try {
+					gameEngine.getMarket().buyOre(gameEngine.getCurrentPlayer(), oreBuyAmount);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		oreSellButton = new TextButton("0", tbs);
+		oreSellButton.setWidth(100);
+		oreSellButton.setHeight(30);
+		oreSellButton.setPosition(mapImg.getWidth() + 65, mapImg.getHeight() - 560);
+		oreSellButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				try {
+					gameEngine.getMarket().sellOre(gameEngine.getCurrentPlayer(), oreSellAmount);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		energyBuyButton = new TextButton("0", tbs);
+		energyBuyButton.setWidth(100);
+		energyBuyButton.setHeight(30);
+		energyBuyButton.setPosition(mapImg.getWidth() + 65, mapImg.getHeight() - 630);
+		energyBuyButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				try {
+					gameEngine.getMarket().buyEnergy(gameEngine.getCurrentPlayer(), energyBuyAmount);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		energySellButton = new TextButton("0", tbs);
+		energySellButton.setWidth(100);
+		energySellButton.setHeight(30);
+		energySellButton.setPosition(mapImg.getWidth() + 65, mapImg.getHeight() - 685);
+		energySellButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y)
+			{
+				try {
+					gameEngine.getMarket().sellEnergy(gameEngine.getCurrentPlayer(), energySellAmount);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public void roboticonSpecialiseMenu(TextButtonStyle tbs)
@@ -601,6 +807,65 @@ public class Game extends ApplicationAdapter
 			}
 		}
 		
+		if (gameEngine.getPhase() == 3)
+		{
+			marketStockLabel.setVisible(true);
+			oreBuyButton.setVisible(true);
+			oreSellButton.setVisible(true);
+			energyBuyButton.setVisible(true);
+			energySellButton.setVisible(true);
+			oreAddBuyButton.setVisible(true);
+			oreMinusBuyButton.setVisible(true);
+			oreAddSellButton.setVisible(true);
+			oreMinusSellButton.setVisible(true);
+			energyAddBuyButton.setVisible(true);
+			energyMinusBuyButton.setVisible(true);
+			energyAddSellButton.setVisible(true);
+			energyMinusSellButton.setVisible(true);
+			marketStockLabel.setText("Market:\n"
+					+ "Ore Stock: " + new Integer(gameEngine.getMarket().getMarketOreStock()).toString() + "\n"
+					+ "Energy Stock: " + new Integer(gameEngine.getMarket().getMarketEnergyStock()).toString() + "\n"
+					+ "Ore Buy Price: " + new Float(gameEngine.getMarket().getMarketOreBuyPrice()).toString() + "\n"
+					+ "Ore Sell Price: " + new Float(gameEngine.getMarket().getMarketOreSellPrice()).toString() + "\n"
+					+ "Energy Buy Price: " + new Float(gameEngine.getMarket().getMarketEnergyBuyPrice()).toString() + "\n"
+					+ "Energy Sell Price: " + new Float(gameEngine.getMarket().getMarketEnergySellPrice()).toString() + "\n"
+					+ "ORE: \n"
+					+ "Buy: \n"
+					+ "\n"
+					+ "\n"
+					+ "Sell: \n"
+					+ "\n"
+					+ "\n"
+					+ "ENERGY: \n"
+					+ "Buy: \n"
+					+ "\n"
+					+ "\n"
+					+ "Sell: ");
+			oreBuyButton.setText(new Integer(oreBuyAmount).toString());
+			oreSellButton.setText(new Integer(oreSellAmount).toString());
+			energyBuyButton.setText(new Integer(energyBuyAmount).toString());
+			energySellButton.setText(new Integer(energySellAmount).toString());
+		}
+		else
+		{
+			marketStockLabel.setVisible(false);
+			oreBuyButton.setVisible(false);
+			oreSellButton.setVisible(false);
+			energyBuyButton.setVisible(false);
+			energySellButton.setVisible(false);
+			oreAddBuyButton.setVisible(false);
+			oreMinusBuyButton.setVisible(false);
+			oreAddSellButton.setVisible(false);
+			oreMinusSellButton.setVisible(false);
+			energyAddBuyButton.setVisible(false);
+			energyMinusBuyButton.setVisible(false);
+			energyAddSellButton.setVisible(false);
+			energyMinusSellButton.setVisible(false);
+			oreBuyAmount = 0;
+			oreSellAmount = 0;
+			energyBuyAmount = 0;
+			energySellAmount = 0;
+		}
 		gameStage.draw();
 	}
 	
