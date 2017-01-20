@@ -292,9 +292,13 @@ public class Game extends ApplicationAdapter
 				{
 					oreBuyAmount = gameEngine.getMarket().getMarketOreStock();
 				}
-				if (oreBuyAmount * gameEngine.getMarket().getMarketOreBuyPrice() > gameEngine.getCurrentPlayer().getMoney())
+				if (oreBuyAmount * gameEngine.getMarket().getMarketOreSellPrice() > gameEngine.getCurrentPlayer().getMoney())
 				{
-					oreBuyAmount = (int)((float)gameEngine.getCurrentPlayer().getMoney() / gameEngine.getMarket().getMarketOreBuyPrice());
+					oreBuyAmount = (int)((float)gameEngine.getCurrentPlayer().getMoney() / gameEngine.getMarket().getMarketOreSellPrice());
+				}
+				if (oreBuyAmount < 0)
+				{
+					oreBuyAmount = 0;
 				}
 			}	
 		});
@@ -328,6 +332,10 @@ public class Game extends ApplicationAdapter
 				{
 					oreSellAmount = gameEngine.getCurrentPlayer().getOre();
 				}
+				if (oreSellAmount < 0)
+				{
+					oreSellAmount = 0;
+				}
 			}	
 		});
 		
@@ -360,9 +368,13 @@ public class Game extends ApplicationAdapter
 				{
 					energyBuyAmount = gameEngine.getMarket().getMarketEnergyStock();
 				}
-				if (energyBuyAmount * gameEngine.getMarket().getMarketEnergyBuyPrice() > gameEngine.getCurrentPlayer().getMoney())
+				if (energyBuyAmount * gameEngine.getMarket().getMarketEnergySellPrice() > gameEngine.getCurrentPlayer().getMoney())
 				{
-					energyBuyAmount = (int)((float)gameEngine.getCurrentPlayer().getMoney() / gameEngine.getMarket().getMarketEnergyBuyPrice());
+					energyBuyAmount = (int)((float)gameEngine.getCurrentPlayer().getMoney() / gameEngine.getMarket().getMarketEnergySellPrice());
+				}
+				if (oreSellAmount < 0)
+				{
+					oreSellAmount = 0;
 				}
 			}	
 		});
@@ -395,6 +407,10 @@ public class Game extends ApplicationAdapter
 				if (energySellAmount > gameEngine.getCurrentPlayer().getEnergy())
 				{
 					energySellAmount = gameEngine.getCurrentPlayer().getEnergy();
+				}
+				if (oreSellAmount < 0)
+				{
+					oreSellAmount = 0;
 				}
 			}	
 		});
@@ -429,6 +445,7 @@ public class Game extends ApplicationAdapter
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				oreBuyAmount = 0;
 			}
 		});
 		
@@ -446,6 +463,7 @@ public class Game extends ApplicationAdapter
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				oreSellAmount = 0;
 			}
 		});
 		
@@ -463,6 +481,7 @@ public class Game extends ApplicationAdapter
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				energyBuyAmount = 0;
 			}
 		});
 		
@@ -480,6 +499,7 @@ public class Game extends ApplicationAdapter
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				energySellAmount = 0;
 			}
 		});
 	}
@@ -557,6 +577,10 @@ public class Game extends ApplicationAdapter
 		{
 			gameEngine.setPhaseTime(-1);
 		}
+		oreBuyAmount = 0;
+		oreSellAmount = 0;
+		energyBuyAmount = 0;
+		energySellAmount = 0;
 	}
 	
 	public void initMap()

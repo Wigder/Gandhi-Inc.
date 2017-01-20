@@ -43,11 +43,11 @@ public class MarketPlace
 	private int prevOreStock = 100;					// Setting the last known Market Ore Stock
 	private int prevEnergyStock = 100;				// Setting the last known Market Energy Stock
 	
-	private float maxOrePrice;
-	private float minOrePrice;
+	private float maxOrePrice = 10;
+	private float minOrePrice = 1;
 	
-	private float maxEnergyPrice;
-	private float minEnergyPrice;
+	private float maxEnergyPrice = 10;
+	private float minEnergyPrice = 1;
 	
 	private float marketOreBuyPrice = 1.5f;
 	private float marketEnergyBuyPrice = 1.5f;
@@ -88,8 +88,8 @@ public class MarketPlace
 			int newStock = getMarketOreStock() - quantity;												//Calculates what the new stock is
 			setMarketOreStock(newStock);                                                                //Sets the new stock value
 			
-			int newPrice = (int)(maxOrePrice * Math.pow(0.7, getMarketOreSellPrice()) + minOrePrice);	//Calculates the new sell price
-                        setMarketOreBuyPrice(newPrice + 1);												//Sets the new sell price
+			float newPrice = (float)(quantity / 100 + minOrePrice);	//Calculates the new sell price
+            setMarketOreBuyPrice(newPrice);															//Sets the new sell price
 			setMarketOreSellPrice(newPrice - 1);														//Sets the new buy price
 		}
 		else
@@ -120,7 +120,7 @@ public class MarketPlace
 			int newStock = getMarketEnergyStock() - quantity;									//Calculates what the new stock is
 			setMarketEnergyStock(newStock);														//Sets the new stock value
 			
-			int newPrice = (int)(maxEnergyPrice * Math.pow(0.7, getMarketEnergySellPrice()) + minEnergyPrice);	//Calculates the new sell price
+			float newPrice = (float)(maxEnergyPrice * Math.pow(0.7, getMarketEnergySellPrice()) + minEnergyPrice);	//Calculates the new sell price
 			setMarketEnergySellPrice(newPrice + 1);												//Sets the new sell price
 			setMarketEnergyBuyPrice(newPrice - 1);                                              //Sets the new buy price
 			
