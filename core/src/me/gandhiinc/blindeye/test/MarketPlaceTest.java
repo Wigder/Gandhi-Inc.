@@ -6,8 +6,8 @@ import me.gandhiinc.blindeye.Player;
 
 import org.junit.Test;
 
-public class MarketPlaceTest {
-
+public class MarketPlaceTest 
+{
 	Player testPlayer = new Player("Player", 10, 0, 0);
 	MarketPlace market = new MarketPlace();
 	

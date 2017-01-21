@@ -49,16 +49,17 @@ public class MarketPlace
 	private float maxEnergyPrice = 10;
 	private float minEnergyPrice = 1;
 	
-	private float marketOreBuyPrice = 1.5f;
-	private float marketEnergyBuyPrice = 1.5f;
+	private float marketOreBuyPrice = 1.5f;			// Setting the market ore buying price
+	private float marketEnergyBuyPrice = 1.5f;		// Setting the market energy buying price
 
-	private float marketOreSellPrice = 1.5f;
-	private float marketEnergySellPrice = 1.5f;
-	private int marketRoboticonSellPrice = 30;
+	private float marketOreSellPrice = 1.5f;		// Setting the market ore selling price
+	private float marketEnergySellPrice = 1.5f;		// Setting the market energy selling price
+	private int marketRoboticonSellPrice = 30;		// Setting the market roboticon sell price
 	
-	private Pub pub = new Pub();
-	Exception eMoney = new Exception("You do not have enough Money!");
-	Exception eStockBuy = new Exception("The market doesn't have enough stock");
+	private Pub pub = new Pub();					// Initiating a variance of the pub
+	
+	Exception eMoney = new Exception("You do not have enough Money!");				// The exception thrown if a user has insufficient funds when purchasing something
+	Exception eStockBuy = new Exception("The market doesn't have enough stock");	// The exception thrown when the market doesn't have enough stock when selling something
 	
 
 /* ---------------------------------------------------------
@@ -141,7 +142,7 @@ public class MarketPlace
 	 */
 	public void buyRoboticon(Player player, int quantity) throws Exception
 	{
-		if(getMarketRoboticonSellPrice() * quantity > player.getMoney())
+		if(getMarketRoboticonSellPrice() * quantity > player.getMoney())	//Checks if the player has sufficient funds to purchase the quantity of roboticons
 		{
 			throw eMoney;									//Error the player doesn't have enough money
 		}
@@ -245,26 +246,26 @@ public class MarketPlace
 	 */
 	public void produceRoboticon()
 	{
-		if(getMarketOreStock() < 16)
+		if(getMarketOreStock() < 16) 											//If the market ore stock is below 16
 		{
+			return;																//Then exit function
+		}
+		else if(getMarketOreStock() >= 16 && getMarketOreStock() < 24) 			//Else if the market ore stock is between 16 and under 24
+		{
+			setMarketRoboticonStock(getMarketRoboticonStock() + 2);				//Add 2 roboticons to the market roboticon stock
+			setMarketOreStock(getMarketOreStock()-16);							//Remove 16 ore from the market ore stock
 			return;
 		}
-		else if(getMarketOreStock() >= 16 && getMarketOreStock() < 24)
+		else if(getMarketOreStock() >= 24 && getMarketOreStock() < 32) 			//Else if the market ore stock is between 24 and under 32
 		{
-			setMarketRoboticonStock(getMarketRoboticonStock() + 2);
-			setMarketOreStock(getMarketOreStock()-16);
+			setMarketRoboticonStock(getMarketRoboticonStock() + 4);				//Add 4 roboticons to the market ore roboticon stock
+			setMarketOreStock(getMarketOreStock()-24);							//Remove 24 ore from the market ore stock
 			return;
 		}
-		else if(getMarketOreStock() >= 24 && getMarketOreStock() < 32)
+		else if(getMarketOreStock() >= 32) 										//Else if the market ore stock is 32 or over
 		{
-			setMarketRoboticonStock(getMarketRoboticonStock() + 4);
-			setMarketOreStock(getMarketOreStock()-24);
-			return;
-		}
-		else if(getMarketOreStock() >= 32)
-		{
-			setMarketRoboticonStock(getMarketRoboticonStock() + 6);
-			setMarketOreStock(getMarketOreStock()-32);
+			setMarketRoboticonStock(getMarketRoboticonStock() + 6);				//Add 6 roboticons to the market roboticon stock
+			setMarketOreStock(getMarketOreStock()-32);							//Remove 32 ore from the market ore stock
 			return;
 		}
 	}
