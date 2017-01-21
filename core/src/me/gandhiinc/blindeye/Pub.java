@@ -38,7 +38,6 @@ public class Pub{
     *
     **/
     public int getPriceOfPlayingScratchCard(){
-//    	System.out.println(priceOfPlayingScratchCard);
         return priceOfPlayingScratchCard;
     }
 
@@ -49,7 +48,6 @@ public class Pub{
     **/
 
     public int getPriceOfPlayingOneArmBandit(){
-//        System.out.println(priceOfPlayingOneArmBandit);
         return priceOfPlayingOneArmBandit;
     }
 
@@ -70,13 +68,10 @@ public class Pub{
         else if(number2<1 || number2>20)throw new IllegalArgumentException();
         else if(number3<1 || number3>20)throw new IllegalArgumentException();
         else{
-//          add this code in!!!!!
-//          need to know will's way of collecting money
             Random rand = new Random();
             int random1 = rand.nextInt(20) + 1;
             int random2 = rand.nextInt(20) + 1;
             int random3 = rand.nextInt(20) + 1;
-//            System.out.println(random1 + " " + random2 + " " + random3);
             int[] arrayOfRandomNumbers;
             arrayOfRandomNumbers = new int[3];
             arrayOfRandomNumbers[0] = random1;
@@ -89,7 +84,6 @@ public class Pub{
             arrayOfInputNumbers[1] = number2;
             arrayOfInputNumbers[2] = number3;
             Arrays.sort(arrayOfInputNumbers);
-//            for (int index = 0; index < arrayOfRandomNumbers.length; index++) System.out.println(arrayOfRandomNumbers[index]);    
             if(arrayOfRandomNumbers[0]==arrayOfInputNumbers[0] && arrayOfRandomNumbers[1]==arrayOfInputNumbers[1] && arrayOfRandomNumbers[2]==arrayOfInputNumbers[2])return (1331*getPriceOfPlayingLottery());
             else{
                 return(-1*getPriceOfPlayingLottery());
@@ -103,18 +97,15 @@ public class Pub{
     *@return returns a value of how much money has been won returns 0 for a loss
     *
     **/
-
-// need to change the money variable i think 
+ 
 
     public int playScratchcard(){
         Random rand = new Random();
         int random = rand.nextInt(10) + 1;
         if(random == 1){
-//            System.out.println("win")
             return(9*getPriceOfPlayingScratchCard());
         }
         else{
-//            System.out.println("loose");
             return(-1*getPriceOfPlayingScratchCard());
         }
     }

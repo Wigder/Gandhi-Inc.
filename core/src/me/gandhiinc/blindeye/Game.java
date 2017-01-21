@@ -798,7 +798,7 @@ public class Game extends ApplicationAdapter
 			buyRoboticonButton.setVisible(true);
 			specialiseRoboticonButton.setVisible(true);
 			assignRoboticonButton.setVisible(true);
-			System.out.println(gameEngine.getMarket().getMarketRoboticonStock());
+//			System.out.println(gameEngine.getMarket().getMarketRoboticonStock());
 			if (gameEngine.getMarket().getMarketRoboticonStock() < 1 || gameEngine.getCurrentPlayer().getMoney() < gameEngine.getMarket().getMarketRoboticonSellPrice())
 				buyRoboticonButton.setTouchable(Touchable.disabled);
 			else
