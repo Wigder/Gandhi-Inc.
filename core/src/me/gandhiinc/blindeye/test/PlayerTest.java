@@ -52,6 +52,9 @@ public class PlayerTest {
         fail("Not yet implemented");
     }
 
+
+//not testing getters and setters
+
     @Test
     public void testGetMoney() {
         fail("Not yet implemented");
