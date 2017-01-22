@@ -23,26 +23,36 @@ import java.util.List;
  */
 public class GameEngine 
 {
-
+	// Lists of all the players
 	private List<Player> humanPlayers;
 	private List<AIPlayer> aiPlayers;
 
+	// Array of all the plots
 	private Plot[] plots;
 	
+	// The currently selected plot
 	private Plot activePlot;
 	
+	// The market place object
 	private MarketPlace market;
 
+	// The dimensions of the map
 	private final int mapWidth;
 	private final int mapHeight;
 
+	// The the time that each phase gets set to at the start of that phase (apart from phase 1)
 	private final float PHASE_TIME_CONST = 2 * 60;
+
+	// current phase
 	private int phase = 1;
 	
+	// the player whose turn it currently is
 	private Player currentPlayer;
 	
+	//is the game running
 	private boolean running = false;
 	
+	// the time of the current phase
 	private float phaseTime;
 
 	/**
@@ -107,14 +117,18 @@ public class GameEngine
 	 */
 	public void update(float deltaTime)
 	{
+		// only update the phase time if the current phase is not the first phase
 		if (phase != 1)
 			phaseTime -= deltaTime;
 
+		// if the phase time is less that 0 
 		if (phaseTime < 0)
 		{
+			// if phase 2 then produce the resources for the player
 			if (phase == 2)
 			{
 				currentPlayer.ProduceResources();
+				// if the current player is the last human player then complete the turns for the AI players
 				if (humanPlayers.indexOf(currentPlayer) == humanPlayers.size() - 1)
 				{
 					for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext(); )
@@ -126,24 +140,27 @@ public class GameEngine
 							if (plot.getPlayer() == null)
 								validPlots.add(plot);
 						}
-						
-						player.CompleteTurn(validPlots.toArray(new Plot[validPlots.size()]), market);	
+						player.CompleteTurn(validPlots.toArray(new Plot[validPlots.size()]), market);
 						market.produceRoboticon();
 					}
+					// when all players (human and ai) have finished their turns have the market produce the roboticons, set the current player to the first human player and set the phase to 3 and reset the timer
+
 					currentPlayer = humanPlayers.get(0);
 					phase = 3;
 					phaseTime = PHASE_TIME_CONST;
 				}
+				// else set the current player to the next human player and set the phase to one and phase time to -1 (i.e infinite)
 				else
 				{
 					currentPlayer = humanPlayers.get(humanPlayers.indexOf(currentPlayer) + 1);
 					phase = 1;
 					phaseTime = -1;
+					market.produceRoboticon();
 				}
-				market.produceRoboticon();
 			}
 			else if (phase == 3)
 			{
+				// if phase 3 has ended for the current player and there are no human players left to go have the ai players sell their resources and then go back to phase 1 with player 1
 				if (humanPlayers.indexOf(currentPlayer) == humanPlayers.size() - 1)
 				{
 					for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext(); )
@@ -155,6 +172,7 @@ public class GameEngine
 					phase = 1;
 					phaseTime = -1;
 				}
+				// otherwise go to phase 3 for the next human player
 				else
 				{
 					currentPlayer = humanPlayers.get(humanPlayers.indexOf(currentPlayer) + 1);

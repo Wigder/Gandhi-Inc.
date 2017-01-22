@@ -41,7 +41,6 @@ public class AIPlayer extends Player {
 		AIAcquirePlot(plots);
 		AIAcquireRoboticon(market);
 		ProduceResources();
-		//AIGamble(market);
 	}
 	
 	/**
@@ -107,12 +106,15 @@ public class AIPlayer extends Player {
 	{
 		Random random = new Random();
 		boolean isGambling = random.nextBoolean();
+		// if they are gambling (50/50 chance)
 		if (isGambling)
 		{
+			// get what the are gambling, equal chance of each
 			int gambleType = random.nextInt(3);
 			switch (gambleType)
 			{
 			case 0:
+				// if they have the money to play the lottery then choose 3 random numbers and player the lottery
 				if (this.money > market.getPub().getPriceOfPlayingLottery())
 				{
 					int num1, num2, num3;
@@ -128,13 +130,16 @@ public class AIPlayer extends Player {
 				}
 				break;
 			case 1:
+				// if they have the money to play the one arm bandit then do it
 				if (this.money > market.getPub().getPriceOfPlayingOneArmBandit())
 				{
+					// get the money made or lost (is the 4th element in the return array)
 					int diff = market.getPub().playOneArmBandit()[3];
 					this.money += diff;
 				}
 				break;
 			case 2:
+				// if they can play the creatch card then play it.
 				if (this.money > market.getPub().getPriceOfPlayingScratchCard())
 				{
 					int diff = market.getPub().playScratchcard();
@@ -147,6 +152,7 @@ public class AIPlayer extends Player {
 	
 	public void SellResources(MarketPlace market)
 	{
+		// if they have resources to sell then sell the resources
 		if (ore > 0)
 		{
 			try {
