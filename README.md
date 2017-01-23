@@ -21,3 +21,10 @@ The source code for the game is split into 2 parts, one part being for the graph
 The interface source code exists in the file `game.java` which exists in the folder `./core/src/me/gandhiinc/blindeye/`
 ### Game Source
 the game source consists of files `AIPlayer.java`, `GameEngine.java`, `MarketPlace.java`, `Player.java`,`Plot.java`, `Pub.java`, `Resource.java`, `Roboticon.java`. All of the source exists in the foler `./core/src/me/gandhiinc/blindeye/`
+## Testing
+
+### JUnit Testing
+Our JUnit tests are located in `./core/src/me/gandhiinc/blindeye/test` and consist of `GameTest.java`, `MarketPlaceTest.java`, `PlayerTest.java`, `PubTest.java`, and `TestRoboticon.java`
+
+### Batch Testing
+Our batch testing is located in `./desktop/build/libs`, and consist of `bu.jar` which is the game executable and `BootTest.sh` which is a shell script that opens the game multiple times to make sure that it opens and boots correctly.
