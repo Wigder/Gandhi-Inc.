@@ -5,10 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * ---------------------------------------------------------
- * --------------------   GameEngine -----------------------
- * ---------------------------------------------------------
- * 
  * This is where all of the game logic will be done allowing a game to be played 
  * It contains the following methods:
  * 
@@ -323,7 +319,7 @@ public class GameEngine
 	
 	/**
 	 * Returns the player whose current turn it is
-	 * @return
+	 * @return A player object
 	 */
 	public Player getCurrentPlayer()
 	{

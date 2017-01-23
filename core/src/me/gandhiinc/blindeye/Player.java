@@ -4,10 +4,6 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 /**
- * ---------------------------------------------------------
- * --------------------   PLAYER   -------------------------
- * ---------------------------------------------------------
- * 
  * This where all of the information for each player is along with all of the actions they can perform.
  * It contains the following methods:
  * 
