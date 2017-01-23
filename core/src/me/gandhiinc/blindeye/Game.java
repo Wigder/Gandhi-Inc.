@@ -682,8 +682,8 @@ public class Game extends ApplicationAdapter
 	 * the function that is performed when the player clicks on the map
 	 * @param screenX The x location in pixels of where they clicked
 	 * @param screenY The y location in pixels of where they clicked
-	 * @param button What button they click the mounse with, i.e left mouse button
-	 * @return
+	 * @param button What button they click the mouse with, i.e left mouse button
+	 * @return returns whether the event has been handled by this function
 	 */
 	public boolean onMapTouchDown(float screenX, float screenY, int button)
 	{

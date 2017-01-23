@@ -218,56 +218,100 @@ public class GameEngine
 		
 	}
 	
+	/**
+	 * Gets all of the plots for the game
+	 * @return Array of plots
+	 */
 	public Plot[] getPlots()
 	{
 		return plots;
 	}
 	
+	/**
+	 * Gets the width of the map as an integer
+	 * @return Int of map width
+	 */
 	public int getMapWidth()
 	{
 		return mapWidth;
 	}
 	
+	/**
+	 * Gets the height of the map as an integer
+	 * @return Int of map height
+	 */
 	public int getMapHeight()
 	{
 		return mapHeight;
 	}
 	
+	/**
+	 * Gets the array list of human players
+	 * @return Array list of players
+	 */
 	public List<Player> getHumanPlayers()
 	{
 		return humanPlayers;
 	}
 	
+	/**
+	 * Gets  array list of AI players
+	 * @return Array list of ai players
+	 */
 	public List<AIPlayer> getAIPlayers()
 	{
 		return aiPlayers;
 	}
 	
+	/**
+	 * Gets the currently selected plot
+	 * @return Plot
+	 */
 	public Plot getActivePlot()
 	{
 		return activePlot;
 	}
 	
+	/**
+	 * Sets the currently active plot to the plot passed to the function
+	 * @param plot the plot which the active plot will be set to
+	 */
 	public void setActivePlot(Plot plot)
 	{
 		activePlot = plot;
 	}
 	
+	/**
+	 * Gets the time remaining in the current phase
+	 * @return Phase time as an int
+	 */
 	public float getPhaseTime()
 	{
 		return phaseTime;
 	}
 	
+	/**
+	 * Sets the phase time to the phase time passed to the function
+	 * @param phaseTime The time the phase should be set to
+	 */
 	public void setPhaseTime(float phaseTime)
 	{
 		this.phaseTime = phaseTime;
 	}
 	
+	/**
+	 * Gets the current phase
+	 * @return Phase as an int
+	 */
 	public int getPhase()
 	{
 		return phase;
 	}
 	
+	/**
+	 * Sets the current phase to the value passed
+	 * @param phase Value phase should be set to
+	 */
 	public void setPhase(int phase)
 	{
 		this.phase = phase;
@@ -277,11 +321,19 @@ public class GameEngine
 		}
 	}
 	
+	/**
+	 * Returns the player whose current turn it is
+	 * @return
+	 */
 	public Player getCurrentPlayer()
 	{
 		return currentPlayer;
 	}
-	
+
+	/**
+	 * Returns the market object used by the game
+	 * @return The market
+	 */
 	public MarketPlace getMarket()
 	{
 		return market;

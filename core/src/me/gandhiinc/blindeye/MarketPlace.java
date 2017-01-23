@@ -157,7 +157,7 @@ public class MarketPlace
 	 * 
 	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
 	 * @param quantity - A defined quantity with input from the user
-	 * @throws Exception
+	 * @throws Exception If the quantity they want to sell is greater than the ore they actually have
 	 */
 	public void sellOre(Player player, int quantity) throws Exception
 	{
@@ -179,7 +179,7 @@ public class MarketPlace
 	 * 
 	 * @param player - Imports the player from the Player class. This allows resources to interact with the player's assets.
 	 * @param quantity - A defined quantity with input from the user
-	 * @throws Exception
+	 * @throws Exception If the quantity they want to sell is greater than the ore they actually have
 	 */
 	public void sellEnergy(Player player, int quantity) throws Exception
 	{
