@@ -24,7 +24,6 @@ package me.gandhiinc.blindeye;
   * 
   * @author 		Will Wood
   * @version		1.0	
-  * @date			15/11/16	
   */ 
 
 

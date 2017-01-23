@@ -146,7 +146,7 @@ public class Player
 
 	/**
 	 * This sets the ore the player has to specific value
-	 * @param money The value for the ore to be set to
+	 * @param ore The value for the ore to be set to
 	 */
 	public void setOre(int ore) 
 	{
@@ -155,7 +155,7 @@ public class Player
 
 	/**
 	 * This sets the energy the player has to specific value
-	 * @param money The value for the energy to be set to
+	 * @param energy The value for the energy to be set to
 	 */
 	public void setEnergy(int energy) 
 	{
@@ -181,11 +181,19 @@ public class Player
 		roboticons.add(roboticon);
 	}
 	
+	/**
+	 * This returns the list of plots that the player owns
+	 * @return ArrayList of plots
+	 */
 	public ArrayList<Plot> getPlots()
 	{
 		return plots;
 	}
 	
+	/**
+	 * This returns the list of roboticons that currently have no specialisation
+	 * @return ArrayList of roboticons
+	 */
 	public ArrayList<Roboticon> getUnspecialisedRoboticons()
 	{
 		ArrayList<Roboticon> retList = new ArrayList<Roboticon>();
@@ -200,6 +208,10 @@ public class Player
 		return retList;
 	}
 	
+	/**
+	 * This returns the list of roboticons that currently have no assigned plot
+	 * @return ArrayList of roboticons
+	 */
 	public ArrayList<Roboticon> getUnassignedRoboticons()
 	{
 		ArrayList<Roboticon> retList = new ArrayList<Roboticon>();

@@ -3,9 +3,9 @@ package me.gandhiinc.blindeye;
 import java.util.Random;
 
 /**
- * ---------------------------------------------------------
- * --------------------   AIPLAYER   -----------------------
- * ---------------------------------------------------------
+ * 
+ * AIPLAYER   
+ * 
  * 
  * This class extends Player and builds upon to all AI functionality for a player to make choices by itself
  * It contains the following methods:
@@ -150,6 +150,10 @@ public class AIPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * If the player has any resources available it will sell them all to the market given
+	 * @param market The market to sell the resources to
+	 */
 	public void SellResources(MarketPlace market)
 	{
 		// if they have resources to sell then sell the resources
