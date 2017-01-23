@@ -32,7 +32,6 @@ package me.gandhiinc.blindeye;
  * 
  * @author 		Pedro Wigderowitz
  * @version 	1.0
- * @date		25/11/2016
  */
 
 public class Plot
@@ -84,7 +83,7 @@ public class Plot
 	 * @param foodModifier		The value of the food modifier of a Plot instance.
 	 * @param energyModifier	The value of the energy modifier of a Plot instance.
 	 * @param oreModifier 		The value of the ore modifier of a Plot instance.
-	 * @param terrain 			The terrain type of a Plot instance.
+	 * @param terrainType 			The terrain type of a Plot instance.
 	 */
 	public Plot(int foodModifier, int energyModifier, int oreModifier, int terrainType)
 	{
