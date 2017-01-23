@@ -1,3 +1,4 @@
+#url: http://gandhi-inc.me/downloads/blindeye.jar
 #This code will run the program 10 times, however it will not close the aplication after it has run them.
 # this means that you should run this code, close the 10 that open it and then run it again for a total of 5 times. 
 #this means that you will have booted the program 50 times, thus testing our requirement. 

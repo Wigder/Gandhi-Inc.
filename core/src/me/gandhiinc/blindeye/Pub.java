@@ -1,3 +1,4 @@
+/*url: http://gandhi-inc.me/downloads/blindeye.jar*/
 package me.gandhiinc.blindeye;
 
 import java.util.Random;
