@@ -182,7 +182,7 @@ public class GameEngine
 		}
 	}
 	
-	/*public void updateTest()
+	public void updateTest()
 	{
 		for (Iterator<AIPlayer> playerIterator = aiPlayers.iterator(); playerIterator.hasNext(); )
 		{
@@ -216,7 +216,7 @@ public class GameEngine
 			+ player.getEnergy() + " Ore: " + player.getOre() + " Roboticons: " + player.getRoboticons().size() + " Plots: " + player.getPlots().size());
 		}
 		
-	}*/
+	}
 	
 	public Plot[] getPlots()
 	{

@@ -51,48 +51,4 @@ public class PlayerTest {
     public void testProduceResources() {
         fail("Not yet implemented");
     }
-
-
-//not testing getters and setters
-
-    @Test
-    public void testGetMoney() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetOre() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetEnergy() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetMoney() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetOre() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetEnergy() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetRoboticons() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testAddRoboticon() {
-        fail("Not yet implemented");
-    }
-
 }

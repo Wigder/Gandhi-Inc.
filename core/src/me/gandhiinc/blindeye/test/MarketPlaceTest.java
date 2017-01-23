@@ -12,6 +12,7 @@ public class MarketPlaceTest
 	MarketPlace market = new MarketPlace();
 	
 	@Test
+	// TEST 1
 	public void testBuyOre() 
 	{
 		/* Set the player's money to 10 and their ore to 0
@@ -39,6 +40,7 @@ public class MarketPlaceTest
 
 	
 	@Test
+	// TEST 2
 	public void testBuyEnergy() 
 	{
 		testPlayer.setMoney(10);
@@ -61,6 +63,7 @@ public class MarketPlaceTest
 	}
 
 	@Test
+	// TEST 3
 	public void testBuyRoboticon() 
 	{
 		int desiredPlayerRoboticons = 1;
@@ -83,6 +86,7 @@ public class MarketPlaceTest
 	}
 
 	@Test
+	// TEST 4
 	public void testSellOre() 
 	{
 		testPlayer.setMoney(0);
@@ -109,12 +113,34 @@ public class MarketPlaceTest
 	}
 
 	@Test
+	// TEST 5
 	public void testSellEnergy() 
 	{
-		fail("Not yet implemented");
+		testPlayer.setMoney(0);
+		testPlayer.setEnergy(5);
+        int desiredPlayerMoney = 10;
+        int desiredPlayerEnergy = 0;
+        int desiredMarketEnergyStock = 5;
+        
+        market.setMarketEnergyStock(0);
+        market.setMarketEnergyBuyPrice(2);
+        
+        try 
+        {
+			market.sellEnergy(testPlayer, 5);
+		} 
+        catch (Exception e) 
+        {
+			e.printStackTrace();
+		}
+        
+        assertEquals(testPlayer.getEnergy(), desiredPlayerEnergy);
+        assertEquals(testPlayer.getMoney(), desiredPlayerMoney);
+        assertEquals(market.getMarketEnergyStock(), desiredMarketEnergyStock);
 	}
 
 	@Test
+	// TEST 6
 	public void testProduceRoboticon() 
 	{
 		int desiredRoboticons = 2;
@@ -131,6 +157,7 @@ public class MarketPlaceTest
 	
 	@SuppressWarnings("deprecation")
 	@Test
+	// TEST 7
 	public void testMarketExchangeRate()
 	{
 		double desiredFinalOreBuyPrice = 2;
@@ -173,7 +200,7 @@ public class MarketPlaceTest
 		testPlayer.setOre(0);
 		testPlayer.setEnergy(0);
 		
-		try 
+		try
 		{
 			market.buyOre(testPlayer, 1);
 		} 
@@ -184,171 +211,4 @@ public class MarketPlaceTest
 		}
 		
 	}
-	
-	
-	// GETTERS & SETTERS   -- maybe not doing getters and setters 
-
-// get rid of 
-	
-	@Test
-	public void testGetMarketOreStock() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketOreStock() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMarketFoodStock() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketFoodStock() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMarketEnergyStock() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketEnergyStock() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMarketRoboticonStock() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketRoboticonStock() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMarketOreBuyPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketOreBuyPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMarketEnergyBuyPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketEnergyBuyPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMarketOreSellPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketOreSellPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMarketEnergySellPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketEnergySellPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMarketRoboticonSellPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMarketRoboticonSellPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPub() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMaxOrePrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMaxOrePrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMinOrePrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMinOrePrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMaxEnergyPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMaxEnergyPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetMinEnergyPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetMinEnergyPrice() 
-	{
-		fail("Not yet implemented");
-	}
-
 }

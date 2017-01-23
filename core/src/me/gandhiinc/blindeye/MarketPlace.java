@@ -1,8 +1,7 @@
 package me.gandhiinc.blindeye;
 
-/** ---------------------------------------------------------
-  * -------------------	MARKET PLACE	---------------------
-  * ---------------------------------------------------------
+/** 
+  * MARKET PLACE
   * 
   * This is the Market Place class. It contains the following methods:
   * 	-	buyOre(int quantity)
@@ -104,7 +103,7 @@ public class MarketPlace
 			throw eStockBuy;																	//Return error to say the market doesn't have enough
 		}
 		float totalAmount = quantity * getMarketEnergySellPrice();                              //Calculate the total price
-		if(player.getMoney() > totalAmount)                                                     //Check if the player has enough money to pay
+		if(player.getMoney() >= totalAmount)                                                     //Check if the player has enough money to pay
 		{
 			player.setEnergy(player.getEnergy() + quantity);									//Add the ore to the players ore
 			player.setMoney(player.getMoney() -  (int) totalAmount);							//Remove the money from his account
