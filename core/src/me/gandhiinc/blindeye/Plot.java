@@ -1,9 +1,6 @@
 package me.gandhiinc.blindeye;
 
 /**
- * ---------------------------------------------------------
- * ----------------------  	PLOT   -------------------------
- * ---------------------------------------------------------
  * 
  * This is the Plot class. It contains the following methods:
  * 		-	getFoodMod()

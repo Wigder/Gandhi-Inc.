@@ -1,21 +1,15 @@
 package me.gandhiinc.blindeye;
 
+import java.util.Random;
+import java.util.Arrays;
 /** 
  *Represents the Pub methods, ie the gambling system of the game.
-/**
- * ---------------------------------------------------------
- * ----------------------  	PUB	  --------------------------
- * ---------------------------------------------------------
  * 
  *Represents the Pub methods, ie. the gambling system of the game.
  *
  *@author Luke Jenkinson
  *@version 1.0
 */
-
-import java.util.Random;
-import java.util.Arrays;
-
 public class Pub{
     private int priceOfPlayingLottery = 10;
     private int priceOfPlayingScratchCard = 20;
@@ -57,7 +51,7 @@ public class Pub{
     *@param number2 the second number in the lottery, should be between 1 and 20 inclusive
     *@param number3 the third number in the lottery, should be between 1 and 20 inclusive
     *@return money returns the amount of money returned to the player, will be 0 for loss
-    *
+    *@throws Exception Throws an exception if any 2 numbers passed to it are the same or if any number is below 1 ore greater than 20
     **/
     public int playLottery(int number1,int number2,int number3) throws Exception
     {

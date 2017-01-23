@@ -1,8 +1,6 @@
 package me.gandhiinc.blindeye;
 
 /** 
-  * MARKET PLACE
-  * 
   * This is the Market Place class. It contains the following methods:
   * 	-	buyOre(int quantity)
   * 	-	buyEnergy(int quantity)

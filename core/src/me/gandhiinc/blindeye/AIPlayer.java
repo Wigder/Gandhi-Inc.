@@ -3,10 +3,6 @@ package me.gandhiinc.blindeye;
 import java.util.Random;
 
 /**
- * 
- * AIPLAYER   
- * 
- * 
  * This class extends Player and builds upon to all AI functionality for a player to make choices by itself
  * It contains the following methods:
  * 
