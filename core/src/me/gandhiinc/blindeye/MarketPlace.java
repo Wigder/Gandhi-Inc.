@@ -341,7 +341,7 @@ public class MarketPlace
 
 	/**
 	 * Setter for the stock of the market's ore
-	 * @param marketOreStock
+	 * @param marketOreStock -- set ore stock
 	 */
 	public void setMarketOreStock(int marketOreStock) 
 	{
@@ -359,7 +359,7 @@ public class MarketPlace
 
 	/**
 	 * Setter for the stock of the market's food
-	 * @param marketFoodStock
+	 * @param marketFoodStock -- set market food stock
 	 */
 	public void setMarketFoodStock(int marketFoodStock) 
 	{
@@ -377,7 +377,7 @@ public class MarketPlace
          
 	/**
 	 * Setter for the stock of the market's energy
-	 * @param marketEnergyStock
+	 * @param marketEnergyStock -- set market energy stock
 	 */
 	public void setMarketEnergyStock(int marketEnergyStock) 
 	{
@@ -395,7 +395,7 @@ public class MarketPlace
 
 	/**
 	 * Setter for the stock of the market's roboticons
-	 * @param marketRoboticonsStock
+	 * @param marketRoboticonsStock -- set the roboticon market stock
 	 */
 	public void setMarketRoboticonStock(int marketRoboticonsStock) 
 	{
@@ -404,7 +404,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the purchase price of the market's ore
-	 * @return
+	 * @return -- gets the market ore buy price
 	 */
 	public float getMarketOreBuyPrice() 
 	{
@@ -413,7 +413,7 @@ public class MarketPlace
 
 	/**
 	 * Setter for the purchase price of the market's ore
-	 * @param marketOreBuyPrice
+	 * @param marketOreBuyPrice -- sets the markey ore buy price
 	 */
 	public void setMarketOreBuyPrice(float marketOreBuyPrice) 
 	{
@@ -422,7 +422,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the purchase price of the market's energy
-	 * @return
+	 * @return -- gets the market energy buy price
 	 */
 	public float getMarketEnergyBuyPrice() 
 	{
@@ -431,7 +431,7 @@ public class MarketPlace
 	
 	/**
 	 * Setter for the purchase price of the market's energy
-	 * @param marketEnergyBuyPrice
+	 * @param marketEnergyBuyPrice -- sets the market energy buy price
 	 */
 	public void setMarketEnergyBuyPrice(float marketEnergyBuyPrice) 
 	{
@@ -440,7 +440,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the selling price of the market's ore
-	 * @return
+	 * @return -- gets the market ore sell price
 	 */
 	public float getMarketOreSellPrice() 
 	{
@@ -449,7 +449,7 @@ public class MarketPlace
 	
 	/**
 	 * Setter for the selling price of the market's ore
-	 * @param marketOreSellPrice
+	 * @param marketOreSellPrice -- sets the market ore sell price
 	 */
 	public void setMarketOreSellPrice(float marketOreSellPrice) 
 	{
@@ -459,7 +459,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the selling price of the market's energy
-	 * @return
+	 * @return gets the market ore sell price
 	 */
 	public float getMarketEnergySellPrice() 
 	{
@@ -468,7 +468,7 @@ public class MarketPlace
 	
 	/**
 	 * Setter for the selling price of the market's energy
-	 * @param marketEnergySellPrice
+	 * @param marketEnergySellPrice -- sets the market ore sell price
 	 */
 	public void setMarketEnergySellPrice(float marketEnergySellPrice) 
 	{
@@ -477,7 +477,7 @@ public class MarketPlace
 	
 	/**
 	 * Getter for the selling price of the market's Roboticons
-	 * @return
+	 * @return -- gets the market roboticon sell price 
 	 */
 	public int getMarketRoboticonSellPrice() 
 	{
@@ -486,7 +486,7 @@ public class MarketPlace
 
 	/**
 	 * Setter for the selling price of the market's roboticons
-	 * @param marketRoboticonSellPrice
+	 * @param marketRoboticonSellPrice -- sets the market roboticon sell price
 	 */
 	public void setMarketRoboticonSellPrice(int marketRoboticonSellPrice) 
 	{
