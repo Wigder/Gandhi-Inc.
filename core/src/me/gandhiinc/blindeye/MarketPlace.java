@@ -13,6 +13,7 @@ package me.gandhiinc.blindeye;
   * 	-	sellEnergy(int quantity)
   * 
   * 	-	produceRoboticon()
+  * 	-	setPrices()
   * 
   *  The produceRoboticon function should be called at the end of each round of the game.
   *  It will produce new roboticons to the market stock depending on the market ore stock.
@@ -42,12 +43,6 @@ public class MarketPlace
 	
 	private int prevOreStock = 100;					// Setting the last known Market Ore Stock
 	private int prevEnergyStock = 100;				// Setting the last known Market Energy Stock
-	
-	private float maxOrePrice = 10;
-	private float minOrePrice = 1;
-	
-	private float maxEnergyPrice = 10;
-	private float minEnergyPrice = 1;
 	
 	private float marketOreBuyPrice = 1.5f;			// Setting the market ore buying price
 	private float marketEnergyBuyPrice = 1.5f;		// Setting the market energy buying price
@@ -88,10 +83,7 @@ public class MarketPlace
 			
 			int newStock = getMarketOreStock() - quantity;												//Calculates what the new stock is
 			setMarketOreStock(newStock);                                                                //Sets the new stock value
-			
-			float newPrice = (float)(quantity / 100 + minOrePrice);	//Calculates the new sell price
-            setMarketOreBuyPrice(newPrice);															//Sets the new sell price
-			setMarketOreSellPrice(newPrice - 1);														//Sets the new buy price
+
 		}
 		else
 		{
@@ -120,10 +112,6 @@ public class MarketPlace
 			
 			int newStock = getMarketEnergyStock() - quantity;									//Calculates what the new stock is
 			setMarketEnergyStock(newStock);														//Sets the new stock value
-			
-			float newPrice = (float)(maxEnergyPrice * Math.pow(0.7, getMarketEnergySellPrice()) + minEnergyPrice);	//Calculates the new sell price
-			setMarketEnergySellPrice(newPrice + 1);												//Sets the new sell price
-			setMarketEnergyBuyPrice(newPrice - 1);                                              //Sets the new buy price
 			
 		}
 		else
@@ -208,6 +196,11 @@ public class MarketPlace
 		player.setEnergy(player.getEnergy() - quantity);						//Set the player's new energy amount (taking away the energy sold)
         setMarketEnergyStock(getMarketEnergyStock() + quantity);				//Set the new stock of energy for the market
 	}
+
+/* ---------------------------------------------------------
+ * --------------	 Setting Market Prices	----------------
+ * ---------------------------------------------------------
+ */
 	
 	public void setPrices()
 	{
@@ -215,12 +208,12 @@ public class MarketPlace
 		if (prevOreStock != 0 && marketOreStock != 0)														//If the last know ore stock and current market ore stock are different to 0
 		{
 			float newOrePrice = (float) Math.log((double)prevOreStock / (double)marketOreStock) * 10;		//The new ore price is calculated by using the log(previous amount/current amount)*10
-			if (newOrePrice < 0.5f)
+			if (newOrePrice < 0.5f) 																		// If the new ore price is under 0.5
 			{
-				newOrePrice = 0.5f;
+				newOrePrice = 0.5f; 																		// Set the new ore price to 0.5
 			}
-			setMarketOreBuyPrice(newOrePrice - 0.1f);
-			setMarketOreSellPrice(newOrePrice + 0.1f);	
+			setMarketOreBuyPrice(newOrePrice - 0.1f); 														// Set the buying price to the ore price - 0.1
+			setMarketOreSellPrice(newOrePrice + 0.1f);														//Set the selling price to the ore price + 0.1
 		}
 		
 		if (prevEnergyStock != 0 && marketEnergyStock != 0)
@@ -509,76 +502,5 @@ public class MarketPlace
 	public Pub getPub()
 	{
 		return this.pub;
-	}
-        
-    /**
-     * Getter for the maximum ore price
-     * @return returns the maximum ore price
-     */
-	public float getMaxOrePrice() 
-	{
-		return maxOrePrice;
-	}
-	
-	/**
-	 * Setter for the maximum ore price
-	 * @param maxOrePrice 
-	 */
-	public void setMaxOrePrice(float maxOrePrice) 
-	{
-		this.maxOrePrice = maxOrePrice;
-	}
-
-	/**
-	 * Getter for the minimum ore price
-	 * @return returns the minimum ore price
-	 */
-	public float getMinOrePrice() {
-		return minOrePrice;
-	}
-
-	/**
-	 * Setter for the minimum ore price
-	 * @param minOrePrice
-	 */
-	public void setMinOrePrice(float minOrePrice) 
-	{
-		this.minOrePrice = minOrePrice;
-	}
-
-	/**
-	 * Getter for the maximum energy price
-	 * @return returns the maximum energy price
-	 */
-	public float getMaxEnergyPrice() 
-	{
-		return maxEnergyPrice;
-	}
-
-	/**
-	 * Setter for the maximum energy price
-	 * @param maxEnergyPrice
-	 */
-	public void setMaxEnergyPrice(float maxEnergyPrice) 
-	{
-		this.maxEnergyPrice = maxEnergyPrice;
-	}
-
-	/**
-	 * Getter for the minimum energy price
-	 * @return returns the minimum energy price 
-	 */
-	public float getMinEnergyPrice() 
-	{
-		return minEnergyPrice;
-	}
-
-	/**
-	 * Setter for the minimum energy price
-	 * @param minEnergyPrice
-	 */
-	public void setMinEnergyPrice(float minEnergyPrice) 
-	{
-		this.minEnergyPrice = minEnergyPrice;
 	}
 }
