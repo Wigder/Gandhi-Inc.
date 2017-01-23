@@ -69,8 +69,10 @@ public class MarketPlaceTest
 		int desiredPlayerRoboticons = 1;
 		int desiredMarketRoboticons = 0;
 		
+		testPlayer.setMoney(30);
 		testPlayer.getRoboticons().clear();
 		market.setMarketRoboticonStock(1);
+		market.setMarketRoboticonSellPrice(30);
 		
 		try 
 		{
