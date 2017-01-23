@@ -13,6 +13,7 @@ package me.gandhiinc.blindeye;
   * 	-	sellEnergy(int quantity)
   * 
   * 	-	produceRoboticon()
+  * 	-	setPrices()
   * 
   *  The produceRoboticon function should be called at the end of each round of the game.
   *  It will produce new roboticons to the market stock depending on the market ore stock.
