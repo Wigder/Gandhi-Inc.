@@ -268,8 +268,8 @@ public class MarketPlace
 		
 	/**
 	 * 
-	 * @param player
-	 * @throws Exception
+	 * @param player -- takes the player that wants to play as input
+	 * @throws Exception -- throws exeption if the player doesnt have enough many
 	 */
 	public void scratchCard(Player player) throws Exception
 	{
@@ -285,11 +285,11 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player
-	 * @param num1
-	 * @param num2
-	 * @param num3
-	 * @throws Exception
+	 * @param player -- takes the player that wants to play as input
+	 * @param num1 -- first lottery number
+	 * @param num2 -- second lottery number
+	 * @param num3 -- third lottery number 
+	 * @throws Exception -- if the player doesnt have enough money
 	 */
 	public void Lottery(Player player, int num1, int num2, int num3) throws Exception
 	{
@@ -305,9 +305,9 @@ public class MarketPlace
 	
 	/**
 	 * 
-	 * @param player
-	 * @return
-	 * @throws Exception
+	 * @param player -- takes the player that wants to play as input
+	 * @return returns an int array relating to the emoji value
+	 * @throws Exception -- if the player doesnt have enough money
 	 */
 	public int[] OneArmBandit(Player player) throws Exception
 	{
